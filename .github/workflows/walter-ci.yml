@@ -6,6 +6,8 @@
 #
 name: Walter CI
 'on':
+  workflow_dispatch:
+  repository_dispatch:
   push:
     branches: '*'
   schedule:
@@ -13,7 +15,7 @@ name: Walter CI
 
 concurrency:
   group: walter-ci
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   conform-repository:
