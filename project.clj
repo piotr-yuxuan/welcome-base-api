@@ -19,7 +19,8 @@
                  [prestancedesign/get-port "0.1.1"] ; Get an available TCP port
 
                  ;; API security, authorization, authentication
-                 [ovotech/ring-jwt "2.3.0"] ; authentication, authorization based on jwt
+                 [ovotech/ring-jwt "2.3.0" :exclusions [cheshire]] ; authentication, authorization based on jwt, exclude vulnerable transitive dependency [com.fasterxml.jackson.dataformat/jackson-dataformat-cbor "2.10.2"]
+                 [cheshire "5.10.2"]
 
                  ;; Kafka and avro
                  [org.apache.kafka/kafka-clients "7.1.0-ce"]
@@ -32,7 +33,8 @@
                  ;; Logging
 
                  ;; Configuration
-                 [com.brunobonacci/oneconfig "0.21.0" :exclusions [metosin/jsonista]]
+                 [com.brunobonacci/oneconfig "0.21.0" :exclusions [metosin/jsonista com.cognitect.aws/api]] ; Exclude vulnerable transitive dependency [org.eclipse.jetty/jetty-io "9.4.24.v20191120"]
+                 [com.cognitect.aws/api "0.8.539"] ; Hard-patch vulnerable transitive dependency
                  [piotr-yuxuan/closeable-map "0.35.0"] ; A Clojure map that implements java.io.Closeable
                  [com.github.piotr-yuxuan/malli-cli "2.0.0"] ; Configuration value from the command-line
 
