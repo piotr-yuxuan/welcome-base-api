@@ -44,7 +44,7 @@
                  ;; Language constructs and utilities
                  [org.clojure/clojure "1.11.0"] ; The language itself
                  [org.clojure/core.cache "1.0.225"] ; Caching logic
-                 [org.clojure/tools.reader "1.3.4"] ; Very embarrassingly it seems that malli -> edamame silently needs it.
+                 [org.clojure/tools.reader "1.3.6"] ; Very embarrassingly it seems that malli -> edamame silently needs it.
                  ]
   :main piotr-yuxuan.welcome-base-api.main
   :profiles {:github {:github/topics ["clojure" "api" "example" "exchange" "finance" "fintech" "market"
