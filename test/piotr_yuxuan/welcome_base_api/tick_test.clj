@@ -231,7 +231,16 @@
     (testing "non-trivial bod-price"
       (is (bigdec= (->bigdec 3767714 0) (tick/size (tick/radius :short) 123.4567e9M)))
       (is (bigdec= (->bigdec 3767714 9) (tick/size (tick/radius :short) 123.4567M)))
-      (is (bigdec= (->bigdec 3767714 18) (tick/size (tick/radius :short) 123.4567e-9M))))))
+      (is (bigdec= (->bigdec 3767714 18) (tick/size (tick/radius :short) 123.4567e-9M)))))
+
+  (testing "default short"
+    (is (bigdec= (->bigdec 4656612875 10) (tick/size (tick/radius :integer) 1e9M)))
+    (is (bigdec= (->bigdec 4656612875 19) (tick/size (tick/radius :integer) 1M)))
+    (is (bigdec= (->bigdec 4656612875 28) (tick/size (tick/radius :integer) 1e-9M)))
+    (testing "non-trivial bod-price"
+      (is (bigdec= (->bigdec 5748900588 8) (tick/size (tick/radius :integer) 123.4567e9M)))
+      (is (bigdec= (->bigdec 5748900588 17) (tick/size (tick/radius :integer) 123.4567M)))
+      (is (bigdec= (->bigdec 5748900588 26) (tick/size (tick/radius :integer) 123.4567e-9M))))))
 
 (deftest tick-value-test
   (let [bod-price 100M]
