@@ -52,7 +52,7 @@
              :dev {:global-vars {*warn-on-reflection* true}
                    :source-paths ["dev"]
                    :repl-options {:init-ns user, :timeout 1e6}
-                   :dependencies [[ring/ring-devel "2.0.0-alpha-1" :exclusions [crypto-random ring/ring-codec commons-io]] ; wrap-reload ring middleware
+                   :dependencies [[ring/ring-devel "2.0.0-alpha-1" :exclusions [crypto-random commons-io]] ; wrap-reload ring middleware
                                   ]}
              :uberjar {:aot :all
                        :jvm-opts ["-Dclojure.compiler.disable-locals-clearing=false"
