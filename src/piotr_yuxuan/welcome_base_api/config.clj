@@ -6,7 +6,6 @@
             [malli.core :as m]
             [piotr-yuxuan.malli-cli :as malli-cli]
             [malli.transform :as mt]
-            [piotr-yuxuan.malli :as m']
             [malli.error :as me]))
 
 (def service-name "welcome-base-api")
@@ -67,11 +66,13 @@
 
 (defn from-env-vars
   [config-fragment]
-  (m/decode Config config-fragment (m'/default-value-transformer {:key :env-var, :default-fn #(get (malli-cli/*system-get-env*) %)})))
+  (m/decode Config config-fragment (mt/transformer
+                                     (mt/default-value-transformer {:key :env-var, :default-fn #(get (malli-cli/*system-get-env*) %2)})
+                                     (mt/string-transformer))))
 
 (defn from-defaults
   [config-fragment]
-  (m/decode Config config-fragment (m'/default-value-transformer {:key :default})))
+  (m/decode Config config-fragment (mt/default-value-transformer {:key :default})))
 
 (defn base-config
   []

@@ -13,7 +13,8 @@
 
                  ;; HTTP
                  [aleph "0.4.7-rc3"] ; http server
-                 [metosin/reitit "0.5.17"] ; Router for ClojureScript
+                 [metosin/reitit "0.5.17" :exclusions [metosin/malli]] ; Router for Clojure(Script)
+                 [metosin/malli "0.8.4"]
                  [metosin/ring-http-response "0.9.3" :exclusions [ring/ring-core]] ; No magic numbers for http statuses
                  [prestancedesign/get-port "0.1.1"] ; Get an available TCP port
 
@@ -33,7 +34,7 @@
                  ;; Configuration
                  [com.brunobonacci/oneconfig "0.21.0" :exclusions [metosin/jsonista]]
                  [piotr-yuxuan/closeable-map "0.35.0"] ; A Clojure map that implements java.io.Closeable
-                 [com.github.piotr-yuxuan/malli-cli "1.0.3"] ; Configuration value from the command-line
+                 [com.github.piotr-yuxuan/malli-cli "2.0.0"] ; Configuration value from the command-line
 
                  ;; language constructs and utilities
                  [org.clojure/clojure "1.11.0-rc1"] ; The language itself.
