@@ -1,6 +1,13 @@
 # welcome-base-api
 
-Simple trading market place with arbitrary arithmetic precision computations, with an emphasis on tooling.
+[![Build status](https://img.shields.io/github/workflow/status/piotr-yuxuan/welcome-base-api/Walter%20CD)](https://github.com/piotr-yuxuan/welcome-base-api/actions/workflows/walter-cd.yml)
+[![GitHub license](https://img.shields.io/github/license/piotr-yuxuan/welcome-base-api)](https://github.com/piotr-yuxuan/welcome-base-api/blob/main/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/piotr-yuxuan/welcome-base-api)](https://github.com/piotr-yuxuan/welcome-base-api/issues)
+
+![Non-figurative picture](./doc/social-preview.jpg)
+
+Simple trading market place with arbitrary arithmetic precision
+computations, with an emphasis on tooling.
 
 - Build a simple simulation of stock exchanges;
 - Derive metadata such as metrics, indicators, and signals;
@@ -20,15 +27,16 @@ should allow to express some nice problems to solve :-)
     for analytics
   - Exposes robust, secure, well-documented RESTful API that is
     enjoyable to use and unsurprising.
-- [[https://www.investopedia.com/articles/active-trading/041814/four-most-commonlyused-indicators-trend-trading.asp][Indicators to compute]]:
-  - [[https://en.wikipedia.org/wiki/CAC_40][CAC40 index]]
+- [Indicators to
+  compute](https://www.investopedia.com/articles/active-trading/041814/four-most-commonlyused-indicators-trend-trading.asp):
+  - [CAC40 index](https://en.wikipedia.org/wiki/CAC_40)
   - Moving averages (pre-defined at first, and then any sliding windows)
   - Exponential moving average (emphasis put on recent prices)
   - Detect trading range (a more or less narrow price range in which
     a security trades for some time)
   - Buy and sell signals (relative position of 200-day and 50-day
     moving averages)
-  - [[https://en.wikipedia.org/wiki/Volatility_(finance)][Volatility]]
+  - [Volatility](https://en.wikipedia.org/wiki/Volatility_(finance))
   - Client sentiment (the proportion selling or buying)
 - Query features:
   - Historical, Godlike value, knowing everything anyywhere
@@ -37,16 +45,24 @@ should allow to express some nice problems to solve :-)
 
 # Entities and verbs
 
-- An [[https://en.wikipedia.org/wiki/Exchange_(organized_market)][exchange]] is an organized market where securities are bought and
-  sold.
-- An [[https://en.wikipedia.org/wiki/Order_matching_system][order matcher]] executes orders, it's the core of the exchange.
-- A [[https://en.wikipedia.org/wiki/Security_(finance)][security]] is a tradable financial asset.
-- The [[https://en.wikipedia.org/wiki/Spot_market][spot market]] is exchanges in which securities are traded for
-  immediate delivery, not as options.
-- [[https://en.wikipedia.org/wiki/Market_capitalization][Market capitalisation]] is the total value of outstanding shares
+- An
+  [exchange](https://en.wikipedia.org/wiki/Exchange_(organized_market))
+  is an organized market where securities are bought and sold.
+- An [order
+  matcher](https://en.wikipedia.org/wiki/Order_matching_system)
+  executes orders, it's the core of the exchange.
+- A [security](https://en.wikipedia.org/wiki/Security_(finance)) is a
+  tradable financial asset.
+- The [spot market](https://en.wikipedia.org/wiki/Spot_market) is
+  exchanges in which securities are traded for immediate delivery, not
+  as options.
+- [Market
+  capitalisation](https://en.wikipedia.org/wiki/Market_capitalization)
+  is the total value of outstanding shares
 - Accounts
 - Dividends
-- A [[https://www.londonstockexchange.com/help/whats-ftse-index-overview#what-is-ticker-][ticker]]
+- A
+  [ticker](https://www.londonstockexchange.com/help/whats-ftse-index-overview#what-is-ticker-)
 - https://medium.com/lgogroup/a-matching-engine-for-our-values-part-1-795a29b400fa
 - https://blog.kaiko.com/tick-level-order-books-technical-overview-and-documentation-56b1ab6e7c10
   
