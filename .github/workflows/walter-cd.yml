@@ -6,12 +6,14 @@
 #
 name: Walter CD
 'on':
+  workflow_dispatch:
+  repository_dispatch:
   push:
     branches: '*'
 
 concurrency:
   group: walter-cd
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   run-tests:
