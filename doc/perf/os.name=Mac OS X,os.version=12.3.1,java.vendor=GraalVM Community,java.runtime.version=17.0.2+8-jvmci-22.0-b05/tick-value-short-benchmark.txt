@@ -1,0 +1,13 @@
+x86_64 Mac OS X 12.3.1 12 cpu(s)
+OpenJDK 64-Bit Server VM 17.0.2+8-jvmci-22.0-b05
+Runtime arguments: -XX:ThreadPriorityPolicy=1 -XX:+UnlockExperimentalVMOptions -XX:+EnableJVMCIProduct -XX:-UnlockExperimentalVMOptions -Dfile.encoding=UTF-8 -Djdk.attach.allowAttachSelf -XX:+UnlockDiagnosticVMOptions -XX:+PreserveFramePointer -XX:+DebugNonSafepoints -Dclojure.compile.path=/Users/p2b/Dropbox/Pierre/src/github.com/piotr-yuxuan/welcome-base-api/target/classes -Dwelcome-base-api.version=0.0.0 -Dclojure.debug=false
+Evaluation count : 2234874900 in 60 samples of 37247915 calls.
+             Execution time mean : 21.657884 ns
+    Execution time std-deviation : 0.797865 ns
+   Execution time lower quantile : 20.873427 ns ( 2.5%)
+   Execution time upper quantile : 23.575114 ns (97.5%)
+                   Overhead used : 6.228943 ns
+
+Found 2 outliers in 60 samples (3.3333 %)
+	low-severe	 2 (3.3333 %)
+ Variance from outliers : 23.8007 % Variance is moderately inflated by outliers
