@@ -43,7 +43,7 @@
                  [camel-snake-kebab "0.4.2"] ; case manipulation
                  [juji/editscript "0.5.8"] ; A diff library for Clojure/ClojureScript data structures
                  ]
-  :aot :all
+  :main piotr-yuxuan.welcome-base-api.main
   :profiles {:github {:github/topics ["clojure" "api" "example" "exchange" "finance" "fintech" "market"
                                       "stock-markets" "stock-trading" "trading-systems" "trading-tasks"]}
              :dev {:global-vars {*warn-on-reflection* true}
