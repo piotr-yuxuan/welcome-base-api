@@ -50,8 +50,9 @@
                    :repl-options {:init-ns user}
                    :dependencies [[ring/ring-devel "2.0.0-alpha-1"] ; wrap-reload ring middleware
                                   ]}
-             :jar {:jvm-opts ["-Dclojure.compiler.disable-locals-clearing=false"
-                              "-Dclojure.compiler.direct-linking=true"]}}
+             :uberjar {:aot :all
+                       :jvm-opts ["-Dclojure.compiler.disable-locals-clearing=false"
+                                  "-Dclojure.compiler.direct-linking=true"]}}
   :deploy-repositories [["clojars" {:sign-releases false
                                     :url "https://clojars.org/repo"
                                     :username :env/WALTER_CLOJARS_USERNAME
