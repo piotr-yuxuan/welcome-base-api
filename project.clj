@@ -1,4 +1,4 @@
-(defproject piotr-yuxuan/welcome-base-api (-> "./resources/welcome-base-api.version" slurp .trim)
+(defproject com.github.piotr-yuxuan/welcome-base-api (-> "./resources/welcome-base-api.version" slurp .trim)
   :description "Common idioms, tools, and code structures for an API"
   :url "https://github.com/piotr-yuxuan/welcome-base-api"
   :license {:name "European Union Public License 1.2 or later"
