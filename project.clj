@@ -62,9 +62,12 @@
                                   [com.clojure-goes-fast/clj-async-profiler "1.0.0-alpha1"] ; Sampling CPU and HEAP profiler for Clojure featuring AsyncGetCallTrace + perf_events
                                   [fipp "0.6.24"] ; Fast Idiomatic Pretty Printer for Clojure
                                   ]}
+             :kaocha {:dependencies [[lambdaisland/kaocha "1.64.1010"]]}
              :uberjar {:aot :all
                        :jvm-opts ["-Dclojure.compiler.disable-locals-clearing=false"
                                   "-Dclojure.compiler.direct-linking=true"]}}
+  :aliases {"test" ["with-profile" "+test,+kaocha" "run" "-m" "kaocha.runner" "--skip-meta" ":perf"] ; Kaocha as default test runner
+            }
   :deploy-repositories [["clojars" {:sign-releases false
                                     :url "https://clojars.org/repo"
                                     :username :env/WALTER_CLOJARS_USERNAME
