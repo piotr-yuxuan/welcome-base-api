@@ -1,5 +1,5 @@
 (ns piotr-yuxuan.welcome-base-api.main
-  (:require [piotr-yuxuan.closeable-map :refer [closeable-map* closeable*]]
+  (:require [piotr-yuxuan.closeable-map :as closeable-map :refer [closeable-map* closeable* close-with with-tag]]
             [piotr-yuxuan.welcome-base-api.config :as config]
             [org.httpkit.server :as http]
             [com.brunobonacci.oneconfig :refer [deep-merge]]
