@@ -42,7 +42,7 @@
                  [com.xtdb/xtdb-core "1.21.0-beta2" :exclusions [org.clojure/data.json org.clojure/tools.reader]] ; Database
 
                  ;; Language constructs and utilities
-                 [org.clojure/clojure "1.11.0"] ; The language itself
+                 [org.clojure/clojure "1.11.1-rc1"] ; The language itself
                  [org.clojure/core.cache "1.0.225"] ; Caching logic
                  ]
   :main piotr-yuxuan.welcome-base-api.main
