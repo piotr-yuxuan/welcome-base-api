@@ -44,7 +44,7 @@
                  [juji/editscript "0.5.8"] ; A diff library for Clojure/ClojureScript data structures
                  ]
   :aot :all
-  :profiles {:github {:github/topics ["clojure" "api" "example"]}
+  :profiles {:github {:github/topics ["clojure" "api" "example" "trading-systems" "exchange" "market"]}
              :dev {:global-vars {*warn-on-reflection* true}
                    :source-paths ["dev"]
                    :repl-options {:init-ns user, :timeout 1e6}
