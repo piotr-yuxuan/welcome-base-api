@@ -6,9 +6,10 @@ Checking dependencies for stdin  ...
 | jackson-databind-2.13.1.jar        | CVE-2020-36518                                                                                 |
 | jackson-dataformat-cbor-2.10.2.jar | CVE-2020-28491                                                                                 |
 | jetty-io-9.4.24.v20191120.jar      | CVE-2021-28165, CVE-2020-27218, CVE-2021-28169, CVE-2020-27216, CVE-2020-27223, CVE-2021-34428 |
+| snappy-0.4.jar                     | CVE-2018-6353                                                                                  |
 +------------------------------------+------------------------------------------------------------------------------------------------+
 
-8 vulnerabilities detected. Severity: HIGH
+9 vulnerabilities detected. Severity: HIGH
 Detailed reports saved in: /home/runner/work/welcome-base-api/welcome-base-api/target/nvd
 
    *** THIS REPORT IS WITHOUT WARRANTY ***
