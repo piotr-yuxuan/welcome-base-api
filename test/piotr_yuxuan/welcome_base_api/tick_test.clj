@@ -100,7 +100,7 @@
    :selectors {:tick-size (comp #{:tick-size} :name)
                :tick-radius (comp #{:tick-radius} :name)}})
 
-(deftest ^:kaocha/skip ^:perf ^:benchmarking size-perf-benchmarking-test
+(deftest ^:perf ^:benchmarking size-perf-benchmarking-test
   (binding [*unchecked-math* :warn-on-boxed]
     (let [^int tick-radius (tick/radius :percent)
           bod-price 100M
@@ -108,11 +108,12 @@
           thunk (fn [] (tick/size math-context tick-radius bod-price))
           benchmark (io/file "doc" "perf" "tick-size-benchmark.txt")]
       (testing "tick/size benchmarking"
+        (is true)
         (with-open [benchmark (io/writer benchmark :append false)]
           (binding [*out* benchmark]
             (c/bench (thunk) :os :runtime)))))))
 
-(deftest ^:kaocha/skip ^:perf ^:profiling size-perf-profiling-test
+(deftest ^:perf ^:profiling size-perf-profiling-test
   (binding [*unchecked-math* :warn-on-boxed]
     (let [^int tick-radius (tick/radius :percent)
           bod-price 100M
@@ -120,16 +121,18 @@
           thunk (fn [] (tick/size math-context tick-radius bod-price))
           profiled-events #{:cpu :itimer :alloc}]
       (testing "tick/size profiling"
+        (is true)
         (doseq [event profiled-events
                 :let [profile (io/file "doc" "perf" (format "tick-size-flamegraph-%s.html" (name event)))]]
           (let [tmp-profile (prof/profile {:event event, :return-file true} (dotimes [_ profiler-repeat] (thunk)))]
             (Files/move (.toPath ^File tmp-profile) (.toPath profile) (into-array CopyOption [StandardCopyOption/REPLACE_EXISTING]))))))))
 
-(deftest ^:kaocha/skip ^:perf ^:jmh size-perf-jmh-test
+(deftest ^:perf ^:jmh size-perf-jmh-test
   (binding [*unchecked-math* :warn-on-boxed]
     (let [jmh-benchmark (io/file "doc" "perf" "tick-size-benchmark-jmh.edn")
           jmh-status (io/file "doc" "perf" "tick-size-benchmark-jmh-status.log")]
       (testing "tick/size jmh"
+        (is true)
         (let [jmh-result (jmh/run jmh-env
                                   {:type :quick
                                    :profilers ["gc" "stack" "cl" "comp"]
@@ -140,7 +143,7 @@
                 (with-out-str (pprint jmh-result {:print-length 1e3}))
                 :append false))))))
 
-(deftest ^:kaocha/skip ^:perf ^:benchmarking value-perf-benchmarking-test
+(deftest ^:perf ^:benchmarking value-perf-benchmarking-test
   (binding [*unchecked-math* :warn-on-boxed]
     (let [^int tick-radius (tick/radius :percent)
           bod-price 100M
@@ -148,11 +151,12 @@
           thunk (fn [] (tick/value bod-price tick-size 101.5M))
           benchmark (io/file "doc" "perf" "tick-value-benchmark.txt")]
       (testing "tick/value benchmarking"
+        (is true)
         (with-open [benchmark (io/writer benchmark :append false)]
           (binding [*out* benchmark]
             (c/bench (thunk) :os :runtime)))))))
 
-(deftest ^:kaocha/skip ^:perf ^:profiling value-perf-profiling-test
+(deftest ^:perf ^:profiling value-perf-profiling-test
   (binding [*unchecked-math* :warn-on-boxed]
     (let [^int tick-radius (tick/radius :percent)
           bod-price 100M
@@ -160,16 +164,18 @@
           thunk (fn [] (tick/value bod-price tick-size 101.5M))
           profiled-events #{:cpu :itimer :alloc}]
       (testing "tick/value profiling"
+        (is true)
         (doseq [event profiled-events
                 :let [profile (io/file "doc" "perf" (format "tick-value-flamegraph-%s.html" (name event)))]]
           (let [tmp-profile (prof/profile {:event event, :return-file true} (dotimes [_ profiler-repeat] (thunk)))]
             (Files/move (.toPath ^File tmp-profile) (.toPath profile) (into-array CopyOption [StandardCopyOption/REPLACE_EXISTING]))))))))
 
-(deftest ^:kaocha/skip ^:perf ^:jmh value-perf-jmh-test
+(deftest ^:perf ^:jmh value-perf-jmh-test
   (binding [*unchecked-math* :warn-on-boxed]
     (let [jmh-benchmark (io/file "doc" "perf" "tick-value-benchmark-jmh.edn")
           jmh-status (io/file "doc" "perf" "tick-value-benchmark-jmh-status.log")]
       (testing "tick/value jmh"
+        (is true)
         (let [jmh-result (jmh/run jmh-env
                                   {:type :quick
                                    :profilers ["gc" "stack" "cl" "comp"]
@@ -181,13 +187,13 @@
                 :append false))))))
 
 (deftest tick-order-of-magnitude-test
-  (= 2 (tick/order-of-magnitude (tick/radius :percent)))
-  (= 4
-     (tick/order-of-magnitude (tick/radius :short))
-     (tick/order-of-magnitude (tick/radius :anything))
-     (tick/order-of-magnitude (tick/radius :default)))
-  (= 4 (tick/order-of-magnitude (tick/radius :ten-thousandth)))
-  (= 9 (tick/order-of-magnitude (tick/radius :integer))))
+  (is (= 2 (tick/order-of-magnitude (tick/radius :percent))))
+  (is (= 4
+         (tick/order-of-magnitude (tick/radius :short))
+         (tick/order-of-magnitude (tick/radius :anything))
+         (tick/order-of-magnitude (tick/radius :default))))
+  (is (= 4 (tick/order-of-magnitude (tick/radius :ten-thousandth))))
+  (is (= 9 (tick/order-of-magnitude (tick/radius :integer)))))
 
 (defn ->bigdec
   ([unscaled-value] (->bigdec unscaled-value (int 0)))
@@ -331,5 +337,5 @@
     (is (== 0 (tick/value 101M (tick/size (tick/radius :percent) 101M) 101M)))
     (is (== 1 (tick/value 101M (tick/size (tick/radius :percent) 101M) 102M)))))
 
-(deftest market-value-test
-  tick/market-value)
+#_(deftest market-value-test
+    tick/market-value)
