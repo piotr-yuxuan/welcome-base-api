@@ -131,7 +131,7 @@
       (testing "tick/size jmh"
         (spit jmh-benchmark
               (jmh/run jmh-env
-                       {:type :test
+                       {:type :quick
                         :profilers ["gc" "stack" "cl" "comp"]
                         :select [:tick-size]
                         :status (.getCanonicalPath ^File jmh-status)
@@ -170,7 +170,7 @@
       (testing "tick/value jmh"
         (spit jmh-benchmark
               (jmh/run jmh-env
-                       {:type :test
+                       {:type :quick
                         :profilers ["gc" "stack" "cl" "comp"]
                         :select [:tick-value]
                         :status (.getCanonicalPath ^File jmh-status)
