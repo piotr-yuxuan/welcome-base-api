@@ -1,6 +1,0 @@
-#kaocha/v1
-{:kaocha/fail-fast? true
- :kaocha/color? true
- :kaocha/reporter [kaocha.report.progress/report]
- :kaocha.plugin.profiling/count 3
- :kaocha.plugin.profiling/profiling? true}

@@ -55,9 +55,14 @@ switched to IntelliJ.
     - [[#metrics][Metrics]]
     - [[#monitoring-1][Monitoring]]
     - [[#alerting][Alerting]]
+    - [[#performance-testing][Performance testing]]
     - [[#short-term-mitigation-tools][Short-term mitigation tools]]
   - [[#client-side][Client side]]
   - [[#anti-patterns-i-will-not-condone][Anti-patterns I will not condone]]
+- [[#example-api][Example API]]
+  - [[#questions-and-features][Questions and features]]
+  - [[#entities-and-actions][Entities and actions]]
+    - [[#local-definitions][Local definitions]]
 #+END_QUOTE
 
 * Clojure luminaries and resources
@@ -229,9 +234,10 @@ No clear way yet, but:
 - Swagger
 - Descriptive HTTP response status codes
 - State machines, web sequence diagrams
-- Postman collection ready for import
+- Postman collection ready for import, https://github.com/postmanlabs/openapi-to-postman
 - Just pure human description with semantic zoom
- 
+- https://openapi.tools/ 
+
 * Usage
 
 This project was created with:
@@ -402,6 +408,13 @@ and spot unexpected spikes.
 - Unexpected activity for a user
 - Error http status codes keep appearing for more than 2m.
 
+*** Performance testing
+
+- https://github.com/giltene/wrk2
+- https://gatling.io/
+- jamm
+- Methodically everything from http://clojure-goes-fast.com/blog/
+
 *** Short-term mitigation tools
 
 - Being able to throttle or deny requests by endpoint / user / IP
@@ -439,3 +452,72 @@ troubleshot bugs.
   rocket-spoon, automatic-elk, or css-brasserie are for. Marketing
   names are great for marketing purposes, products, or business
   wording.
+
+* Example API
+
+- Simplified marketplace.
+- Think about https://prebid.org/product-suite/prebid-js/ but with
+  much simpler traded symbols.
+- Some auctions are private, and reported at the end of the day, while
+  some others are public and always observable.
+- The bid process favours the second-highest bid price (this may vary,
+  depending on the auction)
+- Use xtdb to model the local time, and time of knowledge, and allow
+  historical data (as-of time, and know)
+
+** Questions and features
+
+In order to give some meat to this project, a three-fold improvement
+circle is applied:
+
+- Build a simple simulation of stock exchanges;
+- Derive metadata such as metrics, indicators, and signals;
+- Use these metadata to inform trade strategies.
+
+Disclaimer: my financial vocabulary is still very naive. But still, it
+should allow to express some nice problems to solve :-)
+
+- System features:
+  - Horizontally scalable, and manage up to 20 years worth
+    of data with no issues
+  - Allow time travel
+  - Be reasonably fast and efficient, but not necessary hard real time
+    for analytics
+  - Exposes robust, secure, well-documented RESTful API that is
+    enjoyable to use and unsurprising.
+- [[https://www.investopedia.com/articles/active-trading/041814/four-most-commonlyused-indicators-trend-trading.asp][Indicators to compute]]:
+  - [[https://en.wikipedia.org/wiki/CAC_40][CAC40 index]]
+  - Moving averages (pre-defined at first, and then any sliding windows)
+  - Exponential moving average (emphasis put on recent prices)
+  - Detect trading range (a more or less narrow price range in which
+    a security trades for some time)
+  - Buy and sell signals (relative position of 200-day and 50-day
+    moving averages)
+  - [[https://en.wikipedia.org/wiki/Volatility_(finance)][Volatility]]
+  - Client sentiment (the proportion selling or buying)
+- Query features:
+  - Historical, Godlike value, knowing everything anyywhere
+  - As with the knowledge of some specific trader as of some (consume)
+    time
+
+** Entities and actions
+
+- An [[https://en.wikipedia.org/wiki/Exchange_(organized_market)][exchange]] is an organized market where securities are bought and
+  sold.
+- A [[https://en.wikipedia.org/wiki/Security_(finance)][security]] is a tradable financial asset.
+- The [[https://en.wikipedia.org/wiki/Spot_market][spot market]] is exchanges in which securities are traded for
+  immediate delivery, not as options.
+- [[https://en.wikipedia.org/wiki/Market_capitalization][Market capitalisation]] is the total value of outstanding shares
+- Accounts
+- Dividends
+- A [[https://www.londonstockexchange.com/help/whats-ftse-index-overview#what-is-ticker-][ticker]]
+
+*** Local definitions
+
+- Companies are listed on some exchanges
+- Companies issues shares and distribute dividends
+- An exchange gets fees on listing and transactions
+- An exchange can suspend listing of a company share if the sell / buy
+  ratio becomes too imbalanced
+- Traders buy or sell shares, and get fees for that
+- Shareholders receive dividends from the company
