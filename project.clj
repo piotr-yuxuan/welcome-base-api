@@ -50,7 +50,7 @@
   :main piotr-yuxuan.welcome-base-api.main
   :profiles {:github {:github/topics ["clojure" "api" "example" "exchange" "finance" "fintech" "market"
                                       "stock-markets" "stock-trading" "trading-systems" "trading-tasks"]
-                      :github/private? true}
+                      :github/private? false}
              :dev {:global-vars {*warn-on-reflection* true}
                    :source-paths ["dev"]
                    :repl-options {:init-ns user, :timeout 1e6}
