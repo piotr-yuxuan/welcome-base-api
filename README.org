@@ -1,0 +1,251 @@
+#+TITLE:welcome-base-api
+
+Common idioms, tools, and code structures that I would use to build an
+API. I intend to present them here in some canonical way so that I can
+reflect on them, update them, change them according to feedback, and
+use them as copy paste whever I need them 🙂.
+
+Actual code that I would write in a professionnal setting would not be
+that way; it would favour team consensus over my own opinions.
+
+I couldn't use ~git~ without ~magit.el~ or take notes without
+~org-mode.el~. I learnt Clojure and ClojureScript and Emacs
+(EmacsLive) at the same time but it's been a while know that I
+switched to IntelliJ.
+
+* Content                                                         :TOC_4:QUOTE:
+#+BEGIN_QUOTE
+- [[#clojure-luminaries-and-resources][Clojure luminaries and resources]]
+- [[#local-tools][Local tools]]
+- [[#opinionated-features][Opinionated features]]
+  - [[#project-tooling][Project tooling]]
+  - [[#three-pillars-of-observability][Three pillars of observability]]
+  - [[#structured-logging][Structured logging]]
+  - [[#log][Log]]
+  - [[#monitoring][Monitoring]]
+  - [[#trace][Trace]]
+  - [[#distributed-tracing][Distributed tracing]]
+  - [[#github-actions][GitHub Actions]]
+  - [[#github-pr-template][GitHub PR template]]
+  - [[#authorization-authentication][Authorization, authentication]]
+  - [[#error-handling][Error handling]]
+  - [[#kafka-and-avro][Kafka and Avro]]
+  - [[#data-shapes-and-schemas][Data shapes and schemas]]
+  - [[#mutation-testing][Mutation testing]]
+  - [[#report-licenses][Report licenses]]
+  - [[#routing-library][Routing library]]
+  - [[#state-management][State management]]
+  - [[#list-known-dependency-vulnerabilities][List known dependency vulnerabilities]]
+  - [[#sort-ns-forms][Sort ns forms]]
+  - [[#report-test-coverage][Report test coverage]]
+- [[#usage][Usage]]
+#+END_QUOTE
+
+* Clojure luminaries and resources
+
+I couldn't recommend them enough. This is not a complete list.
+
+- Talks from Clojure author: https://github.com/tallesl/Rich-Hickey-fanclub
+- Alex Miller, https://github.com/puredanger
+- Arne Brasseur, https://github.com/plexus
+- Bozhidar Batsov, https://github.com/bbatsov
+- Bruce Hauman, https://github.com/bhauman
+- Bruno Bonacci, https://github.com/BrunoBonacci
+- Christophe Grand, https://github.com/cgrand
+- Daniel Compton, https://github.com/danielcompton
+- David Nolen, https://github.com/swannodette
+- James Reeves, https://github.com/weavejester
+- Jérémie Grodziski, https://github.com/jgrodziski
+- Michael Drogalis, https://github.com/MichaelDrogalis
+- Michiel Borkent, https://github.com/borkdude  
+- Peter Taoussanis, https://github.com/ptaoussanis
+- Radon Rosborough, https://github.com/raxod502
+- Tommi Reiman, https://github.com/ikitommi
+- Tony Kay, https://github.com/awkay
+- Valentin Waeselynck, https://github.com/vvvvalvalval
+- Zach Tellman, https://github.com/ztellman
+
+Heuristic: /any/ content reachable four or five clicks away from these
+guys is most likely brilliant. See also:
+
+- https://clojure.org/
+- https://clojuredocs.org/, reference docs and examples
+- http://clojurewerkz.org/
+- https://guide.clojure.style/, Clean (Clojure) Code
+- https://insideclojure.org/, thoughts from a Clojure maintainer
+- https://lambdaisland.com/
+- https://metaredux.com/
+- https://practicalli.github.io/
+- https://www.braveclojure.com/
+  
+* Local tools
+
+- Getting started: https://clojure.org/guides/getting_started
+- ~deps.edn~ guide: https://clojure.org/guides/deps_and_cli
+- ~deps.edn~ reference: https://clojure.org/reference/deps_and_cli
+- Tools and how-to guides: https://practicalli.github.io/clojure/
+  
+See also:
+
+- Managing secrets and configuration:
+  https://cljdoc.org/d/com.brunobonacci/oneconfig/
+- Docker desktop: https://www.docker.com/products/docker-desktop
+- MacOS packages: ~avro-tools~, ~git~
+- Kafka CLI tools: https://docs.confluent.io/confluent-cli/current/index.html
+
+* Opinionated features
+
+Just a work in progress as of now, so no code yet.
+
+** Project tooling
+
+I have no strong opinion on any option here, but I see a couple of
+nice things I see between ~deps.edn~ and Leiningen:
+
+- The tooling around Leiningen is robust, proven, and effective. The
+  tooling based on ~deps.edn~ is efflorescent and impressive.
+- The resolution algorithm of ~deps.edn~ favours recent libraries,
+  whereas Leiningen uses maven under the hood, which can causes some
+  surprises.
+- ~deps.edn~ don't run its own JVM.
+
+** Three pillars of observability
+
+** Structured logging
+
+https://github.com/BrunoBonacci/mulog
+
+Let's see how to get the most of it.
+
+** Log
+
+https://github.com/ptaoussanis/timbre
+
+** Monitoring
+
+https://github.com/gnarroway/fumi
+
+Should come up with Prometheus in docker-compose file and thorough
+examples of how to monitor things.
+
+** Trace
+
+** Distributed tracing
+
+** GitHub Actions
+
+When a PR is open against the main branch, would be great to have code
+quality report. Also, automated tests could be added.
+
+** GitHub PR template
+
+** Authorization, authentication
+
+https://github.com/ovotech/ring-jwt and just a simple namespace
+
+** Error handling
+
+Just reitit ring exception middlewares, yet again a hidden gem
+
+** Kafka and Avro
+
+- No jackdaw, just https://github.com/athos/power-dot and Java classes
+- https://github.com/piotr-yuxuan/slava to be rewritten with malli and
+  better interactions with inner Serde. Composable?
+- https://github.com/piotr-yuxuan/dove to be rewritten for malli
+
+** Data shapes and schemas
+
+https://github.com/metosin/malli
+
+** Mutation testing
+
+** Report licenses
+
+** Routing library
+
+https://cljdoc.org/d/metosin/reitit/
+
+** State management
+
+No clear way yet, but:
+
+- No https://github.com/weavejester/integrant?
+- ~CloseableMap~ with ~potemkin/def-map-type~?
+- https://github.com/jarohen/with-open?
+
+** List known dependency vulnerabilities
+ 
+** Sort ns forms
+
+** Report test coverage
+
+* Usage
+
+This project was created with:
+
+#+BEGIN_SRC zsh
+cd ~/src/github.com/piotr-yuxuan
+clojure -X:project/new :template app :name piotr-yuxuan/welcome-base-api
+#+END_SRC
+
+You can clone it with:
+
+#+BEGIN_SRC zsh
+git clone https://github.com/piotr-yuxuan/welcome-base-api ~/src/github.com/piotr-yuxuan/welcome-base-api
+#+END_SRC
+
+Run the project directly, via `:exec-fn`:
+
+#+BEGIN_SRC zsh
+clojure -X:run-x
+#+END_SRC
+
+Run the project, overriding the name to be greeted:
+
+#+BEGIN_SRC zsh
+clojure -X:run-x :name '"Someone"'
+#+END_SRC
+
+Run the project directly, via `:main-opts` (`-m piotr-yuxuan.welcome-base-api`):
+
+#+BEGIN_SRC zsh
+clojure -M:run-m
+#+END_SRC
+
+Run the project, overriding the name to be greeted:
+
+#+BEGIN_SRC zsh
+clojure -M:run-m Via-Main
+#+END_SRC
+
+Run the project's tests (they'll fail until you edit them):
+
+#+BEGIN_SRC zsh
+clojure -M:test:runner
+#+END_SRC
+
+Build an uberjar:
+
+#+BEGIN_SRC zsh
+clojure -X:uberjar
+#+END_SRC
+
+This will update the generated `pom.xml` file to keep the dependencies
+synchronized with your `deps.edn` file. You can update the version
+information in the `pom.xml` using the `:version` argument:
+
+#+BEGIN_SRC zsh
+clojure -X:uberjar :version '"1.2.3"'
+#+END_SRC
+
+If you don't want the `pom.xml` file in your project, you can remove
+it, but you will also need to remove `:sync-pom true` from the
+`deps.edn` file (in the `:exec-args` for `depstar`).
+
+Run that uberjar:
+
+#+BEGIN_SRC zsh
+java -jar welcome-base-api.jar
+#+END_SRC
+
