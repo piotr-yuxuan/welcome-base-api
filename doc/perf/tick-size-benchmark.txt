@@ -1,11 +1,14 @@
-Evaluation count : 3069344040 in 60 samples of 51155734 calls.
-             Execution time mean : 13.335979 ns
-    Execution time std-deviation : 0.640582 ns
-   Execution time lower quantile : 12.419538 ns ( 2.5%)
-   Execution time upper quantile : 15.152322 ns (97.5%)
-                   Overhead used : 6.264305 ns
+x86_64 Mac OS X 12.3.1 12 cpu(s)
+OpenJDK 64-Bit Server VM 17.0.2+8-jvmci-22.0-b05
+Runtime arguments: -XX:ThreadPriorityPolicy=1 -XX:+UnlockExperimentalVMOptions -XX:+EnableJVMCIProduct -XX:-UnlockExperimentalVMOptions -Dfile.encoding=UTF-8 -Djdk.attach.allowAttachSelf -XX:+UnlockDiagnosticVMOptions -XX:+PreserveFramePointer -XX:+DebugNonSafepoints -Dwelcome-base-api.version=0.0.0 -Dclojure.debug=false
+Evaluation count : 3781609620 in 60 samples of 63026827 calls.
+             Execution time mean : 10.292358 ns
+    Execution time std-deviation : 0.508665 ns
+   Execution time lower quantile : 9.562098 ns ( 2.5%)
+   Execution time upper quantile : 11.810905 ns (97.5%)
+                   Overhead used : 6.432476 ns
 
-Found 3 outliers in 60 samples (5.0000 %)
-	low-severe	 2 (3.3333 %)
-	low-mild	 1 (1.6667 %)
- Variance from outliers : 33.6174 % Variance is moderately inflated by outliers
+Found 6 outliers in 60 samples (10.0000 %)
+	low-severe	 1 (1.6667 %)
+	low-mild	 5 (8.3333 %)
+ Variance from outliers : 35.2332 % Variance is moderately inflated by outliers
