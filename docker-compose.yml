@@ -6,9 +6,6 @@ services:
     volumes:
       - ~/.1config:/host-1config
 
-  # Deprecate it
-  zookeeper:
-
   kafka:
     image: wurstmeister/kafka:2.12-2.4.1
     depends_on:
@@ -21,6 +18,17 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
+  kafka-lag-exporter:
+    image: lightbend/kafka-lag-exporter:0.5.5
+    ports:
+      - 8000:8000
+    depends_on:
+      - kafka
+    environment:
+      CONFIG_FILE: /opt/docker/conf/application.conf
+    volumes:
+      - ./dev-resources/kafka-lag-exporter:/opt/docker/conf
 
   # Monitor it
   schema-registry:
@@ -42,6 +50,7 @@ services:
     volumes:
       - ./dev-resources/monitoring/prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
 
+  # For short-lived jobs
   pushgateway:
     image: prom/pushgateway:latest
     ports:
@@ -49,12 +58,45 @@ services:
 
   grafana:
     image: grafana/grafana:latest
+    environment:
+      GF_SECURITY_ADMIN_USER: 'admin'
+      GF_SECURITY_ADMIN_PASSWORD: 'admin'
+      GF_USERS_ALLOW_SIGN_UP: 'false'
     depends_on:
       - prometheus
       - pushgateway
     volumes:
       - ./dev-resources/monitoring/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
       - ./dev-resources/monitoring/dashboard.yaml:/etc/grafana/provisioning/dashboards/dashboard.yaml
-      - ./dev-resources/monitoring/dashboard.json:/etc/dashboards/dashboard.json
+      - ./dev-resources/monitoring/Kafka_Lag_Exporter_Dashboard.json:/etc/dashboards/Kafka_Lag_Exporter_Dashboard.json:rw
+      - ./dev-resources/monitoring/confluent-open-source-grafana-dashboard.json:/etc/dashboards/confluent-open-source-grafana-dashboard.json:rw
     ports:
       - 3000:3000
+
+  ksqldb-server:
+    image: confluentinc/ksqldb-server:0.18.0
+    hostname: ksqldb-server
+    depends_on:
+      - kafka
+    ports:
+      - 8088:8088
+    environment:
+      CONFLUENT_SUPPORT_METRICS_ENABLE: 'false'
+      KSQL_LISTENERS: http://0.0.0.0:8088
+      KSQL_BOOTSTRAP_SERVERS: kafka:9092
+      KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE: "true" # Non-production friendly, but we stay local so we don't care.
+      KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE: "true" # Non-production friendly, but we stay local so we don't care.
+      KSQL_OPTS: -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=1237:/usr/share/jmx-exporter/confluent_ksql.yml
+    volumes:
+      - ./dev-resources/jmx-monitoring-stacks/shared-assets/jmx-exporter:/usr/share/jmx-exporter/:rx
+
+  ksqldb-cli:
+    image: confluentinc/ksqldb-cli:0.18.0
+    container_name: ksqldb-cli
+    depends_on:
+      - kafka
+      - ksqldb-server
+    entrypoint: /bin/sh
+    environment:
+      CONFLUENT_SUPPORT_METRICS_ENABLE: 'false'
+    tty: true
