@@ -113,13 +113,21 @@
           :warmups 5
           :jvm {:append-args ["-Dclojure.compiler.direct-linking=true"]}}})
 
+(defn perf-folder
+  []
+  (format "os.name=%s,os.version=%s,java.vendor=%s,java.runtime.version=%s"
+          (System/getProperty "os.name")
+          (System/getProperty "os.version")
+          (System/getProperty "java.vendor")
+          (System/getProperty "java.runtime.version")))
+
 (deftest ^:perf ^:benchmarking size-perf-benchmarking-test
   (binding [*unchecked-math* :warn-on-boxed]
     (let [^int tick-radius (tick/radius :percent)
           bod-price 100M
           math-context (tick/math-context tick-radius bod-price)
           thunk (fn [] (tick/size math-context tick-radius bod-price))
-          benchmark (io/file "doc" "perf" "tick-size-benchmark.txt")]
+          benchmark (-> (io/file "doc" "perf" (perf-folder) "tick-size-benchmark.txt") (-> .getParentFile .mkdirs))]
       (testing "tick/size benchmarking"
         (is true)
         (with-open [benchmark (io/writer benchmark :append false)]
@@ -136,14 +144,14 @@
       (testing "tick/size profiling"
         (is true)
         (doseq [event profiled-events
-                :let [profile (io/file "doc" "perf" (format "tick-size-flamegraph-%s.html" (name event)))]]
+                :let [profile (-> (io/file "doc" "perf" (perf-folder) (format "tick-size-flamegraph-%s.html" (name event))) (-> .getParentFile .mkdirs))]]
           (let [tmp-profile (prof/profile {:event event, :return-file true} (dotimes [_ profiler-repeat] (thunk)))]
             (Files/move (.toPath ^File tmp-profile) (.toPath profile) (into-array CopyOption [StandardCopyOption/REPLACE_EXISTING]))))))))
 
 (deftest ^:perf ^:jmh size-perf-jmh-test
   (binding [*unchecked-math* :warn-on-boxed]
-    (let [jmh-benchmark (io/file "doc" "perf" "tick-size-benchmark-jmh.edn")
-          jmh-status (io/file "doc" "perf" "tick-size-benchmark-jmh-status.log")]
+    (let [jmh-benchmark (-> (io/file "doc" "perf" (perf-folder) "tick-size-benchmark-jmh.edn") (-> .getParentFile .mkdirs))
+          jmh-status (-> (io/file "doc" "perf" (perf-folder) "tick-size-benchmark-jmh-status.log") (-> .getParentFile .mkdirs))]
       (testing "tick/size jmh"
         (is true)
         (let [jmh-result (jmh/run jmh-env
@@ -160,7 +168,7 @@
           bod-price 100M
           tick-size (tick/size tick-radius bod-price)
           thunk (fn [] (tick/value bod-price tick-size 101.5M))
-          benchmark (io/file "doc" "perf" "tick-value-benchmark.txt")]
+          benchmark (-> (io/file "doc" "perf" (perf-folder) "tick-value-benchmark.txt") (-> .getParentFile .mkdirs))]
       (testing "tick/value benchmarking"
         (is true)
         (with-open [benchmark (io/writer benchmark :append false)]
@@ -177,14 +185,14 @@
       (testing "tick/value profiling"
         (is true)
         (doseq [event profiled-events
-                :let [profile (io/file "doc" "perf" (format "tick-value-flamegraph-%s.html" (name event)))]]
+                :let [profile (-> (io/file "doc" "perf" (perf-folder) (format "tick-value-flamegraph-%s.html" (name event))) (-> .getParentFile .mkdirs))]]
           (let [tmp-profile (prof/profile {:event event, :return-file true} (dotimes [_ profiler-repeat] (thunk)))]
             (Files/move (.toPath ^File tmp-profile) (.toPath profile) (into-array CopyOption [StandardCopyOption/REPLACE_EXISTING]))))))))
 
 (deftest ^:perf ^:jmh value-perf-jmh-test
   (binding [*unchecked-math* :warn-on-boxed]
-    (let [jmh-benchmark (io/file "doc" "perf" "tick-value-benchmark-jmh.edn")
-          jmh-status (io/file "doc" "perf" "tick-value-benchmark-jmh-status.log")]
+    (let [jmh-benchmark (-> (io/file "doc" "perf" (perf-folder) "tick-value-benchmark-jmh.edn") (-> .getParentFile .mkdirs))
+          jmh-status (-> (io/file "doc" "perf" (perf-folder) "tick-value-benchmark-jmh-status.log") (-> .getParentFile .mkdirs))]
       (testing "tick/value jmh"
         (is true)
         (let [jmh-result (jmh/run jmh-env
