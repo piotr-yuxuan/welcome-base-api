@@ -1,12 +1,12 @@
 (ns piotr-yuxuan.welcome-base-api.config
-  (:require [babashka.process :as process]
+  (:require [piotr-yuxuan.malli-cli :as malli-cli]
+            [babashka.process :as process]
             [clojure.java.io :as io]
             [clojure.string :as str]
             [com.brunobonacci.oneconfig :refer [configure deep-merge]]
             [malli.core :as m]
-            [piotr-yuxuan.malli-cli :as malli-cli]
-            [malli.transform :as mt]
-            [malli.error :as me]))
+            [malli.error :as me]
+            [malli.transform :as mt]))
 
 (def service-name "welcome-base-api")
 

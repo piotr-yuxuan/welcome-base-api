@@ -3,10 +3,10 @@
   restart when you change configuration. Files in namespaces will
   automatically be reloaded when changed. Of course you still need to
   save them."
-  (:require [reitit.ring :as ring]
+  (:require [piotr-yuxuan.welcome-base-api.config :as config]
             [piotr-yuxuan.welcome-base-api.main :as main]
-            [ring.middleware.reload :as reload]
-            [piotr-yuxuan.welcome-base-api.config :as config])
+            [reitit.ring :as ring]
+            [ring.middleware.reload :as reload])
   (:import (piotr_yuxuan.closeable_map CloseableMap)))
 
 (defonce app
