@@ -504,6 +504,7 @@ should allow to express some nice problems to solve :-)
 
 - An [[https://en.wikipedia.org/wiki/Exchange_(organized_market)][exchange]] is an organized market where securities are bought and
   sold.
+- An [[https://en.wikipedia.org/wiki/Order_matching_system][order matcher]] executes orders, it's the core of the exchange.
 - A [[https://en.wikipedia.org/wiki/Security_(finance)][security]] is a tradable financial asset.
 - The [[https://en.wikipedia.org/wiki/Spot_market][spot market]] is exchanges in which securities are traded for
   immediate delivery, not as options.

@@ -1,26 +1,24 @@
 (ns piotr-yuxuan.welcome-base-api.main
   (:require [piotr-yuxuan.closeable-map :refer [closeable-map* closeable*]]
-            [com.brunobonacci.oneconfig :refer [deep-merge]]
-            [ring.util.http-status :as http-status]
-            [aleph.http :as http]
-            [reitit.ring.middleware.parameters :as parameters]
             [piotr-yuxuan.welcome-base-api.config :as config]
-            [piotr-yuxuan.welcome-base-api.swagger2 :as swagger2]
-            [reitit.ring.middleware.exception :as exception]
-            [ring.middleware.reload :as reload]
-            [reitit.ring.coercion :as rrc]
-    ;[reitit.coercion.malli :as rcm]
-            [piotr-yuxuan.welcome-base-api.malli2 :as rcm]
-            [reitit.ring.middleware.muuntaja :as muuntaja-middleware]
+            [aleph.http :as http]
+            [com.brunobonacci.oneconfig :refer [deep-merge]]
+            [malli.core :as m]
+            [malli.util :as mu]
             [muuntaja.core :as muuntaja]
-            [ring.util.http-response :as http-response]
+            [reitit.coercion.malli :as rcm]
             [reitit.ring :as ring]
+            [reitit.ring.coercion :as rrc]
+            [reitit.ring.middleware.exception :as exception]
+            [reitit.ring.middleware.muuntaja :as muuntaja-middleware]
+            [reitit.ring.middleware.parameters :as parameters]
             [reitit.swagger :as swagger]
             [reitit.swagger-ui :as swagger-ui]
-            [malli.util :as mu]
-            [malli.core :as m])
-  (:gen-class)
-  (:import (piotr_yuxuan.closeable_map CloseableMap)))
+            [ring.middleware.reload :as reload]
+            [ring.util.http-response :as http-response]
+            [ring.util.http-status :as http-status])
+  (:import (piotr_yuxuan.closeable_map CloseableMap))
+  (:gen-class))
 
 (def Entity
   (m/schema
@@ -57,8 +55,7 @@
   [:map
    [:message string?]
    [:description string?]
-   [:error-id string?]
-   [:data {:optional? true} map?]])
+   [:data {:optional true} map?]])
 
 (def ClientErrorResponse
   (mu/update-properties ErrorResponse assoc :description "Error caused by a request. This API is working properly."))
@@ -69,29 +66,44 @@
 (def DependentServiceErrorResponse
   (mu/update-properties ErrorResponse assoc :description "Error caused by a third-party service used by the API. Your request was legit, the API is working properly but relies on another service which failed to reply gracefully."))
 
-(def non-success-http-responses
-  (let [client-errors {http-status/bad-request {:description "_Bad Request_: syntactic error in request body, can't be parsed."}
-                       http-status/unauthorized {:description "_Unauthorized_: issue with authentication."}
-                       http-status/payment-required {:description "_Payment Required_: the authentication is right, the authorisation would be right if the client had the correct membership or subscription."}
-                       http-status/forbidden {:description "_Forbidden_: issue with authorisation. Authentication was right, but the client lacks permissions."}
-                       http-status/not-found {:description "_Not Found_: we can't find what you're talking about."}
-                       http-status/method-not-allowed {:description "_Method Not Allowed_: this endpoint has no handler defined for this method."}
-                       http-status/not-acceptable {:description "_Not Acceptable_: there is an issue with content negotiation, for example the client is requesting json while the server can only reply with edn."}
-                       http-status/unprocessable-entity {:description "_Unprocessable Entity_: the request can be parsed, but contains semantic errors, for example you are searching for a value lesser than 1 and at the same time greater than 2."}
-                       http-status/request-timeout {:description "_Request Timeout_: the server was waiting in a state for some time, but received no requests. It has now timed out, and is no longer is the state to accept this request."}
-                       http-status/conflict {:description "_Conflict_: the client tried to apply a diff to modify a resource, but the resource has changed since and now is different from what the client expected."}
-                       http-status/gone {:description "_Gone_: the client tries to modify something that got previously deleted."}
-                       http-status/locked {:description "_Locked_: some other client initiated a transaction when the request was processed, so the requested resource could not be accessed."}
-                       http-status/too-many-requests {:description "_Too Many Requests_: you are being rate-limited."}
-                       http-status/unavailable-for-legal-reasons {:description "_Unavailable For Legal Reasons_: censorship, copyright issues, or something else like GDPR prevent the server to provide access to the resource."}}
-        server-errors {http-status/internal-server-error {:description "_Internal Server Error_: relates to an error on the instance processing the request."}
-                       http-status/not-implemented {:description "_Not Implemented_: the code is still being worked on."}
-                       http-status/service-unavailable {:description "_Service Unavailable_: you are not sending too many requests yourself, but the server is receiving more than it can handle."}}
-        dependent-service-errors {http-status/bad-gateway {:description "_Bad Gateway_: processing of this request depends on another service which is up and running but returned an error."}
-                                  http-status/gateway-timeout {:description "_Gateway Timeout_: processing of this request depends on another service but it was unreachable within a timeout."}}]
-    (merge (update-vals client-errors #(assoc % :content {:application/json {:schema {"$ref" "#/components/schemas/ClientErrorResponse"}}}))
-           (update-vals server-errors #(assoc % :content {:application/json {:schema {"$ref" "#/components/schemas/ServerErrorResponse"}}}))
-           (update-vals dependent-service-errors #(assoc % :content {:application/json {:schema {"$ref" "#/components/schemas/DependentServiceErrorResponse"}}})))))
+(def non-error-responses
+  (->> [http-status/accepted
+        http-status/created
+        http-status/no-content
+        http-status/not-modified
+        http-status/ok
+        http-status/processing
+        http-status/reset-content]
+       (reduce (fn [acc status]
+                 (let [{:keys [name description]} (get http-status/status status)]
+                   (assoc acc status {:description (format "_%s_. %s" name description)})))
+               {})))
+
+(def client-errors
+  {http-status/bad-request {:description "_Bad Request_. Syntactic error in request body, can't be parsed."}
+   http-status/unauthorized {:description "_Unauthorized_. Issue with authentication."}
+   http-status/payment-required {:description "_Payment Required_. The authentication is right, the authorisation would be right if the client had the correct membership or subscription."}
+   http-status/forbidden {:description "_Forbidden_. Issue with authorisation. Authentication was right, but the client lacks permissions."}
+   http-status/not-found {:description "_Not Found_. We can't find what you're talking about."}
+   http-status/method-not-allowed {:description "_Method Not Allowed_. This endpoint has no handler defined for this method."}
+   http-status/not-acceptable {:description "_Not Acceptable_. There is an issue with content negotiation, for example the client is requesting json while the server can only reply with edn."}
+   http-status/unprocessable-entity {:description "_Unprocessable Entity_. The request can be parsed, but contains semantic errors, for example you are searching for a value lesser than 1 and at the same time greater than 2."}
+   http-status/request-timeout {:description "_Request Timeout_. The server was waiting in a state for some time, but received no requests. It has now timed out, and is no longer is the state to accept this request."}
+   http-status/conflict {:description "_Conflict_. The client tried to apply a diff to modify a resource, but the resource has changed since and now is different from what the client expected."}
+   http-status/gone {:description "_Gone_. The client tries to modify something that it can no longer access to."}
+   http-status/locked {:description "_Locked_. Some other client initiated a transaction when the request was processed, so the requested resource could not be accessed."}
+   http-status/too-many-requests {:description "_Too Many Requests_. You are being rate-limited."
+                                  :headers {"Retry-After" {:type "integer", :description "A non-negative decimal integer indicating the seconds to delay after the response is received."}}}
+   http-status/unavailable-for-legal-reasons {:description "_Unavailable For Legal Reasons_. Censorship, copyright issues, or something else like GDPR prevent the server to provide access to the resource."}})
+
+(def server-errors
+  {http-status/internal-server-error {:description "_Internal Server Error_. Relates to an error on the instance processing the request."}
+   http-status/not-implemented {:description "_Not Implemented_. The code is still being worked on."}
+   http-status/service-unavailable {:description "_Service Unavailable_. You are not sending too many requests yourself, but the server is receiving more than it can handle."}})
+
+(def dependent-service-errors
+  {http-status/bad-gateway {:description "_Bad Gateway_. Processing of this request depends on another service which is up and running but returned an error."}
+   http-status/gateway-timeout {:description "_Gateway Timeout_. Processing of this request depends on another service but it was unreachable within a timeout."}})
 
 (def rest-http-verbs
   "A method is safe when it has no side effects and is read-only. A
@@ -164,13 +176,137 @@
            :request/body? true
            :response.successful/body? true}})
 
-(slurp (muuntaja/encode "application/json" {:id 1, :author "vil!", :name "uo"}))
-(slurp (muuntaja/encode "application/transit+json" {:id 1, :author "vil!", :name "uo"}))
+(def ExchangeId [pos-int? {:swagger {:example "4634"}}])
+(def SecurityId [pos-int? {:swagger {:example "6237483"}}])
+(def OrderUuid [uuid? {:swagger {:example "ea9b2871-7f49-4982-824a-9ab3db2b385a"}}])
 
 (defn routes
   [config]
-  [["/health"]
-   ["/api/v1"
+  [["/api/v1" {:swagger {:security [{"API key" []
+                                     "App id" []}
+                                    {"JWT token" []}]}}
+    ["/shared-requests-responses" {:tags #{"Shared requests and responses"}
+                                   :summary "Documentation only"
+                                   :description "Common HTTP responses are reported here so as to document only endpoint-specific responses hereafter. This is not restricted to `GET` method but there would be no point in duplicating this list for other methods. Depending on the endpoint you target, some attributes may not always apply."
+                                   :get {:handler (constantly (http-response/not-implemented))
+                                         :parameters {:header [:map
+                                                               ["X-API-Key" {:optional true} [string? {:description "Authentication"}]]
+                                                               ["Authorization" {:optional true} [string? {:description "Authorization"}]]]
+                                                      :params {}}
+                                         :responses (-> (merge (update-vals client-errors #(assoc % :schema ClientErrorResponse))
+                                                               (update-vals server-errors #(assoc % :schema ServerErrorResponse))
+                                                               (update-vals dependent-service-errors #(assoc % :schema DependentServiceErrorResponse)))
+                                                        (update-vals #(update % :headers merge {"X-Error-UUID" {:type "string", :description "UUID for this error, linked to technical details in our observability stack."}}))
+                                                        (merge non-error-responses)
+                                                        (update-vals #(update % :headers merge {"Date" {:type "date", :description "The date and time at which the message was originated, in HTTP date format."}
+                                                                                                "X-B3-TraceId" {:type "string", :description "Zipkin-specific header, 128 or 64 lower-hex encoded bits (required)"}
+                                                                                                "X-B3-SpanId" {:type "string", :description "Zipkin-specific header, 64 lower-hex encoded bits (required)"}
+                                                                                                "X-B3-ParentSpanId" {:type "string", :description "Zipkin-specific header, 64 lower-hex encoded bits (absent on root span)"}
+                                                                                                "X-B3-Sampled" {:type "string", :description "Zipkin-specific header, Boolean (either “1” or “0”, can be absent)"}
+                                                                                                "X-B3-Flags" {:type "string", :description "Zipkin-specific header, “1” means debug (can be absent)"}})))}}]
+    ["/exchanges"
+     ["" {:tags #{"Exchanges"}
+          :get {:summary "List existing exchanges"
+                :handler (constantly (http-response/ok))}
+          :post {:summary "Create an exchange"
+                 :handler (constantly (http-response/ok))}}]
+     ["/:exchange-id"
+      ["" {:tags #{"Exchanges"}
+           :post {:summary "Update this exchange"
+                  :handler (constantly (http-response/ok))
+                  :parameters {:path [:map [:exchange-id ExchangeId]]}}
+           :get {:summary "Describe this exchange"
+                 :handler (constantly (http-response/ok))
+                 :parameters {:path [:map [:exchange-id ExchangeId]]}}
+           :patch {:summary "Apply some transformations on this exchange"
+                   :handler (constantly (http-response/ok))
+                   :parameters {:path [:map [:exchange-id ExchangeId]]}}
+           :delete {:summary "Archive this exchange"
+                    :handler (constantly (http-response/ok))
+                    :parameters {:path [:map [:exchange-id ExchangeId]]}}}]
+      ["/listing" {:tags #{"Securities"}}
+       ["" {:get {:summary "List securities registered on this exchange"
+                  :handler (constantly (http-response/ok))
+                  :parameters {:path [:map [:exchange-id ExchangeId]]}}
+            :post {:summary "Register a securities on the listing of this exchange"
+                   :handler (constantly (http-response/ok))
+                   :parameters {:path [:map [:exchange-id ExchangeId]]}}}]
+       ["/:security-id"
+        ["" {:post {:summary "Update the details of this listing"
+                    :handler (constantly (http-response/ok))
+                    :parameters {:path [:map
+                                        [:exchange-id ExchangeId]
+                                        [:security-id SecurityId]]}}
+             :get {:summary "Describe the details of this listing"
+                   :handler (constantly (http-response/ok))
+                   :parameters {:path [:map
+                                       [:exchange-id ExchangeId]
+                                       [:security-id SecurityId]]}}
+             :patch {:summary "Apply some transformations on the details of this listing"
+                     :handler (constantly (http-response/ok))
+                     :parameters {:path [:map
+                                         [:exchange-id ExchangeId]
+                                         [:security-id SecurityId]]}}
+             :delete {:summary "Archive this security"
+                      :handler (constantly (http-response/ok))
+                      :parameters {:path [:map
+                                          [:exchange-id ExchangeId]
+                                          [:security-id SecurityId]]}}}]
+        ;; While REST recommends that URL are only made of nouns, here are some verbs to update the state of a listing.
+        ["/enlist" {:post {:summary "Make this listing available for trade on this exchange"
+                           :handler (constantly (http-response/ok))
+                           :parameters {:path [:map
+                                               [:exchange-id ExchangeId]
+                                               [:security-id SecurityId]]}}}]
+        ["/delist" {:post {:summary "Make this listing unavailable for trade on this exchange"
+                           :handler (constantly (http-response/ok))
+                           :parameters {:path [:map
+                                               [:exchange-id ExchangeId]
+                                               [:security-id SecurityId]]}}}]]]
+
+      ["/book"
+       ["/orders"
+        [["" {:tags #{"Orders"}
+              :post {:summary "Place an order on the book. Its status may vary, but its content is immutable."
+                     :handler (constantly (http-response/ok))
+                     :parameters {:path [:map [:exchange-id ExchangeId]]}
+                     :responses {http-status/accepted {:description (let [{:keys [name description]} (get http-status/status http-status/accepted)]
+                                                                      (format "_%s_. %s" name description))
+                                                       :headers {"Content-Location" {:description "Relative URI to order details"
+                                                                                     :type "string"}
+                                                                 "X-Order-UUID" {:description "Identifier of the order"
+                                                                                 :type "uuid"}}}}}}]
+         ["/:order-uuid"
+          [["" {:tags #{"Orders"}
+                :get {:summary "Return the order as it was placed"
+                      :handler (constantly (assoc-in (http-response/ok) [:headers "Cache-Control"] "immutable"))
+                      :parameters {:header [:map ["Want-Digest" {:optional true} [:enum {:swagger/type "string"
+                                                                                         :description "Ask the server to provide a digest of the requested resource using the Digest response header."}
+                                                                                  "unixsum" "unixcksum" "crc32c" "sha-256" "sha-512" "id-sha-256" "id-sha-512"]]]
+                                   :path [:map
+                                          [:exchange-id ExchangeId]
+                                          [:order-uuid OrderUuid]]}
+                      :responses {http-status/ok {:headers {"Cache-Control" {:type "string"
+                                                                             :description "Control caching. As orders are immutable, they may be cached."
+                                                                             :example "immutable"}
+                                                            "Digest" {:type "string"
+                                                                      :required false
+                                                                      :description "Digest of the selected representation of the requested resource."
+                                                                      :example "sha-256=X48E9qOokqqrvdts8nOJRJN3OWDUoyWxBf7kbu9DBPE="}}}}}}]
+           ["/cancel" {:tags #{"Orders"}
+                       :post {:summary "Tentatively cancel this order."
+                              :description "Tentatively cancel this order. This will be recorded, but may fail if the order had already been fulfilled."
+                              :handler (constantly (http-response/ok))
+                              :parameters {:path [:map
+                                                  [:exchange-id ExchangeId]
+                                                  [:order-uuid OrderUuid]]}}}]
+           ["/status" {:tags #{"Orders"}
+                       :post {:summary "History and outcome"
+                              :handler (constantly (http-response/ok))
+                              :parameters {:path [:map
+                                                  [:exchange-id ExchangeId]
+                                                  [:order-uuid OrderUuid]]}}}]]]]]]]]
+
     ["/entities"
      ;; It is very difficult to choose between these two.
      ;; The commented looks like the purest, but it's insane
@@ -234,20 +370,35 @@
                                        http-status/accepted {:body EntityState}
                                        http-status/processing {:body EntityState}}}}]]]])
 
-(defn greet
-  "Callable entry point to the application."
-  [data]
-  (println (str "Hello, " (or (:name data) "World") "!")))
+(def swagger-api-description
+  "
+TODO Fix me
 
-(defonce app (atom nil))
-(println "reloaded")
+## Description
+
+Progressive human description with incremental semantic zoom.
+
+## Sequence diagrams
+
+![](https://upload.wikimedia.org/wikipedia/commons/9/9b/CheckEmail.svg)
+
+## Order matcher algorithm
+
+Example state machine
+
+![](https://raw.githubusercontent.com/BrunoBonacci/optimus/master/docs/optimus/wsd/00-tx-status-02.png)
+
+## Endpoint description
+
+Only most specific request and response attributes are described for each endpoint. A general prototype for request and responses may be found under the pseudo endpoint [`/api/v1/_shared-responses`](/api-docs/index.html#/Shared%20requests%20and%20responses).
+")
 
 (defn swagger-doc
   [{:keys [version]}]
   {:swagger "2.0"
    :info {:title "welcome-data-api"
           :version version
-          :description "For each endpoint this documentation lists the most specific responses. Some server-wide responses for success and failures "
+          :description swagger-api-description
           :basePath "/"
           :licence {:name "European Union Public License 1.2 or later"
                     :url "https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12"}
@@ -260,85 +411,63 @@
                  "ClientErrorResponse" (malli.swagger/transform ClientErrorResponse)
                  "ServerErrorResponse" (malli.swagger/transform ServerErrorResponse)
                  "DependentServiceErrorResponse" (malli.swagger/transform DependentServiceErrorResponse)}
-   :responses non-success-http-responses
+   :responses (merge (update-vals client-errors #(assoc % :content {:application/json {:schema {"$ref" "#/definitions/ClientErrorResponse"}}}))
+                     (update-vals server-errors #(assoc % :content {:application/json {:schema {"$ref" "#/definitions/ServerErrorResponse"}}}))
+                     (update-vals dependent-service-errors #(assoc % :content {:application/json {:schema {"$ref" "#/definitions/DependentServiceErrorResponse"}}})))
+   :securityDefinitions {"API key" {:type :apiKey
+                                    :in :header
+                                    :name "X-API-Key"}
+                         "App id" {:type :apiKey
+                                   :in :header
+                                   :name "X-App-Id"}
+                         ;; Bearer auth is only oas 3.0, not swagger 2.0
+                         "JWT token" {:type :apiKey
+                                      :in :header
+                                      :description "OpenAPI 2.0 doesn't have specific support of bearer auth like OpenAPI 3.0, but it is quite similar to API key auth. The header format is `Authorization: Bearer <token>`. Here a simple JWT token is used."
+                                      :name "Authorization"}}
    :externalDocs {:description "cljdoc"
                   :url "https://cljdoc.org/d/piotr-yuxuan/welcome-data-api"}})
 
-(def openapi-middleware
-  (fn [handler]
-    (fn [request]
-      (update (handler request) :body
-        #(-> % (dissoc :swagger) (assoc :openapi "3.0.0"))))))
-
-(defonce debug (atom nil))
-:examples {"application/json" "[1]"}
+(defn handler
+  [config]
+  (ring/ring-handler
+    (ring/router
+      [(routes config)
+       ["" {:tags #{"Observability"}}
+        ["/health" {:get {:handler (constantly (http-response/no-content))
+                          :responses {http-status/no-content {:description "No Content"}}}}]
+        ["/prometheus" {:get {:handler (constantly (http-response/not-implemented))}}]]
+       ["" {:no-doc true}
+        ["/swagger.json" {:get {:swagger (swagger-doc config)
+                                :handler (swagger/create-swagger-handler)}}]
+        ["/api-docs/*" {:get (swagger-ui/create-swagger-ui-handler {:url "/swagger.json"})}]]]
+      {:data {:muuntaja muuntaja/instance
+              :coercion (rcm/create {:error-keys #{:value :humanized}})
+              :middleware [swagger/swagger-feature ; swagger feature
+                           parameters/parameters-middleware ;; query-params & orm-params
+                           muuntaja-middleware/format-middleware ;; content-egotiation, request, and response
+                           exception/exception-middleware ; exception handling
+                           rrc/coerce-exceptions-middleware ; What is the difference?
+                           rrc/coerce-response-middleware ; coercing response bodys
+                           rrc/coerce-request-middleware ; coercing request parameters
+                           ]}})
+    (ring/routes
+      (ring/redirect-trailing-slash-handler)
+      (ring/create-default-handler))))
 
 (defn ^CloseableMap config->app
-  [{:keys [env port] :as config}]
+  [handler {:keys [port] :as config}]
   (closeable-map*
     (-> config
         (assoc :http-server (closeable* (http/start-server
-                                          (fn dev-handler [request]
-                                            (println :youp)
-                                            ((ring/ring-handler
-                                               (ring/router
-                                                 [(routes config)
-                                                  ["" {:no-doc true}
-                                                   ["/swagger.json" {:get {:swagger (swagger-doc config)
-                                                                           :handler (swagger2/create-swagger-handler)}}]
-                                                   ["/api-docs/*" {:get (swagger-ui/create-swagger-ui-handler {:url "/swagger.json"})}]]]
-                                                 {:data {:muuntaja muuntaja/instance
-                                                         :coercion (rcm/create {:error-keys #{:value :humanized}})
-                                                         :middleware [;; swagger feature
-                                                                      swagger/swagger-feature
-                                                                      ;; query-params & form-params
-                                                                      parameters/parameters-middleware
-                                                                      ;; content-negotiation, request, and response
-                                                                      muuntaja-middleware/format-middleware
-                                                                      ;; exception handling
-                                                                      exception/exception-middleware
-                                                                      rrc/coerce-exceptions-middleware ; What is the difference?
-                                                                      ;; coercing response bodys
-                                                                      rrc/coerce-response-middleware
-                                                                      ;; coercing request parameters
-                                                                      rrc/coerce-request-middleware
-
-                                                                      ]}})
-                                               (ring/routes
-                                                 (ring/redirect-trailing-slash-handler)
-                                                 (ring/create-default-handler))
-                                               {:middleware [reload/wrap-reload]})
-                                             request))
+                                          (handler config)
                                           {:port port}))))))
 
-(defn start
-  ([] (start app))
-  ([app] (start app (config/load-config)))
-  ([app config]
-   (when-not @app
-     (reset! app (config->app config)))
-   app))
-
-(defn stop
-  ([] (stop app))
-  ([app]
-   (when @app
-     (.close ^CloseableMap @app)
-     (reset! app nil))
-   app))
-
-(defn reset
-  ([] (reset app))
-  ([app] (reset app (config/load-config)))
-  ([app config]
-   (stop app)
-   (start app config)))
+(defonce app
+  (atom nil))
 
 (defn -main
   [& args]
-  (greet {:name (first args)})
-  (start)
-  (reset)
-  )
-
-(reset)
+  (->> (config/load-config)
+       (config->app handler)
+       (reset! app)))

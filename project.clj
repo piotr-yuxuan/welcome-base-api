@@ -22,6 +22,8 @@
                  ;[metosin/ring-http-response "0.9.2"] ; http statuses
                  ;[ovotech/ring-jwt "2.2.1"] ; authentication, authorization based on jwt
 
+                 ;; API security, authorization, authentication
+
                  ;; Kafka and avro
                  [org.apache.kafka/kafka-clients "2.5.0"]
                  [org.apache.avro/avro "1.9.2"]
@@ -47,6 +49,8 @@
   :aot :all
   :profiles {:github {:github/topics ["clojure" "api" "example"]}
              :dev {:global-vars {*warn-on-reflection* true}
+                   :source-paths ["dev"]
+                   :repl-options {:init-ns user}
                    :dependencies [[ring/ring-devel "2.0.0-alpha-1"] ; wrap-reload ring middleware
                                   ]}
              :jar {:jvm-opts ["-Dclojure.compiler.disable-locals-clearing=false"
