@@ -59,7 +59,7 @@
   ```"
   (->> radius
        Math/log10
-       Math/ceil
+       Math/floor ;; FIXME Math/ceil?
        Math/round
        int))
 
