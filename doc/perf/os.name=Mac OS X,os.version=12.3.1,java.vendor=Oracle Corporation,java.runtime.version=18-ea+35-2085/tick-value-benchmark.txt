@@ -1,0 +1,14 @@
+x86_64 Mac OS X 12.3.1 12 cpu(s)
+OpenJDK 64-Bit Server VM 18-ea+35-2085
+Runtime arguments: -agentlib:jdwp=transport=dt_socket,address=127.0.0.1:61107,suspend=y,server=n -Dfile.encoding=UTF-8 -Djdk.attach.allowAttachSelf -XX:+UnlockDiagnosticVMOptions -XX:+PreserveFramePointer -XX:+DebugNonSafepoints -Dclojure.compile.path=/Users/p2b/Dropbox/Pierre/src/github.com/piotr-yuxuan/welcome-base-api/target/classes -Dwelcome-base-api.version=0.0.0 -Dclojure.debug=false -Dclojure.compiler.disable-locals-clearing=true
+Evaluation count : 1688763720 in 60 samples of 28146062 calls.
+             Execution time mean : 30.590404 ns
+    Execution time std-deviation : 0.966984 ns
+   Execution time lower quantile : 28.756079 ns ( 2.5%)
+   Execution time upper quantile : 32.433807 ns (97.5%)
+                   Overhead used : 6.370156 ns
+
+Found 7 outliers in 60 samples (11.6667 %)
+	low-severe	 5 (8.3333 %)
+	low-mild	 2 (3.3333 %)
+ Variance from outliers : 18.9575 % Variance is moderately inflated by outliers
