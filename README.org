@@ -63,6 +63,7 @@ switched to IntelliJ.
   - [[#questions-and-features][Questions and features]]
   - [[#entities-and-actions][Entities and actions]]
     - [[#local-definitions][Local definitions]]
+    - [[#how-to-start-local-minikube][How to start local minikube]]
 #+END_QUOTE
 
 * Clojure luminaries and resources
@@ -323,7 +324,7 @@ and running and I intend to release it in production.
 ** Principles
 
 - No abstraction is better than bad abstraction ([[https://sandimetz.com/blog/2016/1/20/the-wrong-abstraction][Sandi Metz]]);
-- Maximum composability over maximalist framework ([[https://en.wikipedia.org/wiki/Composition_over_inheritance][link]]);
+- Maximum composability over maximalist framework ([[https://en.wikipedia.org/wiki/Composition_over_inheritance][link]], [[https://twitter.com/stuarthalloway/status/1097772021415579648][link]]);
 - Minimal idiosyncrasy, be a good citizen, follow standards;
 - Plans are useless, but planning is indispensable (Eisenhower).
 
@@ -376,6 +377,8 @@ effects, and prevent undesirable behaviours.
 - Zipkin?
 - If using other internal systems, distributed tracing would be nice
   to help collaborative debugging with different teams.
+
+See https://youtu.be/0V_F9Ko_Ic8?t=2242 for explanations. Looks like OpenTelemetry is the best, but clj-telemetry is non-production-ready.
 
 *** Metrics
 
@@ -479,7 +482,8 @@ circle is applied:
 
 - Build a simple simulation of stock exchanges;
 - Derive metadata such as metrics, indicators, and signals;
-- Use these metadata to inform trade strategies.
+- Use these metadata to inform trade strategies;
+- Show cycles of bank accounts creating artificial transaction volume.
 
 Disclaimer: my financial vocabulary is still very naive. But still, it
 should allow to express some nice problems to solve :-)
@@ -519,6 +523,7 @@ should allow to express some nice problems to solve :-)
 - Accounts
 - Dividends
 - A [[https://www.londonstockexchange.com/help/whats-ftse-index-overview#what-is-ticker-][ticker]]
+- https://medium.com/lgogroup/a-matching-engine-for-our-values-part-1-795a29b400fa
 - https://blog.kaiko.com/tick-level-order-books-technical-overview-and-documentation-56b1ab6e7c10
   
 *** Local definitions
@@ -530,3 +535,14 @@ should allow to express some nice problems to solve :-)
   ratio becomes too imbalanced
 - Traders buy or sell shares, and get fees for that
 - Shareholders receive dividends from the company
+
+*** How to start local minikube
+
+https://minikube.sigs.k8s.io/docs/start/
+https://minikube.sigs.k8s.io/docs/drivers/podman/
+https://podman.io/getting-started/
+https://stackoverflow.com/questions/71207905/minkube-start-gives-error-exiting-due-to-rsrc-insufficient-cores-is-it-poss
+
+#+BEGIN_SRC zsh
+
+#+END_SRC
