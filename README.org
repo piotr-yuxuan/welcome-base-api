@@ -303,12 +303,6 @@ java -jar welcome-base-api.jar
 
 * New idea
 
-#+BEGIN_QUOTE
-« In preparing for battle, I have always found that plans are useless,
-but planning is indispensable. »
-#+END_QUOTE
- – General Dwight D. Eisenhower
-
 My goal is not to show yet another template for quick and easy Clojure
 apps or ClojureScript webapps. There are a lot of them around, most of
 them are really good, and they usually focus on the quickest path from
@@ -324,7 +318,8 @@ and running and I intend to release it in production.
 
 - No abstraction is better than bad abstraction ([[https://sandimetz.com/blog/2016/1/20/the-wrong-abstraction][Sandi Metz]]);
 - Maximum composability over maximalist framework ([[https://en.wikipedia.org/wiki/Composition_over_inheritance][link]]);
-- Minimal idiosyncrasy, be a good citizen, follow standards.
+- Minimal idiosyncrasy, be a good citizen, follow standards;
+- Plans are useless, but planning is indispensable (Eisenhower).
 
 ** How to live in production?
 
