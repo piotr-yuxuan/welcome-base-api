@@ -91,7 +91,7 @@
   "Magic number"
   1e8)
 
-(def bench-env
+(def jmh-env
   {:benchmarks [{:name :tick-size :fn `tick/size :args [:state/math-context :param/tick-radius :param/bod-price]}]
    :states {:math-context {:fn `tick/math-context :args [:param/tick-radius :param/bod-price]}}
    :params {:tick-radius [(tick/radius :percent) (tick/radius :short) (tick/radius :ten-thousandth) (tick/radius :integer)]
@@ -99,65 +99,83 @@
    :selectors {:tick-size (comp #{:tick-size} :name)
                :tick-radius (comp #{:tick-radius} :name)}})
 
-(deftest ^:kaocha/skip ^:perf size-performance-test
+(deftest ^:kaocha/skip ^:perf ^:benchmarking size-perf-benchmarking-test
   (binding [*unchecked-math* :warn-on-boxed]
     (let [^int tick-radius (tick/radius :percent)
           bod-price 100M
           math-context (tick/math-context tick-radius bod-price)
           thunk (fn [] (tick/size math-context tick-radius bod-price))
-          benchmark (io/file "doc" "perf" "tick-size-benchmark.txt")
-          profiled-events #{:cpu :itimer :alloc}
-          jmh-benchmark (io/file "doc" "perf" "tick-size-benchmark-jmh.edn")
-          jmh-status (io/file "doc" "perf" "tick-size-benchmark-jmh-status.edn")]
-      (testing "tick/size"
-        (testing "benchmarking"
-          (with-open [benchmark (io/writer benchmark :append false)]
-            (binding [*out* benchmark]
-              (c/bench (thunk) :os :runtime))))
-        (testing "profiling"
-          (doseq [event profiled-events
-                  :let [profile (io/file "doc" "perf" (format "tick-size-flamegraph-%s.html" (name event)))]]
-            (let [tmp-profile (prof/profile {:event event, :return-file true} (dotimes [_ profiler-repeat] (thunk)))]
-              (Files/move (.toPath ^File tmp-profile) (.toPath profile) (into-array CopyOption [StandardCopyOption/REPLACE_EXISTING])))))
-        (testing "jmh"
-          (spit jmh-benchmark
-                (jmh/run bench-env
-                         {:type :test
-                          :profilers ["gc" "stack" "cl" "comp"]
-                          :select [:tick-size]
-                          :status (.getCanonicalPath ^File jmh-status)
-                          :fork {:jvm {:append-args ["-Dclojure.compiler.direct-linking=true"]}}})
-                :append false))))))
+          benchmark (io/file "doc" "perf" "tick-size-benchmark.txt")]
+      (testing "tick/size benchmarking"
+        (with-open [benchmark (io/writer benchmark :append false)]
+          (binding [*out* benchmark]
+            (c/bench (thunk) :os :runtime)))))))
 
-(deftest ^:kaocha/skip ^:perf value-performance-test
+(deftest ^:kaocha/skip ^:perf ^:profiling size-perf-profiling-test
+  (binding [*unchecked-math* :warn-on-boxed]
+    (let [^int tick-radius (tick/radius :percent)
+          bod-price 100M
+          math-context (tick/math-context tick-radius bod-price)
+          thunk (fn [] (tick/size math-context tick-radius bod-price))
+          profiled-events #{:cpu :itimer :alloc}]
+      (testing "tick/size profiling"
+        (doseq [event profiled-events
+                :let [profile (io/file "doc" "perf" (format "tick-size-flamegraph-%s.html" (name event)))]]
+          (let [tmp-profile (prof/profile {:event event, :return-file true} (dotimes [_ profiler-repeat] (thunk)))]
+            (Files/move (.toPath ^File tmp-profile) (.toPath profile) (into-array CopyOption [StandardCopyOption/REPLACE_EXISTING]))))))))
+
+(deftest ^:kaocha/skip ^:perf ^:jmh size-perf-jmh-test
+  (binding [*unchecked-math* :warn-on-boxed]
+    (let [jmh-benchmark (io/file "doc" "perf" "tick-size-benchmark-jmh.edn")
+          jmh-status (io/file "doc" "perf" "tick-size-benchmark-jmh-status.log")]
+      (testing "tick/size jmh"
+        (spit jmh-benchmark
+              (jmh/run jmh-env
+                       {:type :test
+                        :profilers ["gc" "stack" "cl" "comp"]
+                        :select [:tick-size]
+                        :status (.getCanonicalPath ^File jmh-status)
+                        :fork {:jvm {:append-args ["-Dclojure.compiler.direct-linking=true"]}}})
+              :append false)))))
+
+(deftest ^:kaocha/skip ^:perf ^:benchmarking value-perf-benchmarking-test
   (binding [*unchecked-math* :warn-on-boxed]
     (let [^int tick-radius (tick/radius :percent)
           bod-price 100M
           tick-size (tick/size tick-radius bod-price)
           thunk (fn [] (tick/value bod-price tick-size 101.5M))
-          benchmark (io/file "doc" "perf" "tick-value-benchmark.txt")
-          profiled-events #{:cpu :itimer :alloc}
-          jmh-benchmark (io/file "doc" "perf" "tick-value-benchmark-jmh.edn")
-          jmh-status (io/file "doc" "perf" "tick-value-benchmark-jmh-status.edn")]
-      (testing "tick/value"
-        (testing "benchmarking"
-          (with-open [benchmark (io/writer benchmark :append false)]
-            (binding [*out* benchmark]
-              (c/bench (thunk) :os :runtime))))
-        (testing "profiling"
-          (doseq [event profiled-events
-                  :let [profile (io/file "doc" "perf" (format "tick-value-flamegraph-%s.html" (name event)))]]
-            (let [tmp-profile (prof/profile {:event event, :return-file true} (dotimes [_ profiler-repeat] (thunk)))]
-              (Files/move (.toPath ^File tmp-profile) (.toPath profile) (into-array CopyOption [StandardCopyOption/REPLACE_EXISTING])))))
-        (testing "jmh"
-          (spit jmh-benchmark
-                (jmh/run bench-env
-                         {:type :test
-                          :profilers ["gc" "stack" "cl" "comp"]
-                          :select [:tick-value]
-                          :status (.getCanonicalPath ^File jmh-status)
-                          :fork {:jvm {:append-args ["-Dclojure.compiler.direct-linking=true"]}}})
-                :append false))))))
+          benchmark (io/file "doc" "perf" "tick-value-benchmark.txt")]
+      (testing "tick/value benchmarking"
+        (with-open [benchmark (io/writer benchmark :append false)]
+          (binding [*out* benchmark]
+            (c/bench (thunk) :os :runtime)))))))
+
+(deftest ^:kaocha/skip ^:perf ^:profiling value-perf-profiling-test
+  (binding [*unchecked-math* :warn-on-boxed]
+    (let [^int tick-radius (tick/radius :percent)
+          bod-price 100M
+          tick-size (tick/size tick-radius bod-price)
+          thunk (fn [] (tick/value bod-price tick-size 101.5M))
+          profiled-events #{:cpu :itimer :alloc}]
+      (testing "tick/value profiling"
+        (doseq [event profiled-events
+                :let [profile (io/file "doc" "perf" (format "tick-value-flamegraph-%s.html" (name event)))]]
+          (let [tmp-profile (prof/profile {:event event, :return-file true} (dotimes [_ profiler-repeat] (thunk)))]
+            (Files/move (.toPath ^File tmp-profile) (.toPath profile) (into-array CopyOption [StandardCopyOption/REPLACE_EXISTING]))))))))
+
+(deftest ^:kaocha/skip ^:perf ^:jmh value-perf-jmh-test
+  (binding [*unchecked-math* :warn-on-boxed]
+    (let [jmh-benchmark (io/file "doc" "perf" "tick-value-benchmark-jmh.edn")
+          jmh-status (io/file "doc" "perf" "tick-value-benchmark-jmh-status.log")]
+      (testing "tick/value jmh"
+        (spit jmh-benchmark
+              (jmh/run jmh-env
+                       {:type :test
+                        :profilers ["gc" "stack" "cl" "comp"]
+                        :select [:tick-value]
+                        :status (.getCanonicalPath ^File jmh-status)
+                        :fork {:jvm {:append-args ["-Dclojure.compiler.direct-linking=true"]}}})
+              :append false)))))
 
 (deftest tick-order-of-magnitude-test
   (= 2 (tick/order-of-magnitude (tick/radius :percent)))
