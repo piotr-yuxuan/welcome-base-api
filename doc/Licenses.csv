@@ -122,6 +122,7 @@
 "jmh-clojure","0.4.1","Eclipse Public License"
 "metosin/reitit-dev","0.5.18","Eclipse Public License"
 "com.cognitect/transit-clj","1.0.324","The Apache Software License, Version 2.0"
+"com.clojure-goes-fast/clj-async-profiler","1.0.0-alpha1","Eclipse Public License"
 "commons-fileupload","1.4","Apache License, Version 2.0"
 "metosin/jsonista","0.3.5","Eclipse Public License"
 "ns-tracker","0.4.0","Eclipse Public License"
