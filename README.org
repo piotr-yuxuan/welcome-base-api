@@ -555,3 +555,5 @@ https://minikube.sigs.k8s.io/docs/start/
 https://minikube.sigs.k8s.io/docs/drivers/podman/
 https://podman.io/getting-started/
 https://stackoverflow.com/questions/71207905/minkube-start-gives-error-exiting-due-to-rsrc-insufficient-cores-is-it-poss
+
+Don't forget to rewrite paths for privacy.
