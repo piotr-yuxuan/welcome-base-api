@@ -22,7 +22,7 @@
                  [ovotech/ring-jwt "2.3.0"] ; authentication, authorization based on jwt
 
                  ;; Kafka and avro
-                 [org.apache.kafka/kafka-clients "7.0.2-ce"]
+                 [org.apache.kafka/kafka-clients "7.1.0-ce"]
                  [org.apache.avro/avro "1.11.0"]
                  [io.confluent/kafka-avro-serializer "7.0.2"]
                  [piotr-yuxuan/slava "0.33.0" :exclusions [riddley]] ; Avro record manipulation for Clojure
@@ -42,7 +42,7 @@
                  [com.xtdb/xtdb-core "1.21.0-beta2" :exclusions [org.clojure/data.json org.clojure/tools.reader]] ; Database
 
                  ;; Language constructs and utilities
-                 [org.clojure/clojure "1.11.1-rc1"] ; The language itself
+                 [org.clojure/clojure "1.11.1"] ; The language itself
                  [org.clojure/core.cache "1.0.225"] ; Caching logic
                  ]
   :main piotr-yuxuan.welcome-base-api.main
