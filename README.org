@@ -308,6 +308,19 @@ Run that uberjar:
 java -jar welcome-base-api.jar
 #+END_SRC
 
+Kaocha is used as the default test runner.
+
+Run tests with:
+
+#+BEGIN_SRC zsh
+lein test
+#+END_SRC
+
+Performance tests are quite intensive and time-consuming. You may choose to run them with:
+#+BEGIN_SRC zsh
+lein test --focus-meta :perf
+#+END_SRC
+
 * New idea
 
 My goal is not to show yet another template for quick and easy Clojure
@@ -542,7 +555,3 @@ https://minikube.sigs.k8s.io/docs/start/
 https://minikube.sigs.k8s.io/docs/drivers/podman/
 https://podman.io/getting-started/
 https://stackoverflow.com/questions/71207905/minkube-start-gives-error-exiting-due-to-rsrc-insufficient-cores-is-it-poss
-
-#+BEGIN_SRC zsh
-
-#+END_SRC
