@@ -69,7 +69,7 @@
                        :jvm-opts ["-Dclojure.compiler.disable-locals-clearing=false"
                                   "-Dclojure.compiler.direct-linking=true"]}}
   :aliases {"test" ["with-profile" "+test,+kaocha" "run" "-m" "kaocha.runner" "--skip-meta" ":perf"] ; Kaocha as default test runner
-            }
+            "perf-test" ["with-profile" "+test,+kaocha" "run" "-m" "kaocha.runner" "--focus-meta" ":perf"]}
   :deploy-repositories [["clojars" {:sign-releases false
                                     :url "https://clojars.org/repo"
                                     :username :env/WALTER_CLOJARS_USERNAME
