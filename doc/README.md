@@ -59,11 +59,35 @@
 
 - https://en.wikipedia.org/wiki/JDK_Flight_Recorder
 
+## Data structures
+
+- https://stratos.seas.harvard.edu/files/stratos/files/periodictabledatastructures.pdf
+- https://en.wikipedia.org/wiki/Y-fast_trie Quite amazing to find the
+  closest order of a price in `O(log log M)` in `O(n)` space, with `M`
+  the max possible value. Sounds quite appealing not to depend of the
+  number of entries. Knowing that some market regulations forbid some
+  price variation bigger than 10%, we can just allocate enough ticks
+  to allow these moves. Also, a
+  [tick](https://en.wikipedia.org/wiki/Tick_size) can be defined in
+  relation to the current price, which means there is a constant
+  precision that doesn't change depending on the price facial
+  value. All this sounds quite great!
+- Concurrent Y-fast trie: SkipTrie.
+  - http://aleksandar-prokopec.com/resources/docs/p137-prokopec.pdf
+  - https://groups.csail.mit.edu/mag/oshman-shavit-podc13.pdf
+  - https://github.com/JoeLeavitt/SkipTrie
+- If not applicable, https://en.wikipedia.org/wiki/AVL_tree a simple
+  AVL tree offers `Θ(log n)` search in `O(n)` space.
+- https://opendatastructures.org/ods-java/13_3_YFastTrie_Doubly_Logar.html
+
 ## Clojure
 
 - https://practical.li/
 - https://www.youtube.com/watch?v=bQDkuF6-py4
 - https://github.com/metosin/talvi
+- https://bsless.github.io/code-smells/
+- https://www.clojure-toolbox.com/
+- https://github.com/oxalorg/clj-konmari
 
 ### Performance
 
@@ -77,6 +101,8 @@
 - https://github.com/techascent/tech.ml.dataset with parquet files
 - https://github.com/metosin/pohjavirta (look at the JVM opts)
 - https://github.com/bsless/stress-server
+- https://bsless.github.io/datahike-datalog-parser/
+- https://bsless.github.io/fast-and-elegant-clojure/
 
 # Finance
 

@@ -52,7 +52,10 @@
              :dev {:global-vars {*warn-on-reflection* true}
                    :source-paths ["dev"]
                    :repl-options {:init-ns user, :timeout 1e6}
-                   :dependencies [[ring/ring-devel "2.0.0-alpha-1" :exclusions [crypto-random commons-io]] ; wrap-reload ring middleware
+                   :plugins [[lein-jmh "0.3.0"]]
+                   :dependencies [[ring/ring-devel "2.0.0-alpha-1" :exclusions [crypto-random commons-io]] ; `wrap-reload` ring middleware
+                                  [criterium "0.4.6"] ; Basic performance test. Use clojure-jmh for repeatable mesurements.
+                                  [jmh-clojure "0.4.1"] ; Clojure wrapper for Java Microbenchmark Harness.
                                   ]}
              :uberjar {:aot :all
                        :jvm-opts ["-Dclojure.compiler.disable-locals-clearing=false"
