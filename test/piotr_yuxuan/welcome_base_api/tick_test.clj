@@ -102,11 +102,16 @@
 
 
 (def jmh-opts
-  {:type :quick
+  {:measurement {:count 25
+                 :iterations 5
+                 :time [10 :ms]}
+   :warmup 1
    ;:profilers ["gc" "stack"]
    :mode :average
    :output-time-unit :ns
-   :fork {:jvm {:append-args ["-Dclojure.compiler.direct-linking=true"]}}})
+   :fork {:count 1
+          :warmups 5
+          :jvm {:append-args ["-Dclojure.compiler.direct-linking=true"]}}})
 
 (deftest ^:perf ^:benchmarking size-perf-benchmarking-test
   (binding [*unchecked-math* :warn-on-boxed]
