@@ -1,0 +1,9 @@
+x86_64 Mac OS X 10.16 12 cpu(s)
+OpenJDK 64-Bit Server VM 25.292-b10
+Runtime arguments: -Dfile.encoding=UTF-8 -Djdk.attach.allowAttachSelf -XX:+UnlockDiagnosticVMOptions -XX:+PreserveFramePointer -XX:+DebugNonSafepoints -Dclojure.compile.path=/Users/piotr-yuxuan/welcome-base-api/target/classes -Dwelcome-base-api.version=0.0.0 -Dclojure.debug=false
+Evaluation count : 2221142700 in 60 samples of 37019045 calls.
+             Execution time mean : 24.284585 ns
+    Execution time std-deviation : 0.651627 ns
+   Execution time lower quantile : 23.336807 ns ( 2.5%)
+   Execution time upper quantile : 25.341094 ns (97.5%)
+                   Overhead used : 1.973184 ns
