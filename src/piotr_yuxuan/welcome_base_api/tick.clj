@@ -26,7 +26,7 @@
 (def short-radius
   Short/MAX_VALUE)
 
-(def market-type->value-radius
+(def market-type->radius
   "As ticks are statically expressed with integers, we can't go more
   precise that `Integer/MAX_VALUE`. The precision increase the cost of
   lookups in Y-fast tries."
@@ -39,7 +39,7 @@
   [market-type]
   "Centered in 0. Set it to `[-100, 100]` for a percent precision. It
   might not be necessary be as large value as Short span."
-  (int (get market-type->value-radius market-type short-radius)))
+  (int (get market-type->radius market-type short-radius)))
 
 (defn value-center
   [_market-type]
@@ -47,7 +47,7 @@
   0)
 
 (defn order-of-magnitude
-  [market-type]
+  [radius]
   "The smallest order of magnitude that can be represented in tick
   domain. Use one more (`inc`) to make sure you lose no information.
 
@@ -57,9 +57,9 @@
       ;; some operations
       ))
   ```"
-  (->> (radius market-type)
+  (->> radius
        Math/log10
-       Math/floor
+       Math/ceil
        Math/round
        int))
 
@@ -72,31 +72,37 @@
   "By definition. tick-value can vary within `(tick-value-span market-type)`."
   (int 0))
 
-(defn ^BigDecimal size
-  "Run once at beginning of day, so we may create a transient MathContext on every call. No more precise than `bod-price`."
+(defn ^MathContext math-context
   [tick-radius ^BigDecimal bod-price]
-  (let [precision (->> (Math/log10 tick-radius) (Math/ceil) (max (.precision bod-price)))
-        math-context (or *math-context*
-                         (MathContext. precision
-                                       RoundingMode/HALF_EVEN))]
-    (.divide bod-price
-             (BigDecimal. ^int tick-radius)
-             ^MathContext math-context)))
+  (let [precision (->> (Math/log10 tick-radius) (Math/ceil) (max (.precision bod-price)))]
+    (MathContext. precision
+                  RoundingMode/HALF_EVEN)))
+
+(defn ^BigDecimal size
+  "Slow when used with implicit Math "
+  ([tick-radius ^BigDecimal bod-price] ;; Slow
+   (size (or *math-context* (math-context tick-radius bod-price))
+         tick-radius
+         bod-price))
+  ([^MathContext math-context tick-radius ^BigDecimal bod-price]
+   (.divide bod-price
+            (BigDecimal. ^int tick-radius)
+            math-context)))
 
 (defn value
-  [^BigDecimal tick-size ^BigDecimal bod-price ^BigDecimal market-value]
+  "Return the `tick-value` for this `market-value`."
+  [^BigDecimal bod-price ^BigDecimal tick-size ^BigDecimal market-value]
   (-> (.subtract market-value bod-price)
       (.divide tick-size 0 RoundingMode/HALF_EVEN)
       ;; Immediate because scale = 0.
       .intValue))
 
-(defn ^BigDecimal bod-price->market-value
-  [^BigDecimal tick-size ^BigDecimal bod-price tick-value]
-  (.add (.multiply tick-size tick-value) bod-price))
-
-(defn ^BigDecimal size->market-value
-  [tick-size tick-value]
-  (BigDecimal. ^int (* tick-size tick-value)))
+(defn ^BigDecimal market-value
+  "Return the `market-value` for this `tick-value`."
+  [^BigDecimal bod-price ^BigDecimal tick-size tick-value]
+  (->> (BigDecimal. ^int tick-value)
+       (.multiply tick-size)
+       (.add bod-price)))
 
 ;; A tick is just a number, it is not money. We take the price at the
 ;; beginning of day (bod-price) and span a range of integers from -1e3
