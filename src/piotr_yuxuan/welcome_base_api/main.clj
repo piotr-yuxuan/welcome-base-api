@@ -1,7 +1,7 @@
 (ns piotr-yuxuan.welcome-base-api.main
   (:require [piotr-yuxuan.closeable-map :refer [closeable-map* closeable*]]
             [piotr-yuxuan.welcome-base-api.config :as config]
-            [aleph.http :as http]
+            [org.httpkit.server :as http]
             [com.brunobonacci.oneconfig :refer [deep-merge]]
             [malli.core :as m]
             [malli.util :as mu]
@@ -179,8 +179,7 @@
 (def SecurityId [pos-int? {:swagger {:example "6237483"}}])
 (def OrderUuid [uuid? {:swagger {:example "ea9b2871-7f49-4982-824a-9ab3db2b385a"}}])
 
-(defn routes
-  [app]
+(def routes
   [["/api/v1" {:swagger {:security [{"X-API-Key" []
                                      "Authorization" []}]}}
     ["/shared-requests-responses" {:tags #{"Shared requests and responses"}
@@ -360,42 +359,51 @@ Only most specific request and response attributes are described for each endpoi
    :externalDocs {:description "cljdoc"
                   :url "https://cljdoc.org/d/piotr-yuxuan/welcome-data-api"}})
 
-(defn handler
-  [app]
-  (ring/ring-handler
-    (ring/router
-      [(routes app)
-       ["" {:tags #{"Observability"}}
-        ["/health" {:get {:handler (constantly (http-response/no-content))
-                          :responses {http-status/no-content {:description "No Content"}}}}]
-        ["/prometheus" {:get {:handler (constantly (http-response/not-implemented))}}]]
-       ["" {:no-doc true}
-        ["/swagger.json" {:get {:swagger (swagger-doc @app)
-                                :handler (swagger/create-swagger-handler)}}]
-        ["/api-docs/*" {:get (swagger-ui/create-swagger-ui-handler {:url "/swagger.json"})}]]]
-      {:data {:muuntaja muuntaja/instance
-              :coercion (rcm/create {:error-keys #{:value :humanized}})
-              :middleware [swagger/swagger-feature ; swagger feature
-                           parameters/parameters-middleware ;; query-params & orm-params
-                           muuntaja-middleware/format-middleware ;; content-egotiation, request, and response
-                           exception/exception-middleware ; exception handling
-                           rrc/coerce-exceptions-middleware ; What is the difference?
-                           rrc/coerce-response-middleware ; coercing response bodys
-                           rrc/coerce-request-middleware ; coercing request parameters
-                           ]}})
-    (ring/routes
-      (ring/redirect-trailing-slash-handler)
-      (ring/create-default-handler))))
+(defn ->router
+  [config ref!]
+  (ring/router
+    [routes
+     ["" {:tags #{"Observability"}}
+      ["/health" {:get {:handler (constantly (http-response/no-content))
+                        :responses {http-status/no-content {:description "No Content"}}}}]
+      ["/prometheus" {:get {:handler (constantly (http-response/not-implemented))}}]]
+     ["" {:no-doc true}
+      ["/swagger.json" {:get {:swagger (swagger-doc config)
+                              :handler (swagger/create-swagger-handler)
+                              :middleware [;swagger-2->openapi-3/middleware
+                                           ]}}]
+      ["/api-docs/*" {:get (swagger-ui/create-swagger-ui-handler {:url "/swagger.json"})}]]]
+    {:data {:muuntaja (muuntaja/create (assoc muuntaja/default-options :return :bytes))
+            :coercion (rcm/create {:error-keys #{:value :humanized}})
+            :middleware [swagger/swagger-feature ; swagger feature
+                         parameters/parameters-middleware ;; query-params & orm-params
+                         muuntaja-middleware/format-middleware ;; content-egotiation, request, and response
+                         exception/exception-middleware ; exception handling
+                         rrc/coerce-exceptions-middleware ; What is the difference?
+                         rrc/coerce-response-middleware ; coercing response bodys
+                         rrc/coerce-request-middleware ; coercing request parameters
+                         ]}}))
+
+(defn ->handler
+  [config]
+  (let [router (atom nil)]
+    (reset! router (->router config router))
+    (ring/ring-handler
+      @router
+      (ring/routes
+        (ring/redirect-trailing-slash-handler)
+        (ring/create-default-handler))
+       ;; Injecting them is necessary for Swagger, but slows quite down the request processing. Inject it dynamically.
+      {:inject-match? true
+       :inject-router? true})))
 
 (defn ^CloseableMap config->app
-  [handler {:keys [port] :as config}]
-  (let [app (atom config)]
-    (closeable-map*
-      (-> app
-          (swap! assoc :http-server (closeable* (http/start-server
-                                                  (handler app)
-                                                  {:port port})))))
-    app))
+  [->handler {:keys [port] :as config}]
+  (closeable-map*
+    {:http-server (with-tag ::closeable-map/fn
+                    (closeable* (http/run-server
+                                  (->handler config)
+                                  {:port port})))}))
 
 (defonce app
   (atom nil))
@@ -403,5 +411,5 @@ Only most specific request and response attributes are described for each endpoi
 (defn -main
   [& args]
   (->> (config/load-config)
-       (config->app handler)
+       (config->app ->handler)
        (reset! app)))

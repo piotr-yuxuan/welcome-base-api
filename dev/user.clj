@@ -15,12 +15,12 @@
 (defn handler
   "Indirection made for development purpose. Reload namespaces when
   needed before a responding to the next request."
-  [context]
+  [config]
   (ring/ring-handler
     (ring/router [])
     (fn
-      ([request] ((main/handler context) request))
-      ([request respond raise] ((main/handler context) request respond raise)))
+      ([request] ((main/->handler config) request))
+      ([request respond raise] ((main/->handler config) request respond raise)))
     {:middleware [reload/wrap-reload]}))
 
 (defn start
