@@ -3,9 +3,9 @@
 Common idioms, tools, and code structures that I would use to build an
 API. I intend to present them here in some canonical way so that I can
 reflect on them, update them, change them according to feedback, and
-use them as copy paste whever I need them 🙂.
+use them as copy paste whenever I need them 🙂.
 
-Actual code that I would write in a professionnal setting would not be
+Actual code that I would write in a professional setting would not be
 that way; it would favour team consensus over my own opinions.
 
 I couldn't use ~git~ without ~magit.el~ or take notes without
@@ -26,10 +26,13 @@ switched to IntelliJ.
   - [[#trace][Trace]]
   - [[#distributed-tracing][Distributed tracing]]
   - [[#github-actions][GitHub Actions]]
+  - [[#openapi][OpenAPI]]
+  - [[#rename][Rename]]
   - [[#github-pr-template][GitHub PR template]]
   - [[#authorization-authentication][Authorization, authentication]]
-  - [[#error-handling][Error handling]]
+  - [[#error-handling-and-short-circuit][Error handling and short-circuit]]
   - [[#kafka-and-avro][Kafka and Avro]]
+  - [[#reload-dev-workflow][Reload dev workflow]]
   - [[#data-shapes-and-schemas][Data shapes and schemas]]
   - [[#mutation-testing][Mutation testing]]
   - [[#report-licenses][Report licenses]]
@@ -137,15 +140,35 @@ examples of how to monitor things.
 When a PR is open against the main branch, would be great to have code
 quality report. Also, automated tests could be added.
 
+** OpenAPI
+
+Would be great, but rather beta as of now
+
+https://github.com/lispyclouds/navi
+
+** Code formatter
+
+https://github.com/greglook/cljstyle
+
+** Rename
+
+Rename to piotr-yuxuan/data-api, so that same codebase is shipped in
+three different ways:
+
+- Library
+- Web API
+
 ** GitHub PR template
 
 ** Authorization, authentication
 
 https://github.com/ovotech/ring-jwt and just a simple namespace
 
-** Error handling
+** Error handling and short-circuit
 
 Just reitit ring exception middlewares, yet again a hidden gem
+
+https://github.com/BrunoBonacci/safely
 
 ** Kafka and Avro
 
@@ -153,6 +176,10 @@ Just reitit ring exception middlewares, yet again a hidden gem
 - https://github.com/piotr-yuxuan/slava to be rewritten with malli and
   better interactions with inner Serde. Composable?
 - https://github.com/piotr-yuxuan/dove to be rewritten for malli
+
+** Reload dev workflow
+
+https://github.com/PrestanceDesign/get-port/tree/main/src/prestancedesign
 
 ** Data shapes and schemas
 
