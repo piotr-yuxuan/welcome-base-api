@@ -255,14 +255,22 @@
        ["/orders"
         [["" {:tags #{"Orders"}
               :post {:summary "Place an order on the book. Its status may vary, but its content is immutable."
-                     :handler (constantly (http-response/ok))
-                     :parameters {:path [:map [:exchange-id ExchangeId]]}
+                     :handler (fn [request]
+                                (println :request request)
+                                (http-response/ok))
+                     :parameters {:path [:map [:exchange-id ExchangeId]]
+                                  :body [:map
+                                         [:exchange-id ExchangeId]
+                                         [:order-uuid OrderUuid]]}
                      :responses {http-status/accepted {:description (let [{:keys [name description]} (get http-status/status http-status/accepted)]
                                                                       (format "_%s_. %s" name description))
                                                        :headers {"Content-Location" {:description "Relative URI to order details"
                                                                                      :type "string"}
                                                                  "X-Order-UUID" {:description "Identifier of the order"
-                                                                                 :type "uuid"}}}}}}]
+                                                                                 :type "uuid"}}
+                                                       :body [:map
+                                                              [:exchange-id ExchangeId]
+                                                              [:order-uuid OrderUuid]]}}}}]
          ["/:order-uuid"
           [["" {:tags #{"Orders"}
                 :get {:summary "Return the order as it was placed"
@@ -303,8 +311,6 @@ TODO Fix me
 Progressive human description with incremental semantic zoom.
 
 ## Sequence diagrams
-
-![](https://upload.wikimedia.org/wikipedia/commons/9/9b/CheckEmail.svg)
 
 ## Order matcher algorithm
 
