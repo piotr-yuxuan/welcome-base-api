@@ -1,13 +1,9 @@
-x86_64 Mac OS X 12.3.1 12 cpu(s)
-OpenJDK 64-Bit Server VM 17.0.2+8-jvmci-22.0-b05
-Runtime arguments: -XX:ThreadPriorityPolicy=1 -XX:+UnlockExperimentalVMOptions -XX:+EnableJVMCIProduct -XX:-UnlockExperimentalVMOptions -Dfile.encoding=UTF-8 -Djdk.attach.allowAttachSelf -XX:+UnlockDiagnosticVMOptions -XX:+PreserveFramePointer -XX:+DebugNonSafepoints -Dclojure.compile.path=/Users/piotr-yuxuan/welcome-base-api/target/classes -Dwelcome-base-api.version=0.0.0 -Dclojure.debug=false
-Evaluation count : 4086526860 in 60 samples of 68108781 calls.
-             Execution time mean : 8.253875 ns
-    Execution time std-deviation : 0.080623 ns
-   Execution time lower quantile : 8.128326 ns ( 2.5%)
-   Execution time upper quantile : 8.422227 ns (97.5%)
-                   Overhead used : 6.463640 ns
-
-Found 1 outliers in 60 samples (1.6667 %)
-	low-severe	 1 (1.6667 %)
- Variance from outliers : 1.6389 % Variance is slightly inflated by outliers
+amd64 Linux 5.13.0-1021-azure 2 cpu(s)
+OpenJDK 64-Bit Server VM 11.0.14.1+1
+Runtime arguments: -Dfile.encoding=UTF-8 -Djdk.attach.allowAttachSelf -XX:+UnlockDiagnosticVMOptions -XX:+PreserveFramePointer -XX:+DebugNonSafepoints -Dclojure.compile.path=/home/runner/work/welcome-base-api/welcome-base-api/target/classes -Dwelcome-base-api.version=0.0.0 -Dclojure.debug=false
+Evaluation count : 368513040 in 60 samples of 6141884 calls.
+             Execution time mean : 151.367160 ns
+    Execution time std-deviation : 3.014105 ns
+   Execution time lower quantile : 144.683591 ns ( 2.5%)
+   Execution time upper quantile : 155.414267 ns (97.5%)
+                   Overhead used : 9.507780 ns

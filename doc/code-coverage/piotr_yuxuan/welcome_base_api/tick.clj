@@ -91,11 +91,15 @@
   
 ✔ (defn value
 ?   "Return the `tick-value` for this `market-value`."
-?   [^BigDecimal bod-price ^BigDecimal tick-size ^BigDecimal market-value]
-✔   (-> (.subtract market-value bod-price)
-✔       (.divide tick-size 0 RoundingMode/HALF_EVEN)
-?       ;; Immediate because scale = 0.
-?       .intValue))
+?   ([math-context ^BigDecimal bod-price tick-radius ^BigDecimal market-value] ;; Slow
+✘    (value bod-price
+✘           (size math-context tick-radius bod-price) ;; Doesn't have to be computed on the fly.
+✘           market-value))
+?   ([^BigDecimal bod-price ^BigDecimal tick-size ^BigDecimal market-value]
+✔    (-> (.subtract market-value bod-price)
+✔        (.divide tick-size 0 RoundingMode/HALF_EVEN)
+?        ;; Immediate because scale = 0.
+?        .intValue)))
   
 ✔ (defn ^BigDecimal market-value
 ?   "Return the `market-value` for this `tick-value`."

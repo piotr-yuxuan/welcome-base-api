@@ -1,1320 +1,1232 @@
 ({:args (:state/math-context :param/tick-radius :param/bod-price),
   :samples 5,
   :fn piotr-yuxuan.welcome-base-api.tick/size,
-  :score-error 226.71690723628177,
+  :score-error 1808.824349719989,
   :index 0,
   :ops-per-invocation 1,
-  :score-confidence [93.92218235538473 547.3559968279483],
+  :score-confidence [-755.1915952747872 2862.4571041651907],
   :name :tick-size,
   :mode :average,
   :params {:bod-price 100M, :tick-radius 100},
   :output-time-unit :ns,
-  :statistics {:min 268.47376059332316,
-               :histogram ([[200.0 212.5] 0]
-                           [[212.5 225.0] 0]
-                           [[225.0 237.5] 0]
-                           [[237.5 250.0] 0]
-                           [[250.0 262.5] 0]
-                           [[262.5 275.0] 2]
-                           [[275.0 287.5] 0]
-                           [[287.5 300.0] 1]
-                           [[300.0 312.5] 0]
-                           [[312.5 325.0] 0]
-                           [[325.0 337.5] 0]
-                           [[337.5 350.0] 0]
-                           [[350.0 362.5] 0]
-                           [[362.5 375.0] 0]
-                           [[375.0 387.5] 1]),
-               :mean 320.6390895916665,
+  :statistics {:min 603.9249242109017,
+               :histogram ([[600.0 700.0] 2]
+                           [[700.0 800.0] 0]
+                           [[800.0 900.0] 0]
+                           [[900.0 1000.0] 1]
+                           [[1000.0 1100.0] 0]
+                           [[1100.0 1200.0] 0]
+                           [[1200.0 1300.0] 0]
+                           [[1300.0 1400.0] 0]
+                           [[1400.0 1500.0] 1]
+                           [[1500.0 1600.0] 0]),
+               :mean 1053.6327544452017,
                :n 5,
-               :variance 3466.5789458570052,
-               :stdev 58.87766083886999,
-               :max 388.0479088315575,
-               :percentiles {0.0 268.47376059332316,
-                             50.0 296.73271672340337,
-                             90 388.0479088315575,
-                             95 388.0479088315575,
-                             99 388.0479088315575,
-                             99.9 388.0479088315575,
-                             99.99 388.0479088315575,
-                             99.999 388.0479088315575,
-                             99.9999 388.0479088315575,
-                             100 388.0479088315575},
-               :sum 1603.1954479583326},
+               :variance 220661.24763389616,
+               :stdev 469.74593945439926,
+               :max 1601.8843665760405,
+               :percentiles {0.0 603.9249242109017,
+                             50.0 941.2931980353317,
+                             90 1601.8843665760405,
+                             95 1601.8843665760405,
+                             99 1601.8843665760405,
+                             99.9 1601.8843665760405,
+                             99.99 1601.8843665760405,
+                             99.999 1601.8843665760405,
+                             99.9999 1601.8843665760405,
+                             100 1601.8843665760405},
+               :sum 5268.163772226008},
   :threads 1,
   :measurement {:count 25, :iterations 5, :time [10 :ms]},
-  :score [320.6390895916665 "ns/op"],
+  :score [1053.6327544452017 "ns/op"],
   :iterations {:synchronize true},
   :warmup {:count 1, :iterations 1, :time [10 :sec]},
   :timeout [10 :min],
   :fork {:count 1,
          :warmups 5,
-         :jvm {:java "/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.0.0.2/Contents/Home/bin/java",
-               :args ["-XX:ThreadPriorityPolicy=1"
-                      "-XX:+UnlockExperimentalVMOptions"
-                      "-XX:+EnableJVMCIProduct"
-                      "-XX:-UnlockExperimentalVMOptions"
-                      "-Dfile.encoding=UTF-8"
+         :jvm {:java "/usr/lib/jvm/temurin-11-jdk-amd64/bin/java",
+               :args ["-Dfile.encoding=UTF-8"
                       "-Djdk.attach.allowAttachSelf"
                       "-XX:+UnlockDiagnosticVMOptions"
                       "-XX:+PreserveFramePointer"
                       "-XX:+DebugNonSafepoints"
-                      "-Dclojure.compile.path=/Users/piotr-yuxuan/welcome-base-api/target/classes"
+                      "-Dclojure.compile.path=/home/runner/work/welcome-base-api/welcome-base-api/target/classes"
                       "-Dwelcome-base-api.version=0.0.0"
                       "-Dclojure.debug=false"
                       "-Dclojure.compiler.direct-linking=true"],
-               :jdk "17.0.2",
+               :jdk "11.0.14.1",
                :jmh "1.32"}},
   :thread-groups {}}
  {:args (:state/math-context :param/tick-radius :param/bod-price),
   :samples 5,
   :fn piotr-yuxuan.welcome-base-api.tick/size,
-  :score-error 439.04143059690733,
+  :score-error 285.3843398043177,
   :index 0,
   :ops-per-invocation 1,
-  :score-confidence [241.55284461538275 1119.6357058091974],
+  :score-confidence [1908.8656026867889 2479.6342822954243],
   :name :tick-size,
   :mode :average,
   :params {:bod-price 100M, :tick-radius 32767},
   :output-time-unit :ns,
-  :statistics {:min 574.9066695606339,
-               :histogram ([[500.0 525.0] 0]
-                           [[525.0 550.0] 0]
-                           [[550.0 575.0] 1]
-                           [[575.0 600.0] 1]
-                           [[600.0 625.0] 0]
-                           [[625.0 650.0] 0]
-                           [[650.0 675.0] 1]
-                           [[675.0 700.0] 0]
-                           [[700.0 725.0] 0]
-                           [[725.0 750.0] 1]
-                           [[750.0 775.0] 0]
-                           [[775.0 800.0] 0]
-                           [[800.0 825.0] 0]
-                           [[825.0 850.0] 1]
-                           [[850.0 875.0] 0]),
-               :mean 680.5942752122901,
+  :statistics {:min 2138.5820062414896,
+               :histogram ([[2100.0 2125.0] 0]
+                           [[2125.0 2150.0] 1]
+                           [[2150.0 2175.0] 2]
+                           [[2175.0 2200.0] 1]
+                           [[2200.0 2225.0] 0]
+                           [[2225.0 2250.0] 0]
+                           [[2250.0 2275.0] 0]
+                           [[2275.0 2300.0] 0]
+                           [[2300.0 2325.0] 1]
+                           [[2325.0 2350.0] 0]
+                           [[2350.0 2375.0] 0]),
+               :mean 2194.2499424911066,
                :n 5,
-               :variance 13000.027998229378,
-               :stdev 114.0176652902057,
-               :max 843.4655988605102,
-               :percentiles {0.0 574.9066695606339,
-                             50.0 660.7348985666639,
-                             90 843.4655988605102,
-                             95 843.4655988605102,
-                             99 843.4655988605102,
-                             99.9 843.4655988605102,
-                             99.99 843.4655988605102,
-                             99.999 843.4655988605102,
-                             99.9999 843.4655988605102,
-                             100 843.4655988605102},
-               :sum 3402.9713760614504},
+               :variance 5492.797063110751,
+               :stdev 74.11340677037286,
+               :max 2323.0297803629423,
+               :percentiles {0.0 2138.5820062414896,
+                             50.0 2174.8331570301953,
+                             90 2323.0297803629423,
+                             95 2323.0297803629423,
+                             99 2323.0297803629423,
+                             99.9 2323.0297803629423,
+                             99.99 2323.0297803629423,
+                             99.999 2323.0297803629423,
+                             99.9999 2323.0297803629423,
+                             100 2323.0297803629423},
+               :sum 10971.249712455534},
   :threads 1,
   :measurement {:count 25, :iterations 5, :time [10 :ms]},
-  :score [680.5942752122901 "ns/op"],
+  :score [2194.2499424911066 "ns/op"],
   :iterations {:synchronize true},
   :warmup {:count 1, :iterations 1, :time [10 :sec]},
   :timeout [10 :min],
   :fork {:count 1,
          :warmups 5,
-         :jvm {:java "/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.0.0.2/Contents/Home/bin/java",
-               :args ["-XX:ThreadPriorityPolicy=1"
-                      "-XX:+UnlockExperimentalVMOptions"
-                      "-XX:+EnableJVMCIProduct"
-                      "-XX:-UnlockExperimentalVMOptions"
-                      "-Dfile.encoding=UTF-8"
+         :jvm {:java "/usr/lib/jvm/temurin-11-jdk-amd64/bin/java",
+               :args ["-Dfile.encoding=UTF-8"
                       "-Djdk.attach.allowAttachSelf"
                       "-XX:+UnlockDiagnosticVMOptions"
                       "-XX:+PreserveFramePointer"
                       "-XX:+DebugNonSafepoints"
-                      "-Dclojure.compile.path=/Users/piotr-yuxuan/welcome-base-api/target/classes"
+                      "-Dclojure.compile.path=/home/runner/work/welcome-base-api/welcome-base-api/target/classes"
                       "-Dwelcome-base-api.version=0.0.0"
                       "-Dclojure.debug=false"
                       "-Dclojure.compiler.direct-linking=true"],
-               :jdk "17.0.2",
+               :jdk "11.0.14.1",
                :jmh "1.32"}},
   :thread-groups {}}
  {:args (:state/math-context :param/tick-radius :param/bod-price),
   :samples 5,
   :fn piotr-yuxuan.welcome-base-api.tick/size,
-  :score-error 129.5185664287784,
+  :score-error 836.713594003137,
   :index 0,
   :ops-per-invocation 1,
-  :score-confidence [175.86459790009144 434.90173075764824],
+  :score-confidence [270.1293690168776 1943.5565570231515],
   :name :tick-size,
   :mode :average,
   :params {:bod-price 100M, :tick-radius 10000},
   :output-time-unit :ns,
-  :statistics {:min 283.4165440748761,
-               :histogram ([[280.0 285.0] 1]
-                           [[285.0 290.0] 1]
-                           [[290.0 295.0] 1]
-                           [[295.0 300.0] 0]
-                           [[300.0 305.0] 1]
-                           [[305.0 310.0] 0]
-                           [[310.0 315.0] 0]
-                           [[315.0 320.0] 0]
-                           [[320.0 325.0] 0]
-                           [[325.0 330.0] 0]
-                           [[330.0 335.0] 0]
-                           [[335.0 340.0] 0]
-                           [[340.0 345.0] 0]
-                           [[345.0 350.0] 0]
-                           [[350.0 355.0] 0]
-                           [[355.0 360.0] 0]
-                           [[360.0 365.0] 1]),
-               :mean 305.38316432886984,
+  :statistics {:min 904.979759623135,
+               :histogram ([[900.0 950.0] 2]
+                           [[950.0 1000.0] 0]
+                           [[1000.0 1050.0] 0]
+                           [[1050.0 1100.0] 0]
+                           [[1100.0 1150.0] 2]
+                           [[1150.0 1200.0] 0]
+                           [[1200.0 1250.0] 0]
+                           [[1250.0 1300.0] 0]
+                           [[1300.0 1350.0] 0]
+                           [[1350.0 1400.0] 0]
+                           [[1400.0 1450.0] 0]),
+               :mean 1106.8429630200146,
                :n 5,
-               :variance 1131.3509232686788,
-               :stdev 33.635560397720134,
-               :max 364.26128156072247,
-               :percentiles {0.0 283.4165440748761,
-                             50.0 292.18957352522983,
-                             90 364.26128156072247,
-                             95 364.26128156072247,
-                             99 364.26128156072247,
-                             99.9 364.26128156072247,
-                             99.99 364.26128156072247,
-                             99.999 364.26128156072247,
-                             99.9999 364.26128156072247,
-                             100 364.26128156072247},
-               :sum 1526.915821644349},
+               :variance 47215.75384105822,
+               :stdev 217.29186326473024,
+               :max 1457.477205136481,
+               :percentiles {0.0 904.979759623135,
+                             50.0 1103.1859878358507,
+                             90 1457.477205136481,
+                             95 1457.477205136481,
+                             99 1457.477205136481,
+                             99.9 1457.477205136481,
+                             99.99 1457.477205136481,
+                             99.999 1457.477205136481,
+                             99.9999 1457.477205136481,
+                             100 1457.477205136481},
+               :sum 5534.214815100073},
   :threads 1,
   :measurement {:count 25, :iterations 5, :time [10 :ms]},
-  :score [305.38316432886984 "ns/op"],
+  :score [1106.8429630200146 "ns/op"],
   :iterations {:synchronize true},
   :warmup {:count 1, :iterations 1, :time [10 :sec]},
   :timeout [10 :min],
   :fork {:count 1,
          :warmups 5,
-         :jvm {:java "/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.0.0.2/Contents/Home/bin/java",
-               :args ["-XX:ThreadPriorityPolicy=1"
-                      "-XX:+UnlockExperimentalVMOptions"
-                      "-XX:+EnableJVMCIProduct"
-                      "-XX:-UnlockExperimentalVMOptions"
-                      "-Dfile.encoding=UTF-8"
+         :jvm {:java "/usr/lib/jvm/temurin-11-jdk-amd64/bin/java",
+               :args ["-Dfile.encoding=UTF-8"
                       "-Djdk.attach.allowAttachSelf"
                       "-XX:+UnlockDiagnosticVMOptions"
                       "-XX:+PreserveFramePointer"
                       "-XX:+DebugNonSafepoints"
-                      "-Dclojure.compile.path=/Users/piotr-yuxuan/welcome-base-api/target/classes"
+                      "-Dclojure.compile.path=/home/runner/work/welcome-base-api/welcome-base-api/target/classes"
                       "-Dwelcome-base-api.version=0.0.0"
                       "-Dclojure.debug=false"
                       "-Dclojure.compiler.direct-linking=true"],
-               :jdk "17.0.2",
+               :jdk "11.0.14.1",
                :jmh "1.32"}},
   :thread-groups {}}
  {:args (:state/math-context :param/tick-radius :param/bod-price),
   :samples 5,
   :fn piotr-yuxuan.welcome-base-api.tick/size,
-  :score-error 352.0621432836691,
+  :score-error 1362.579453626305,
   :index 0,
   :ops-per-invocation 1,
-  :score-confidence [786.9068946484805 1491.0311812158188],
+  :score-confidence [1230.4739983887441 3955.6329056413542],
   :name :tick-size,
   :mode :average,
   :params {:bod-price 100M, :tick-radius 2147483647},
   :output-time-unit :ns,
-  :statistics {:min 1065.514054235729,
-               :histogram ([[1000.0 1025.0] 0]
-                           [[1025.0 1050.0] 0]
-                           [[1050.0 1075.0] 2]
-                           [[1075.0 1100.0] 1]
-                           [[1100.0 1125.0] 0]
-                           [[1125.0 1150.0] 0]
-                           [[1150.0 1175.0] 0]
-                           [[1175.0 1200.0] 0]
-                           [[1200.0 1225.0] 0]
-                           [[1225.0 1250.0] 2]
-                           [[1250.0 1275.0] 0]),
-               :mean 1138.9690379321496,
+  :statistics {:min 2083.671069707465,
+               :histogram ([[2000.0 2050.0] 0]
+                           [[2050.0 2100.0] 1]
+                           [[2100.0 2150.0] 0]
+                           [[2150.0 2200.0] 0]
+                           [[2200.0 2250.0] 0]
+                           [[2250.0 2300.0] 0]
+                           [[2300.0 2350.0] 0]
+                           [[2350.0 2400.0] 1]
+                           [[2400.0 2450.0] 0]
+                           [[2450.0 2500.0] 0]
+                           [[2500.0 2550.0] 0]
+                           [[2550.0 2600.0] 0]
+                           [[2600.0 2650.0] 0]
+                           [[2650.0 2700.0] 0]
+                           [[2700.0 2750.0] 0]
+                           [[2750.0 2800.0] 0]
+                           [[2800.0 2850.0] 2]),
+               :mean 2593.053452015049,
                :n 5,
-               :variance 8359.338949335606,
-               :stdev 91.42942058952144,
-               :max 1240.5314274452805,
-               :percentiles {0.0 1065.514054235729,
-                             50.0 1077.8911091370287,
-                             90 1240.5314274452805,
-                             95 1240.5314274452805,
-                             99 1240.5314274452805,
-                             99.9 1240.5314274452805,
-                             99.99 1240.5314274452805,
-                             99.999 1240.5314274452805,
-                             99.9999 1240.5314274452805,
-                             100 1240.5314274452805},
-               :sum 5694.845189660748},
+               :variance 125215.17068158199,
+               :stdev 353.85755705026565,
+               :max 2863.7843809852743,
+               :percentiles {0.0 2083.671069707465,
+                             50.0 2828.9547562632647,
+                             90 2863.7843809852743,
+                             95 2863.7843809852743,
+                             99 2863.7843809852743,
+                             99.9 2863.7843809852743,
+                             99.99 2863.7843809852743,
+                             99.999 2863.7843809852743,
+                             99.9999 2863.7843809852743,
+                             100 2863.7843809852743},
+               :sum 12965.267260075245},
   :threads 1,
   :measurement {:count 25, :iterations 5, :time [10 :ms]},
-  :score [1138.9690379321496 "ns/op"],
+  :score [2593.053452015049 "ns/op"],
   :iterations {:synchronize true},
   :warmup {:count 1, :iterations 1, :time [10 :sec]},
   :timeout [10 :min],
   :fork {:count 1,
          :warmups 5,
-         :jvm {:java "/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.0.0.2/Contents/Home/bin/java",
-               :args ["-XX:ThreadPriorityPolicy=1"
-                      "-XX:+UnlockExperimentalVMOptions"
-                      "-XX:+EnableJVMCIProduct"
-                      "-XX:-UnlockExperimentalVMOptions"
-                      "-Dfile.encoding=UTF-8"
+         :jvm {:java "/usr/lib/jvm/temurin-11-jdk-amd64/bin/java",
+               :args ["-Dfile.encoding=UTF-8"
                       "-Djdk.attach.allowAttachSelf"
                       "-XX:+UnlockDiagnosticVMOptions"
                       "-XX:+PreserveFramePointer"
                       "-XX:+DebugNonSafepoints"
-                      "-Dclojure.compile.path=/Users/piotr-yuxuan/welcome-base-api/target/classes"
+                      "-Dclojure.compile.path=/home/runner/work/welcome-base-api/welcome-base-api/target/classes"
                       "-Dwelcome-base-api.version=0.0.0"
                       "-Dclojure.debug=false"
                       "-Dclojure.compiler.direct-linking=true"],
-               :jdk "17.0.2",
+               :jdk "11.0.14.1",
                :jmh "1.32"}},
   :thread-groups {}}
  {:args (:state/math-context :param/tick-radius :param/bod-price),
   :samples 5,
   :fn piotr-yuxuan.welcome-base-api.tick/size,
-  :score-error 310.7869142325493,
+  :score-error 1261.0416095096875,
   :index 0,
   :ops-per-invocation 1,
-  :score-confidence [344.7625395508758 966.3363680159744],
+  :score-confidence [556.328551155103 3078.411770174478],
   :name :tick-size,
   :mode :average,
   :params {:bod-price 101.5M, :tick-radius 100},
   :output-time-unit :ns,
-  :statistics {:min 586.7208786638525,
-               :histogram ([[500.0 525.0] 0]
-                           [[525.0 550.0] 0]
-                           [[550.0 575.0] 0]
-                           [[575.0 600.0] 2]
-                           [[600.0 625.0] 1]
-                           [[625.0 650.0] 0]
-                           [[650.0 675.0] 0]
-                           [[675.0 700.0] 0]
-                           [[700.0 725.0] 0]
-                           [[725.0 750.0] 1]
-                           [[750.0 775.0] 1]),
-               :mean 655.5494537834251,
+  :statistics {:min 1493.3313234494335,
+               :histogram ([[1400.0 1450.0] 0]
+                           [[1450.0 1500.0] 1]
+                           [[1500.0 1550.0] 0]
+                           [[1550.0 1600.0] 1]
+                           [[1600.0 1650.0] 0]
+                           [[1650.0 1700.0] 1]
+                           [[1700.0 1750.0] 0]
+                           [[1750.0 1800.0] 0]
+                           [[1800.0 1850.0] 0]
+                           [[1850.0 1900.0] 0]
+                           [[1900.0 1950.0] 0]
+                           [[1950.0 2000.0] 0]
+                           [[2000.0 2050.0] 0]
+                           [[2050.0 2100.0] 0]
+                           [[2100.0 2150.0] 0]),
+               :mean 1817.3701606647905,
                :n 5,
-               :variance 6514.164580994467,
-               :stdev 80.71037468005254,
-               :max 751.7381544540957,
-               :percentiles {0.0 586.7208786638525,
-                             50.0 605.8013158625284,
-                             90 751.7381544540957,
-                             95 751.7381544540957,
-                             99 751.7381544540957,
-                             99.9 751.7381544540957,
-                             99.99 751.7381544540957,
-                             99.999 751.7381544540957,
-                             99.9999 751.7381544540957,
-                             100 751.7381544540957},
-               :sum 3277.7472689171254},
+               :variance 107248.7185363948,
+               :stdev 327.4885013804222,
+               :max 2185.5996836947224,
+               :percentiles {0.0 1493.3313234494335,
+                             50.0 1657.03962176244,
+                             90 2185.5996836947224,
+                             95 2185.5996836947224,
+                             99 2185.5996836947224,
+                             99.9 2185.5996836947224,
+                             99.99 2185.5996836947224,
+                             99.999 2185.5996836947224,
+                             99.9999 2185.5996836947224,
+                             100 2185.5996836947224},
+               :sum 9086.850803323952},
   :threads 1,
   :measurement {:count 25, :iterations 5, :time [10 :ms]},
-  :score [655.5494537834251 "ns/op"],
+  :score [1817.3701606647905 "ns/op"],
   :iterations {:synchronize true},
   :warmup {:count 1, :iterations 1, :time [10 :sec]},
   :timeout [10 :min],
   :fork {:count 1,
          :warmups 5,
-         :jvm {:java "/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.0.0.2/Contents/Home/bin/java",
-               :args ["-XX:ThreadPriorityPolicy=1"
-                      "-XX:+UnlockExperimentalVMOptions"
-                      "-XX:+EnableJVMCIProduct"
-                      "-XX:-UnlockExperimentalVMOptions"
-                      "-Dfile.encoding=UTF-8"
+         :jvm {:java "/usr/lib/jvm/temurin-11-jdk-amd64/bin/java",
+               :args ["-Dfile.encoding=UTF-8"
                       "-Djdk.attach.allowAttachSelf"
                       "-XX:+UnlockDiagnosticVMOptions"
                       "-XX:+PreserveFramePointer"
                       "-XX:+DebugNonSafepoints"
-                      "-Dclojure.compile.path=/Users/piotr-yuxuan/welcome-base-api/target/classes"
+                      "-Dclojure.compile.path=/home/runner/work/welcome-base-api/welcome-base-api/target/classes"
                       "-Dwelcome-base-api.version=0.0.0"
                       "-Dclojure.debug=false"
                       "-Dclojure.compiler.direct-linking=true"],
-               :jdk "17.0.2",
+               :jdk "11.0.14.1",
                :jmh "1.32"}},
   :thread-groups {}}
  {:args (:state/math-context :param/tick-radius :param/bod-price),
   :samples 5,
   :fn piotr-yuxuan.welcome-base-api.tick/size,
-  :score-error 101.83131104157071,
+  :score-error 345.40172795947484,
   :index 0,
   :ops-per-invocation 1,
-  :score-confidence [439.0843626602271 642.7469847433686],
+  :score-confidence [1161.7083255545726 1852.5117814735222],
   :name :tick-size,
   :mode :average,
   :params {:bod-price 101.5M, :tick-radius 32767},
   :output-time-unit :ns,
-  :statistics {:min 517.4958397962014,
-               :histogram ([[510.0 515.0] 0]
-                           [[515.0 520.0] 1]
-                           [[520.0 525.0] 0]
-                           [[525.0 530.0] 2]
-                           [[530.0 535.0] 0]
-                           [[535.0 540.0] 0]
-                           [[540.0 545.0] 1]
-                           [[545.0 550.0] 0]
-                           [[550.0 555.0] 0]
-                           [[555.0 560.0] 0]
-                           [[560.0 565.0] 0]
-                           [[565.0 570.0] 0]
-                           [[570.0 575.0] 0]
-                           [[575.0 580.0] 0]
-                           [[580.0 585.0] 0]),
-               :mean 540.9156737017978,
+  :statistics {:min 1442.9860468833854,
+               :histogram ([[1400.0 1425.0] 0]
+                           [[1425.0 1450.0] 2]
+                           [[1450.0 1475.0] 1]
+                           [[1475.0 1500.0] 0]
+                           [[1500.0 1525.0] 0]
+                           [[1525.0 1550.0] 1]
+                           [[1550.0 1575.0] 0]
+                           [[1575.0 1600.0] 0]
+                           [[1600.0 1625.0] 0]
+                           [[1625.0 1650.0] 1]
+                           [[1650.0 1675.0] 0]),
+               :mean 1507.1100535140474,
                :n 5,
-               :variance 699.3522047914757,
-               :stdev 26.445268098309683,
-               :max 585.3591027100614,
-               :percentiles {0.0 517.4958397962014,
-                             50.0 529.8674099545607,
-                             90 585.3591027100614,
-                             95 585.3591027100614,
-                             99 585.3591027100614,
-                             99.9 585.3591027100614,
-                             99.99 585.3591027100614,
-                             99.999 585.3591027100614,
-                             99.9999 585.3591027100614,
-                             100 585.3591027100614},
-               :sum 2704.578368508989},
+               :variance 8046.0418995023765,
+               :stdev 89.69973188088343,
+               :max 1649.6347750846417,
+               :percentiles {0.0 1442.9860468833854,
+                             50.0 1453.7630565611382,
+                             90 1649.6347750846417,
+                             95 1649.6347750846417,
+                             99 1649.6347750846417,
+                             99.9 1649.6347750846417,
+                             99.99 1649.6347750846417,
+                             99.999 1649.6347750846417,
+                             99.9999 1649.6347750846417,
+                             100 1649.6347750846417},
+               :sum 7535.550267570237},
   :threads 1,
   :measurement {:count 25, :iterations 5, :time [10 :ms]},
-  :score [540.9156737017978 "ns/op"],
+  :score [1507.1100535140474 "ns/op"],
   :iterations {:synchronize true},
   :warmup {:count 1, :iterations 1, :time [10 :sec]},
   :timeout [10 :min],
   :fork {:count 1,
          :warmups 5,
-         :jvm {:java "/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.0.0.2/Contents/Home/bin/java",
-               :args ["-XX:ThreadPriorityPolicy=1"
-                      "-XX:+UnlockExperimentalVMOptions"
-                      "-XX:+EnableJVMCIProduct"
-                      "-XX:-UnlockExperimentalVMOptions"
-                      "-Dfile.encoding=UTF-8"
+         :jvm {:java "/usr/lib/jvm/temurin-11-jdk-amd64/bin/java",
+               :args ["-Dfile.encoding=UTF-8"
                       "-Djdk.attach.allowAttachSelf"
                       "-XX:+UnlockDiagnosticVMOptions"
                       "-XX:+PreserveFramePointer"
                       "-XX:+DebugNonSafepoints"
-                      "-Dclojure.compile.path=/Users/piotr-yuxuan/welcome-base-api/target/classes"
+                      "-Dclojure.compile.path=/home/runner/work/welcome-base-api/welcome-base-api/target/classes"
                       "-Dwelcome-base-api.version=0.0.0"
                       "-Dclojure.debug=false"
                       "-Dclojure.compiler.direct-linking=true"],
-               :jdk "17.0.2",
+               :jdk "11.0.14.1",
                :jmh "1.32"}},
   :thread-groups {}}
  {:args (:state/math-context :param/tick-radius :param/bod-price),
   :samples 5,
   :fn piotr-yuxuan.welcome-base-api.tick/size,
-  :score-error 249.12963474244117,
+  :score-error 3774.172737999644,
   :index 0,
   :ops-per-invocation 1,
-  :score-confidence [363.3744736626166 861.633743147499],
+  :score-confidence [-1301.6570821522346 6246.688393847054],
   :name :tick-size,
   :mode :average,
   :params {:bod-price 101.5M, :tick-radius 10000},
   :output-time-unit :ns,
-  :statistics {:min 541.6560365490243,
-               :histogram ([[500.0 512.5] 0]
-                           [[512.5 525.0] 0]
-                           [[525.0 537.5] 0]
-                           [[537.5 550.0] 2]
-                           [[550.0 562.5] 0]
-                           [[562.5 575.0] 0]
-                           [[575.0 587.5] 0]
-                           [[587.5 600.0] 0]
-                           [[600.0 612.5] 0]
-                           [[612.5 625.0] 0]
-                           [[625.0 637.5] 0]
-                           [[637.5 650.0] 1]
-                           [[650.0 662.5] 0]
-                           [[662.5 675.0] 2]
-                           [[675.0 687.5] 0]),
-               :mean 612.5041084050578,
+  :statistics {:min 1406.8240135356964,
+               :histogram ([[1000.0 1250.0] 0]
+                           [[1250.0 1500.0] 2]
+                           [[1500.0 1750.0] 0]
+                           [[1750.0 2000.0] 0]
+                           [[2000.0 2250.0] 0]
+                           [[2250.0 2500.0] 0]
+                           [[2500.0 2750.0] 0]
+                           [[2750.0 3000.0] 0]
+                           [[3000.0 3250.0] 2]
+                           [[3250.0 3500.0] 1]
+                           [[3500.0 3750.0] 0]),
+               :mean 2472.5156558474096,
                :n 5,
-               :variance 4185.85384801403,
-               :stdev 64.6981749975533,
-               :max 666.5584732050606,
-               :percentiles {0.0 541.6560365490243,
-                             50.0 645.2971018645643,
-                             90 666.5584732050606,
-                             95 666.5584732050606,
-                             99 666.5584732050606,
-                             99.9 666.5584732050606,
-                             99.99 666.5584732050606,
-                             99.999 666.5584732050606,
-                             99.9999 666.5584732050606,
-                             100 666.5584732050606},
-               :sum 3062.5205420252887},
+               :variance 960675.7421217023,
+               :stdev 980.1406746593584,
+               :max 3403.851017515836,
+               :percentiles {0.0 1406.8240135356964,
+                             50.0 3037.2127267471274,
+                             90 3403.851017515836,
+                             95 3403.851017515836,
+                             99 3403.851017515836,
+                             99.9 3403.851017515836,
+                             99.99 3403.851017515836,
+                             99.999 3403.851017515836,
+                             99.9999 3403.851017515836,
+                             100 3403.851017515836},
+               :sum 12362.578279237048},
   :threads 1,
   :measurement {:count 25, :iterations 5, :time [10 :ms]},
-  :score [612.5041084050578 "ns/op"],
+  :score [2472.5156558474096 "ns/op"],
   :iterations {:synchronize true},
   :warmup {:count 1, :iterations 1, :time [10 :sec]},
   :timeout [10 :min],
   :fork {:count 1,
          :warmups 5,
-         :jvm {:java "/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.0.0.2/Contents/Home/bin/java",
-               :args ["-XX:ThreadPriorityPolicy=1"
-                      "-XX:+UnlockExperimentalVMOptions"
-                      "-XX:+EnableJVMCIProduct"
-                      "-XX:-UnlockExperimentalVMOptions"
-                      "-Dfile.encoding=UTF-8"
+         :jvm {:java "/usr/lib/jvm/temurin-11-jdk-amd64/bin/java",
+               :args ["-Dfile.encoding=UTF-8"
                       "-Djdk.attach.allowAttachSelf"
                       "-XX:+UnlockDiagnosticVMOptions"
                       "-XX:+PreserveFramePointer"
                       "-XX:+DebugNonSafepoints"
-                      "-Dclojure.compile.path=/Users/piotr-yuxuan/welcome-base-api/target/classes"
+                      "-Dclojure.compile.path=/home/runner/work/welcome-base-api/welcome-base-api/target/classes"
                       "-Dwelcome-base-api.version=0.0.0"
                       "-Dclojure.debug=false"
                       "-Dclojure.compiler.direct-linking=true"],
-               :jdk "17.0.2",
+               :jdk "11.0.14.1",
                :jmh "1.32"}},
   :thread-groups {}}
  {:args (:state/math-context :param/tick-radius :param/bod-price),
   :samples 5,
   :fn piotr-yuxuan.welcome-base-api.tick/size,
-  :score-error 279.00113324462666,
+  :score-error 6054.949521714875,
   :index 0,
   :ops-per-invocation 1,
-  :score-confidence [850.0195555267245 1408.0218220159777],
+  :score-confidence [-2004.095150656824 10105.803892772927],
   :name :tick-size,
   :mode :average,
   :params {:bod-price 101.5M, :tick-radius 2147483647},
   :output-time-unit :ns,
-  :statistics {:min 1065.2185528235232,
-               :histogram ([[1000.0 1025.0] 0]
-                           [[1025.0 1050.0] 0]
-                           [[1050.0 1075.0] 2]
-                           [[1075.0 1100.0] 1]
-                           [[1100.0 1125.0] 0]
-                           [[1125.0 1150.0] 0]
-                           [[1150.0 1175.0] 0]
-                           [[1175.0 1200.0] 0]
-                           [[1200.0 1225.0] 2]
-                           [[1225.0 1250.0] 0]
-                           [[1250.0 1275.0] 0]),
-               :mean 1129.0206887713512,
+  :statistics {:min 2173.7637999416243,
+               :histogram ([[2000.0 2500.0] 1]
+                           [[2500.0 3000.0] 0]
+                           [[3000.0 3500.0] 1]
+                           [[3500.0 4000.0] 1]
+                           [[4000.0 4500.0] 1]
+                           [[4500.0 5000.0] 0]
+                           [[5000.0 5500.0] 0]
+                           [[5500.0 6000.0] 0]
+                           [[6000.0 6500.0] 1]),
+               :mean 4050.854371058051,
                :n 5,
-               :variance 5249.829664901426,
-               :stdev 72.45570829756221,
-               :max 1208.2942434495728,
-               :percentiles {0.0 1065.2185528235232,
-                             50.0 1089.6379461250235,
-                             90 1208.2942434495728,
-                             95 1208.2942434495728,
-                             99 1208.2942434495728,
-                             99.9 1208.2942434495728,
-                             99.99 1208.2942434495728,
-                             99.999 1208.2942434495728,
-                             99.9999 1208.2942434495728,
-                             100 1208.2942434495728},
-               :sum 5645.103443856756},
+               :variance 2472602.658363132,
+               :stdev 1572.4511624731408,
+               :max 6441.467481226931,
+               :percentiles {0.0 2173.7637999416243,
+                             50.0 3764.1226802415495,
+                             90 6441.467481226931,
+                             95 6441.467481226931,
+                             99 6441.467481226931,
+                             99.9 6441.467481226931,
+                             99.99 6441.467481226931,
+                             99.999 6441.467481226931,
+                             99.9999 6441.467481226931,
+                             100 6441.467481226931},
+               :sum 20254.271855290255},
   :threads 1,
   :measurement {:count 25, :iterations 5, :time [10 :ms]},
-  :score [1129.0206887713512 "ns/op"],
+  :score [4050.854371058051 "ns/op"],
   :iterations {:synchronize true},
   :warmup {:count 1, :iterations 1, :time [10 :sec]},
   :timeout [10 :min],
   :fork {:count 1,
          :warmups 5,
-         :jvm {:java "/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.0.0.2/Contents/Home/bin/java",
-               :args ["-XX:ThreadPriorityPolicy=1"
-                      "-XX:+UnlockExperimentalVMOptions"
-                      "-XX:+EnableJVMCIProduct"
-                      "-XX:-UnlockExperimentalVMOptions"
-                      "-Dfile.encoding=UTF-8"
+         :jvm {:java "/usr/lib/jvm/temurin-11-jdk-amd64/bin/java",
+               :args ["-Dfile.encoding=UTF-8"
                       "-Djdk.attach.allowAttachSelf"
                       "-XX:+UnlockDiagnosticVMOptions"
                       "-XX:+PreserveFramePointer"
                       "-XX:+DebugNonSafepoints"
-                      "-Dclojure.compile.path=/Users/piotr-yuxuan/welcome-base-api/target/classes"
+                      "-Dclojure.compile.path=/home/runner/work/welcome-base-api/welcome-base-api/target/classes"
                       "-Dwelcome-base-api.version=0.0.0"
                       "-Dclojure.debug=false"
                       "-Dclojure.compiler.direct-linking=true"],
-               :jdk "17.0.2",
+               :jdk "11.0.14.1",
                :jmh "1.32"}},
   :thread-groups {}}
  {:args (:state/math-context :param/tick-radius :param/bod-price),
   :samples 5,
   :fn piotr-yuxuan.welcome-base-api.tick/size,
-  :score-error 229.6111788349283,
+  :score-error 553.5302114658156,
   :index 0,
   :ops-per-invocation 1,
-  :score-confidence [340.1989060661301 799.4212637359867],
+  :score-confidence [882.5589479752608 1989.619370906892],
   :name :tick-size,
   :mode :average,
   :params {:bod-price 101M, :tick-radius 100},
   :output-time-unit :ns,
-  :statistics {:min 520.723392004485,
-               :histogram ([[500.0 512.5] 0]
-                           [[512.5 525.0] 1]
-                           [[525.0 537.5] 1]
-                           [[537.5 550.0] 1]
-                           [[550.0 562.5] 0]
-                           [[562.5 575.0] 0]
-                           [[575.0 587.5] 0]
-                           [[587.5 600.0] 0]
-                           [[600.0 612.5] 1]
-                           [[612.5 625.0] 0]
-                           [[625.0 637.5] 0]
-                           [[637.5 650.0] 0]
-                           [[650.0 662.5] 1]
-                           [[662.5 675.0] 0]
-                           [[675.0 687.5] 0]),
-               :mean 569.8100849010584,
+  :statistics {:min 1316.4093694200205,
+               :histogram ([[1300.0 1325.0] 1]
+                           [[1325.0 1350.0] 2]
+                           [[1350.0 1375.0] 0]
+                           [[1375.0 1400.0] 0]
+                           [[1400.0 1425.0] 0]
+                           [[1425.0 1450.0] 0]
+                           [[1450.0 1475.0] 0]
+                           [[1475.0 1500.0] 0]
+                           [[1500.0 1525.0] 0]
+                           [[1525.0 1550.0] 0]
+                           [[1550.0 1575.0] 0]),
+               :mean 1436.0891594410764,
                :n 5,
-               :variance 3555.652700778085,
-               :stdev 59.629293981885155,
-               :max 655.7239049925605,
-               :percentiles {0.0 520.723392004485,
-                             50.0 538.6499481524977,
-                             90 655.7239049925605,
-                             95 655.7239049925605,
-                             99 655.7239049925605,
-                             99.9 655.7239049925605,
-                             99.99 655.7239049925605,
-                             99.999 655.7239049925605,
-                             99.9999 655.7239049925605,
-                             100 655.7239049925605},
-               :sum 2849.050424505292},
+               :variance 20664.07345580908,
+               :stdev 143.75003810715697,
+               :max 1598.0422208968473,
+               :percentiles {0.0 1316.4093694200205,
+                             50.0 1339.7285055888117,
+                             90 1598.0422208968473,
+                             95 1598.0422208968473,
+                             99 1598.0422208968473,
+                             99.9 1598.0422208968473,
+                             99.99 1598.0422208968473,
+                             99.999 1598.0422208968473,
+                             99.9999 1598.0422208968473,
+                             100 1598.0422208968473},
+               :sum 7180.445797205382},
   :threads 1,
   :measurement {:count 25, :iterations 5, :time [10 :ms]},
-  :score [569.8100849010584 "ns/op"],
+  :score [1436.0891594410764 "ns/op"],
   :iterations {:synchronize true},
   :warmup {:count 1, :iterations 1, :time [10 :sec]},
   :timeout [10 :min],
   :fork {:count 1,
          :warmups 5,
-         :jvm {:java "/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.0.0.2/Contents/Home/bin/java",
-               :args ["-XX:ThreadPriorityPolicy=1"
-                      "-XX:+UnlockExperimentalVMOptions"
-                      "-XX:+EnableJVMCIProduct"
-                      "-XX:-UnlockExperimentalVMOptions"
-                      "-Dfile.encoding=UTF-8"
+         :jvm {:java "/usr/lib/jvm/temurin-11-jdk-amd64/bin/java",
+               :args ["-Dfile.encoding=UTF-8"
                       "-Djdk.attach.allowAttachSelf"
                       "-XX:+UnlockDiagnosticVMOptions"
                       "-XX:+PreserveFramePointer"
                       "-XX:+DebugNonSafepoints"
-                      "-Dclojure.compile.path=/Users/piotr-yuxuan/welcome-base-api/target/classes"
+                      "-Dclojure.compile.path=/home/runner/work/welcome-base-api/welcome-base-api/target/classes"
                       "-Dwelcome-base-api.version=0.0.0"
                       "-Dclojure.debug=false"
                       "-Dclojure.compiler.direct-linking=true"],
-               :jdk "17.0.2",
+               :jdk "11.0.14.1",
                :jmh "1.32"}},
   :thread-groups {}}
  {:args (:state/math-context :param/tick-radius :param/bod-price),
   :samples 5,
   :fn piotr-yuxuan.welcome-base-api.tick/size,
-  :score-error 203.43779774373698,
+  :score-error 5243.426988357243,
   :index 0,
   :ops-per-invocation 1,
-  :score-confidence [407.06989564014066 813.9454911276146],
+  :score-confidence [-3043.3508301892043 7443.503146525282],
   :name :tick-size,
   :mode :average,
   :params {:bod-price 101M, :tick-radius 32767},
   :output-time-unit :ns,
-  :statistics {:min 580.6468800492421,
-               :histogram ([[500.0 525.0] 0]
-                           [[525.0 550.0] 0]
-                           [[550.0 575.0] 0]
-                           [[575.0 600.0] 3]
-                           [[600.0 625.0] 1]
-                           [[625.0 650.0] 0]
-                           [[650.0 675.0] 0]
-                           [[675.0 700.0] 0]
-                           [[700.0 725.0] 1]
-                           [[725.0 750.0] 0]
-                           [[750.0 775.0] 0]),
-               :mean 610.5076933838776,
+  :statistics {:min 1379.4940014422762,
+               :histogram ([[1000.0 1250.0] 0]
+                           [[1250.0 1500.0] 1]
+                           [[1500.0 1750.0] 3]
+                           [[1750.0 2000.0] 0]
+                           [[2000.0 2250.0] 0]
+                           [[2250.0 2500.0] 0]
+                           [[2500.0 2750.0] 0]
+                           [[2750.0 3000.0] 0]
+                           [[3000.0 3250.0] 0]
+                           [[3250.0 3500.0] 0]
+                           [[3500.0 3750.0] 0]
+                           [[3750.0 4000.0] 0]
+                           [[4000.0 4250.0] 0]
+                           [[4250.0 4500.0] 0]
+                           [[4500.0 4750.0] 1]),
+               :mean 2200.076158168039,
                :n 5,
-               :variance 2791.236076754,
-               :stdev 52.83215002963631,
-               :max 703.4932779322723,
-               :percentiles {0.0 580.6468800492421,
-                             50.0 583.9757812670612,
-                             90 703.4932779322723,
-                             95 703.4932779322723,
-                             99 703.4932779322723,
-                             99.9 703.4932779322723,
-                             99.99 703.4932779322723,
-                             99.999 703.4932779322723,
-                             99.9999 703.4932779322723,
-                             100 703.4932779322723},
-               :sum 3052.538466919388},
+               :variance 1854230.5329861417,
+               :stdev 1361.701337660407,
+               :max 4622.809558613804,
+               :percentiles {0.0 1379.4940014422762,
+                             50.0 1711.9940298911574,
+                             90 4622.809558613804,
+                             95 4622.809558613804,
+                             99 4622.809558613804,
+                             99.9 4622.809558613804,
+                             99.99 4622.809558613804,
+                             99.999 4622.809558613804,
+                             99.9999 4622.809558613804,
+                             100 4622.809558613804},
+               :sum 11000.380790840196},
   :threads 1,
   :measurement {:count 25, :iterations 5, :time [10 :ms]},
-  :score [610.5076933838776 "ns/op"],
+  :score [2200.076158168039 "ns/op"],
   :iterations {:synchronize true},
   :warmup {:count 1, :iterations 1, :time [10 :sec]},
   :timeout [10 :min],
   :fork {:count 1,
          :warmups 5,
-         :jvm {:java "/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.0.0.2/Contents/Home/bin/java",
-               :args ["-XX:ThreadPriorityPolicy=1"
-                      "-XX:+UnlockExperimentalVMOptions"
-                      "-XX:+EnableJVMCIProduct"
-                      "-XX:-UnlockExperimentalVMOptions"
-                      "-Dfile.encoding=UTF-8"
+         :jvm {:java "/usr/lib/jvm/temurin-11-jdk-amd64/bin/java",
+               :args ["-Dfile.encoding=UTF-8"
                       "-Djdk.attach.allowAttachSelf"
                       "-XX:+UnlockDiagnosticVMOptions"
                       "-XX:+PreserveFramePointer"
                       "-XX:+DebugNonSafepoints"
-                      "-Dclojure.compile.path=/Users/piotr-yuxuan/welcome-base-api/target/classes"
+                      "-Dclojure.compile.path=/home/runner/work/welcome-base-api/welcome-base-api/target/classes"
                       "-Dwelcome-base-api.version=0.0.0"
                       "-Dclojure.debug=false"
                       "-Dclojure.compiler.direct-linking=true"],
-               :jdk "17.0.2",
+               :jdk "11.0.14.1",
                :jmh "1.32"}},
   :thread-groups {}}
  {:args (:state/math-context :param/tick-radius :param/bod-price),
   :samples 5,
   :fn piotr-yuxuan.welcome-base-api.tick/size,
-  :score-error 339.97871354816914,
+  :score-error 1179.7756838090074,
   :index 0,
   :ops-per-invocation 1,
-  :score-confidence [377.53245078875295 1057.4898778850911],
+  :score-confidence [811.0332926484209 3170.584660266436],
   :name :tick-size,
   :mode :average,
   :params {:bod-price 101M, :tick-radius 10000},
   :output-time-unit :ns,
-  :statistics {:min 619.7122069440023,
-               :histogram ([[600.0 612.5] 0]
-                           [[612.5 625.0] 2]
-                           [[625.0 637.5] 0]
-                           [[637.5 650.0] 0]
-                           [[650.0 662.5] 0]
-                           [[662.5 675.0] 0]
-                           [[675.0 687.5] 0]
-                           [[687.5 700.0] 0]
-                           [[700.0 712.5] 0]
-                           [[712.5 725.0] 0]
-                           [[725.0 737.5] 0]
-                           [[737.5 750.0] 0]
-                           [[750.0 762.5] 0]
-                           [[762.5 775.0] 1]
-                           [[775.0 787.5] 1]),
-               :mean 717.5111643369221,
+  :statistics {:min 1728.0150641838407,
+               :histogram ([[1700.0 1750.0] 1]
+                           [[1750.0 1800.0] 1]
+                           [[1800.0 1850.0] 0]
+                           [[1850.0 1900.0] 0]
+                           [[1900.0 1950.0] 0]
+                           [[1950.0 2000.0] 1]
+                           [[2000.0 2050.0] 1]
+                           [[2050.0 2100.0] 0]
+                           [[2100.0 2150.0] 0]
+                           [[2150.0 2200.0] 0]
+                           [[2200.0 2250.0] 0]
+                           [[2250.0 2300.0] 0]
+                           [[2300.0 2350.0] 0]
+                           [[2350.0 2400.0] 0]
+                           [[2400.0 2450.0] 0]),
+               :mean 1990.8089764574283,
                :n 5,
-               :variance 7795.369947171685,
-               :stdev 88.29139225978763,
-               :max 792.0629884092936,
-               :percentiles {0.0 619.7122069440023,
-                             50.0 765.676448118534,
-                             90 792.0629884092936,
-                             95 792.0629884092936,
-                             99 792.0629884092936,
-                             99.9 792.0629884092936,
-                             99.99 792.0629884092936,
-                             99.999 792.0629884092936,
-                             99.9999 792.0629884092936,
-                             100 792.0629884092936},
-               :sum 3587.5558216846107},
+               :variance 93871.15456562479,
+               :stdev 306.38399854696195,
+               :max 2492.178056488248,
+               :percentiles {0.0 1728.0150641838407,
+                             50.0 1977.0329459188156,
+                             90 2492.178056488248,
+                             95 2492.178056488248,
+                             99 2492.178056488248,
+                             99.9 2492.178056488248,
+                             99.99 2492.178056488248,
+                             99.999 2492.178056488248,
+                             99.9999 2492.178056488248,
+                             100 2492.178056488248},
+               :sum 9954.044882287142},
   :threads 1,
   :measurement {:count 25, :iterations 5, :time [10 :ms]},
-  :score [717.5111643369221 "ns/op"],
+  :score [1990.8089764574283 "ns/op"],
   :iterations {:synchronize true},
   :warmup {:count 1, :iterations 1, :time [10 :sec]},
   :timeout [10 :min],
   :fork {:count 1,
          :warmups 5,
-         :jvm {:java "/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.0.0.2/Contents/Home/bin/java",
-               :args ["-XX:ThreadPriorityPolicy=1"
-                      "-XX:+UnlockExperimentalVMOptions"
-                      "-XX:+EnableJVMCIProduct"
-                      "-XX:-UnlockExperimentalVMOptions"
-                      "-Dfile.encoding=UTF-8"
+         :jvm {:java "/usr/lib/jvm/temurin-11-jdk-amd64/bin/java",
+               :args ["-Dfile.encoding=UTF-8"
                       "-Djdk.attach.allowAttachSelf"
                       "-XX:+UnlockDiagnosticVMOptions"
                       "-XX:+PreserveFramePointer"
                       "-XX:+DebugNonSafepoints"
-                      "-Dclojure.compile.path=/Users/piotr-yuxuan/welcome-base-api/target/classes"
+                      "-Dclojure.compile.path=/home/runner/work/welcome-base-api/welcome-base-api/target/classes"
                       "-Dwelcome-base-api.version=0.0.0"
                       "-Dclojure.debug=false"
                       "-Dclojure.compiler.direct-linking=true"],
-               :jdk "17.0.2",
+               :jdk "11.0.14.1",
                :jmh "1.32"}},
   :thread-groups {}}
  {:args (:state/math-context :param/tick-radius :param/bod-price),
   :samples 5,
   :fn piotr-yuxuan.welcome-base-api.tick/size,
-  :score-error 343.31202344157043,
+  :score-error 1732.5861894065902,
   :index 0,
   :ops-per-invocation 1,
-  :score-confidence [831.1054555002387 1517.7295023833794],
+  :score-confidence [637.8255764041382 4102.997955217319],
   :name :tick-size,
   :mode :average,
   :params {:bod-price 101M, :tick-radius 2147483647},
   :output-time-unit :ns,
-  :statistics {:min 1070.8959039823874,
-               :histogram ([[1000.0 1025.0] 0]
-                           [[1025.0 1050.0] 0]
-                           [[1050.0 1075.0] 1]
-                           [[1075.0 1100.0] 0]
-                           [[1100.0 1125.0] 1]
-                           [[1125.0 1150.0] 0]
-                           [[1150.0 1175.0] 1]
-                           [[1175.0 1200.0] 0]
-                           [[1200.0 1225.0] 0]
-                           [[1225.0 1250.0] 0]
-                           [[1250.0 1275.0] 2]),
-               :mean 1174.4174789418091,
+  :statistics {:min 1857.007581333726,
+               :histogram ([[1800.0 1900.0] 1]
+                           [[1900.0 2000.0] 1]
+                           [[2000.0 2100.0] 0]
+                           [[2100.0 2200.0] 0]
+                           [[2200.0 2300.0] 0]
+                           [[2300.0 2400.0] 0]
+                           [[2400.0 2500.0] 0]
+                           [[2500.0 2600.0] 1]
+                           [[2600.0 2700.0] 0]
+                           [[2700.0 2800.0] 1]),
+               :mean 2370.4117658107284,
                :n 5,
-               :variance 7948.978183432459,
-               :stdev 89.15704225372474,
-               :max 1265.8541505529192,
-               :percentiles {0.0 1070.8959039823874,
-                             50.0 1166.043624238865,
-                             90 1265.8541505529192,
-                             95 1265.8541505529192,
-                             99 1265.8541505529192,
-                             99.9 1265.8541505529192,
-                             99.99 1265.8541505529192,
-                             99.999 1265.8541505529192,
-                             99.9999 1265.8541505529192,
-                             100 1265.8541505529192},
-               :sum 5872.087394709046},
+               :variance 202452.42098819325,
+               :stdev 449.9471313256628,
+               :max 2836.627041510718,
+               :percentiles {0.0 1857.007581333726,
+                             50.0 2518.23744492952,
+                             90 2836.627041510718,
+                             95 2836.627041510718,
+                             99 2836.627041510718,
+                             99.9 2836.627041510718,
+                             99.99 2836.627041510718,
+                             99.999 2836.627041510718,
+                             99.9999 2836.627041510718,
+                             100 2836.627041510718},
+               :sum 11852.058829053642},
   :threads 1,
   :measurement {:count 25, :iterations 5, :time [10 :ms]},
-  :score [1174.4174789418091 "ns/op"],
+  :score [2370.4117658107284 "ns/op"],
   :iterations {:synchronize true},
   :warmup {:count 1, :iterations 1, :time [10 :sec]},
   :timeout [10 :min],
   :fork {:count 1,
          :warmups 5,
-         :jvm {:java "/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.0.0.2/Contents/Home/bin/java",
-               :args ["-XX:ThreadPriorityPolicy=1"
-                      "-XX:+UnlockExperimentalVMOptions"
-                      "-XX:+EnableJVMCIProduct"
-                      "-XX:-UnlockExperimentalVMOptions"
-                      "-Dfile.encoding=UTF-8"
+         :jvm {:java "/usr/lib/jvm/temurin-11-jdk-amd64/bin/java",
+               :args ["-Dfile.encoding=UTF-8"
                       "-Djdk.attach.allowAttachSelf"
                       "-XX:+UnlockDiagnosticVMOptions"
                       "-XX:+PreserveFramePointer"
                       "-XX:+DebugNonSafepoints"
-                      "-Dclojure.compile.path=/Users/piotr-yuxuan/welcome-base-api/target/classes"
+                      "-Dclojure.compile.path=/home/runner/work/welcome-base-api/welcome-base-api/target/classes"
                       "-Dwelcome-base-api.version=0.0.0"
                       "-Dclojure.debug=false"
                       "-Dclojure.compiler.direct-linking=true"],
-               :jdk "17.0.2",
+               :jdk "11.0.14.1",
                :jmh "1.32"}},
   :thread-groups {}}
  {:args (:state/math-context :param/tick-radius :param/bod-price),
   :samples 5,
   :fn piotr-yuxuan.welcome-base-api.tick/size,
-  :score-error 191.5799076374285,
+  :score-error 1155.4995054305175,
   :index 0,
   :ops-per-invocation 1,
-  :score-confidence [361.3003111098915 744.4601263847485],
+  :score-confidence [507.576606289402 2818.575617150437],
   :name :tick-size,
   :mode :average,
   :params {:bod-price 102.5M, :tick-radius 100},
   :output-time-unit :ns,
-  :statistics {:min 520.2191012236963,
-               :histogram ([[500.0 512.5] 0]
-                           [[512.5 525.0] 2]
-                           [[525.0 537.5] 1]
-                           [[537.5 550.0] 0]
-                           [[550.0 562.5] 1]
-                           [[562.5 575.0] 0]
-                           [[575.0 587.5] 0]
-                           [[587.5 600.0] 0]
-                           [[600.0 612.5] 0]
-                           [[612.5 625.0] 0]
-                           [[625.0 637.5] 0]
-                           [[637.5 650.0] 1]
-                           [[650.0 662.5] 0]
-                           [[662.5 675.0] 0]
-                           [[675.0 687.5] 0]),
-               :mean 552.88021874732,
+  :statistics {:min 1453.2262944946515,
+               :histogram ([[1400.0 1450.0] 0]
+                           [[1450.0 1500.0] 3]
+                           [[1500.0 1550.0] 0]
+                           [[1550.0 1600.0] 0]
+                           [[1600.0 1650.0] 0]
+                           [[1650.0 1700.0] 0]
+                           [[1700.0 1750.0] 0]
+                           [[1750.0 1800.0] 1]
+                           [[1800.0 1850.0] 0]
+                           [[1850.0 1900.0] 0]
+                           [[1900.0 1950.0] 0]
+                           [[1950.0 2000.0] 0]
+                           [[2000.0 2050.0] 0]
+                           [[2050.0 2100.0] 0]
+                           [[2100.0 2150.0] 0]),
+               :mean 1663.0761117199195,
                :n 5,
-               :variance 2475.3305229801067,
-               :stdev 49.75269362537175,
-               :max 639.1375030899854,
-               :percentiles {0.0 520.2191012236963,
-                             50.0 533.4136560764015,
-                             90 639.1375030899854,
-                             95 639.1375030899854,
-                             99 639.1375030899854,
-                             99.9 639.1375030899854,
-                             99.99 639.1375030899854,
-                             99.999 639.1375030899854,
-                             99.9999 639.1375030899854,
-                             100 639.1375030899854},
-               :sum 2764.4010937365997},
+               :variance 90047.73759716463,
+               :stdev 300.0795521143762,
+               :max 2150.132419425405,
+               :percentiles {0.0 1453.2262944946515,
+                             50.0 1493.092405138223,
+                             90 2150.132419425405,
+                             95 2150.132419425405,
+                             99 2150.132419425405,
+                             99.9 2150.132419425405,
+                             99.99 2150.132419425405,
+                             99.999 2150.132419425405,
+                             99.9999 2150.132419425405,
+                             100 2150.132419425405},
+               :sum 8315.380558599598},
   :threads 1,
   :measurement {:count 25, :iterations 5, :time [10 :ms]},
-  :score [552.88021874732 "ns/op"],
+  :score [1663.0761117199195 "ns/op"],
   :iterations {:synchronize true},
   :warmup {:count 1, :iterations 1, :time [10 :sec]},
   :timeout [10 :min],
   :fork {:count 1,
          :warmups 5,
-         :jvm {:java "/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.0.0.2/Contents/Home/bin/java",
-               :args ["-XX:ThreadPriorityPolicy=1"
-                      "-XX:+UnlockExperimentalVMOptions"
-                      "-XX:+EnableJVMCIProduct"
-                      "-XX:-UnlockExperimentalVMOptions"
-                      "-Dfile.encoding=UTF-8"
+         :jvm {:java "/usr/lib/jvm/temurin-11-jdk-amd64/bin/java",
+               :args ["-Dfile.encoding=UTF-8"
                       "-Djdk.attach.allowAttachSelf"
                       "-XX:+UnlockDiagnosticVMOptions"
                       "-XX:+PreserveFramePointer"
                       "-XX:+DebugNonSafepoints"
-                      "-Dclojure.compile.path=/Users/piotr-yuxuan/welcome-base-api/target/classes"
+                      "-Dclojure.compile.path=/home/runner/work/welcome-base-api/welcome-base-api/target/classes"
                       "-Dwelcome-base-api.version=0.0.0"
                       "-Dclojure.debug=false"
                       "-Dclojure.compiler.direct-linking=true"],
-               :jdk "17.0.2",
+               :jdk "11.0.14.1",
                :jmh "1.32"}},
   :thread-groups {}}
  {:args (:state/math-context :param/tick-radius :param/bod-price),
   :samples 5,
   :fn piotr-yuxuan.welcome-base-api.tick/size,
-  :score-error 92.15818951728761,
+  :score-error 983.2379324987903,
   :index 0,
   :ops-per-invocation 1,
-  :score-confidence [429.2172174106365 613.5335964452117],
+  :score-confidence [1025.460419133349 2991.9362841309294],
   :name :tick-size,
   :mode :average,
   :params {:bod-price 102.5M, :tick-radius 32767},
   :output-time-unit :ns,
-  :statistics {:min 500.72525491119785,
-               :histogram ([[500.0 505.0] 2]
-                           [[505.0 510.0] 0]
-                           [[510.0 515.0] 1]
-                           [[515.0 520.0] 0]
-                           [[520.0 525.0] 0]
-                           [[525.0 530.0] 0]
-                           [[530.0 535.0] 0]
-                           [[535.0 540.0] 1]
-                           [[540.0 545.0] 0]
-                           [[545.0 550.0] 0]
-                           [[550.0 555.0] 0]),
-               :mean 521.3754069279241,
+  :statistics {:min 1838.1224671273214,
+               :histogram ([[1800.0 1850.0] 2]
+                           [[1850.0 1900.0] 1]
+                           [[1900.0 1950.0] 0]
+                           [[1950.0 2000.0] 0]
+                           [[2000.0 2050.0] 1]
+                           [[2050.0 2100.0] 0]
+                           [[2100.0 2150.0] 0]
+                           [[2150.0 2200.0] 0]
+                           [[2200.0 2250.0] 0]
+                           [[2250.0 2300.0] 0]
+                           [[2300.0 2350.0] 0]
+                           [[2350.0 2400.0] 0]
+                           [[2400.0 2450.0] 1]),
+               :mean 2008.6983516321393,
                :n 5,
-               :variance 572.797543213597,
-               :stdev 23.933189156767156,
-               :max 555.9300345224395,
-               :percentiles {0.0 500.72525491119785,
-                             50.0 512.4922755769403,
-                             90 555.9300345224395,
-                             95 555.9300345224395,
-                             99 555.9300345224395,
-                             99.9 555.9300345224395,
-                             99.99 555.9300345224395,
-                             99.999 555.9300345224395,
-                             99.9999 555.9300345224395,
-                             100 555.9300345224395},
-               :sum 2606.877034639621},
+               :variance 65200.4401955723,
+               :stdev 255.3437686640743,
+               :max 2444.920140923819,
+               :percentiles {0.0 1838.1224671273214,
+                             50.0 1886.3381662028307,
+                             90 2444.920140923819,
+                             95 2444.920140923819,
+                             99 2444.920140923819,
+                             99.9 2444.920140923819,
+                             99.99 2444.920140923819,
+                             99.999 2444.920140923819,
+                             99.9999 2444.920140923819,
+                             100 2444.920140923819},
+               :sum 10043.491758160697},
   :threads 1,
   :measurement {:count 25, :iterations 5, :time [10 :ms]},
-  :score [521.3754069279241 "ns/op"],
+  :score [2008.6983516321393 "ns/op"],
   :iterations {:synchronize true},
   :warmup {:count 1, :iterations 1, :time [10 :sec]},
   :timeout [10 :min],
   :fork {:count 1,
          :warmups 5,
-         :jvm {:java "/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.0.0.2/Contents/Home/bin/java",
-               :args ["-XX:ThreadPriorityPolicy=1"
-                      "-XX:+UnlockExperimentalVMOptions"
-                      "-XX:+EnableJVMCIProduct"
-                      "-XX:-UnlockExperimentalVMOptions"
-                      "-Dfile.encoding=UTF-8"
+         :jvm {:java "/usr/lib/jvm/temurin-11-jdk-amd64/bin/java",
+               :args ["-Dfile.encoding=UTF-8"
                       "-Djdk.attach.allowAttachSelf"
                       "-XX:+UnlockDiagnosticVMOptions"
                       "-XX:+PreserveFramePointer"
                       "-XX:+DebugNonSafepoints"
-                      "-Dclojure.compile.path=/Users/piotr-yuxuan/welcome-base-api/target/classes"
+                      "-Dclojure.compile.path=/home/runner/work/welcome-base-api/welcome-base-api/target/classes"
                       "-Dwelcome-base-api.version=0.0.0"
                       "-Dclojure.debug=false"
                       "-Dclojure.compiler.direct-linking=true"],
-               :jdk "17.0.2",
+               :jdk "11.0.14.1",
                :jmh "1.32"}},
   :thread-groups {}}
  {:args (:state/math-context :param/tick-radius :param/bod-price),
   :samples 5,
   :fn piotr-yuxuan.welcome-base-api.tick/size,
-  :score-error 257.76506273049336,
+  :score-error 1560.91442693366,
   :index 0,
   :ops-per-invocation 1,
-  :score-confidence [398.18416042192416 913.7142858829109],
+  :score-confidence [165.4269947007415 3287.2558485680615],
   :name :tick-size,
   :mode :average,
   :params {:bod-price 102.5M, :tick-radius 10000},
   :output-time-unit :ns,
-  :statistics {:min 613.0154801465749,
-               :histogram ([[600.0 612.5] 0]
-                           [[612.5 625.0] 2]
-                           [[625.0 637.5] 1]
-                           [[637.5 650.0] 1]
-                           [[650.0 662.5] 0]
-                           [[662.5 675.0] 0]
-                           [[675.0 687.5] 0]
-                           [[687.5 700.0] 0]
-                           [[700.0 712.5] 0]
-                           [[712.5 725.0] 0]
-                           [[725.0 737.5] 0]
-                           [[737.5 750.0] 0]
-                           [[750.0 762.5] 0]
-                           [[762.5 775.0] 1]
-                           [[775.0 787.5] 0]),
-               :mean 655.9492231524175,
+  :statistics {:min 1324.565499590069,
+               :histogram ([[1300.0 1350.0] 2]
+                           [[1350.0 1400.0] 0]
+                           [[1400.0 1450.0] 0]
+                           [[1450.0 1500.0] 0]
+                           [[1500.0 1550.0] 0]
+                           [[1550.0 1600.0] 0]
+                           [[1600.0 1650.0] 0]
+                           [[1650.0 1700.0] 1]
+                           [[1700.0 1750.0] 0]
+                           [[1750.0 1800.0] 0]
+                           [[1800.0 1850.0] 0]
+                           [[1850.0 1900.0] 0]
+                           [[1900.0 1950.0] 0]
+                           [[1950.0 2000.0] 0]
+                           [[2000.0 2050.0] 0]
+                           [[2050.0 2100.0] 0]
+                           [[2100.0 2150.0] 1]),
+               :mean 1726.3414216344015,
                :n 5,
-               :variance 4481.066450295272,
-               :stdev 66.94076822307369,
-               :max 774.2493188472974,
-               :percentiles {0.0 613.0154801465749,
-                             50.0 631.4967549122376,
-                             90 774.2493188472974,
-                             95 774.2493188472974,
-                             99 774.2493188472974,
-                             99.9 774.2493188472974,
-                             99.99 774.2493188472974,
-                             99.999 774.2493188472974,
-                             99.9999 774.2493188472974,
-                             100 774.2493188472974},
-               :sum 3279.7461157620874},
+               :variance 164320.39389524338,
+               :stdev 405.364519778487,
+               :max 2179.0751952673663,
+               :percentiles {0.0 1324.565499590069,
+                             50.0 1672.4375546893643,
+                             90 2179.0751952673663,
+                             95 2179.0751952673663,
+                             99 2179.0751952673663,
+                             99.9 2179.0751952673663,
+                             99.99 2179.0751952673663,
+                             99.999 2179.0751952673663,
+                             99.9999 2179.0751952673663,
+                             100 2179.0751952673663},
+               :sum 8631.707108172008},
   :threads 1,
   :measurement {:count 25, :iterations 5, :time [10 :ms]},
-  :score [655.9492231524175 "ns/op"],
+  :score [1726.3414216344015 "ns/op"],
   :iterations {:synchronize true},
   :warmup {:count 1, :iterations 1, :time [10 :sec]},
   :timeout [10 :min],
   :fork {:count 1,
          :warmups 5,
-         :jvm {:java "/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.0.0.2/Contents/Home/bin/java",
-               :args ["-XX:ThreadPriorityPolicy=1"
-                      "-XX:+UnlockExperimentalVMOptions"
-                      "-XX:+EnableJVMCIProduct"
-                      "-XX:-UnlockExperimentalVMOptions"
-                      "-Dfile.encoding=UTF-8"
+         :jvm {:java "/usr/lib/jvm/temurin-11-jdk-amd64/bin/java",
+               :args ["-Dfile.encoding=UTF-8"
                       "-Djdk.attach.allowAttachSelf"
                       "-XX:+UnlockDiagnosticVMOptions"
                       "-XX:+PreserveFramePointer"
                       "-XX:+DebugNonSafepoints"
-                      "-Dclojure.compile.path=/Users/piotr-yuxuan/welcome-base-api/target/classes"
+                      "-Dclojure.compile.path=/home/runner/work/welcome-base-api/welcome-base-api/target/classes"
                       "-Dwelcome-base-api.version=0.0.0"
                       "-Dclojure.debug=false"
                       "-Dclojure.compiler.direct-linking=true"],
-               :jdk "17.0.2",
+               :jdk "11.0.14.1",
                :jmh "1.32"}},
   :thread-groups {}}
  {:args (:state/math-context :param/tick-radius :param/bod-price),
   :samples 5,
   :fn piotr-yuxuan.welcome-base-api.tick/size,
-  :score-error 313.09859089196317,
+  :score-error 119.75385341980994,
   :index 0,
   :ops-per-invocation 1,
-  :score-confidence [761.1427260963001 1387.3399078802263],
+  :score-confidence [2159.769686034347 2399.2773928739666],
   :name :tick-size,
   :mode :average,
   :params {:bod-price 102.5M, :tick-radius 2147483647},
   :output-time-unit :ns,
-  :statistics {:min 1004.8962680497593,
-               :histogram ([[1000.0 1012.5] 1]
-                           [[1012.5 1025.0] 1]
-                           [[1025.0 1037.5] 1]
-                           [[1037.5 1050.0] 0]
-                           [[1050.0 1062.5] 0]
-                           [[1062.5 1075.0] 0]
-                           [[1075.0 1087.5] 0]
-                           [[1087.5 1100.0] 0]
-                           [[1100.0 1112.5] 0]
-                           [[1112.5 1125.0] 0]
-                           [[1125.0 1137.5] 1]
-                           [[1137.5 1150.0] 0]
-                           [[1150.0 1162.5] 0]
-                           [[1162.5 1175.0] 0]
-                           [[1175.0 1187.5] 0]),
-               :mean 1074.2413169882632,
+  :statistics {:min 2240.820774555332,
+               :histogram ([[2240.0 2245.0] 1]
+                           [[2245.0 2250.0] 0]
+                           [[2250.0 2255.0] 0]
+                           [[2255.0 2260.0] 1]
+                           [[2260.0 2265.0] 0]
+                           [[2265.0 2270.0] 0]
+                           [[2270.0 2275.0] 0]
+                           [[2275.0 2280.0] 1]
+                           [[2280.0 2285.0] 0]
+                           [[2285.0 2290.0] 0]
+                           [[2290.0 2295.0] 0]
+                           [[2295.0 2300.0] 0]
+                           [[2300.0 2305.0] 0]
+                           [[2305.0 2310.0] 0]
+                           [[2310.0 2315.0] 2]),
+               :mean 2279.523539454157,
                :n 5,
-               :variance 6611.4315228878695,
-               :stdev 81.31070976745849,
-               :max 1190.7178929620964,
-               :percentiles {0.0 1004.8962680497593,
-                             50.0 1034.4001178086228,
-                             90 1190.7178929620964,
-                             95 1190.7178929620964,
-                             99 1190.7178929620964,
-                             99.9 1190.7178929620964,
-                             99.99 1190.7178929620964,
-                             99.999 1190.7178929620964,
-                             99.9999 1190.7178929620964,
-                             100 1190.7178929620964},
-               :sum 5371.206584941316},
+               :variance 967.1910563653455,
+               :stdev 31.099695438466043,
+               :max 2310.1438051069604,
+               :percentiles {0.0 2240.820774555332,
+                             50.0 2279.4530988502,
+                             90 2310.1438051069604,
+                             95 2310.1438051069604,
+                             99 2310.1438051069604,
+                             99.9 2310.1438051069604,
+                             99.99 2310.1438051069604,
+                             99.999 2310.1438051069604,
+                             99.9999 2310.1438051069604,
+                             100 2310.1438051069604},
+               :sum 11397.617697270784},
   :threads 1,
   :measurement {:count 25, :iterations 5, :time [10 :ms]},
-  :score [1074.2413169882632 "ns/op"],
+  :score [2279.523539454157 "ns/op"],
   :iterations {:synchronize true},
   :warmup {:count 1, :iterations 1, :time [10 :sec]},
   :timeout [10 :min],
   :fork {:count 1,
          :warmups 5,
-         :jvm {:java "/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.0.0.2/Contents/Home/bin/java",
-               :args ["-XX:ThreadPriorityPolicy=1"
-                      "-XX:+UnlockExperimentalVMOptions"
-                      "-XX:+EnableJVMCIProduct"
-                      "-XX:-UnlockExperimentalVMOptions"
-                      "-Dfile.encoding=UTF-8"
+         :jvm {:java "/usr/lib/jvm/temurin-11-jdk-amd64/bin/java",
+               :args ["-Dfile.encoding=UTF-8"
                       "-Djdk.attach.allowAttachSelf"
                       "-XX:+UnlockDiagnosticVMOptions"
                       "-XX:+PreserveFramePointer"
                       "-XX:+DebugNonSafepoints"
-                      "-Dclojure.compile.path=/Users/piotr-yuxuan/welcome-base-api/target/classes"
+                      "-Dclojure.compile.path=/home/runner/work/welcome-base-api/welcome-base-api/target/classes"
                       "-Dwelcome-base-api.version=0.0.0"
                       "-Dclojure.debug=false"
                       "-Dclojure.compiler.direct-linking=true"],
-               :jdk "17.0.2",
+               :jdk "11.0.14.1",
                :jmh "1.32"}},
   :thread-groups {}}
  {:args (:state/math-context :param/tick-radius :param/bod-price),
   :samples 5,
   :fn piotr-yuxuan.welcome-base-api.tick/size,
-  :score-error 136.3730526494936,
+  :score-error 891.7943084753463,
   :index 0,
   :ops-per-invocation 1,
-  :score-confidence [381.4075246219368 654.153629920924],
+  :score-confidence [841.4433127744762 2625.031929725169],
   :name :tick-size,
   :mode :average,
   :params {:bod-price 123.4567M, :tick-radius 100},
   :output-time-unit :ns,
-  :statistics {:min 497.8450055856363,
-               :histogram ([[490.0 500.0] 2]
-                           [[500.0 510.0] 2]
-                           [[510.0 520.0] 0]
-                           [[520.0 530.0] 0]
-                           [[530.0 540.0] 0]
-                           [[540.0 550.0] 0]
-                           [[550.0 560.0] 0]
-                           [[560.0 570.0] 0]
-                           [[570.0 580.0] 0]),
-               :mean 517.7805772714304,
+  :statistics {:min 1604.731516849697,
+               :histogram ([[1600.0 1650.0] 3]
+                           [[1650.0 1700.0] 1]
+                           [[1700.0 1750.0] 0]
+                           [[1750.0 1800.0] 0]
+                           [[1800.0 1850.0] 0]
+                           [[1850.0 1900.0] 0]
+                           [[1900.0 1950.0] 0]
+                           [[1950.0 2000.0] 0]
+                           [[2000.0 2050.0] 0]
+                           [[2050.0 2100.0] 0]
+                           [[2100.0 2150.0] 1]),
+               :mean 1733.2376212498225,
                :n 5,
-               :variance 1254.268172975404,
-               :stdev 35.41564870188606,
-               :max 580.6931574589709,
-               :percentiles {0.0 497.8450055856363,
-                             50.0 504.7120345293902,
-                             90 580.6931574589709,
-                             95 580.6931574589709,
-                             99 580.6931574589709,
-                             99.9 580.6931574589709,
-                             99.99 580.6931574589709,
-                             99.999 580.6931574589709,
-                             99.9999 580.6931574589709,
-                             100 580.6931574589709},
-               :sum 2588.902886357152},
+               :variance 53636.77664704808,
+               :stdev 231.59614989685835,
+               :max 2145.605645277639,
+               :percentiles {0.0 1604.731516849697,
+                             50.0 1633.5727728784248,
+                             90 2145.605645277639,
+                             95 2145.605645277639,
+                             99 2145.605645277639,
+                             99.9 2145.605645277639,
+                             99.99 2145.605645277639,
+                             99.999 2145.605645277639,
+                             99.9999 2145.605645277639,
+                             100 2145.605645277639},
+               :sum 8666.188106249112},
   :threads 1,
   :measurement {:count 25, :iterations 5, :time [10 :ms]},
-  :score [517.7805772714304 "ns/op"],
+  :score [1733.2376212498225 "ns/op"],
   :iterations {:synchronize true},
   :warmup {:count 1, :iterations 1, :time [10 :sec]},
   :timeout [10 :min],
   :fork {:count 1,
          :warmups 5,
-         :jvm {:java "/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.0.0.2/Contents/Home/bin/java",
-               :args ["-XX:ThreadPriorityPolicy=1"
-                      "-XX:+UnlockExperimentalVMOptions"
-                      "-XX:+EnableJVMCIProduct"
-                      "-XX:-UnlockExperimentalVMOptions"
-                      "-Dfile.encoding=UTF-8"
+         :jvm {:java "/usr/lib/jvm/temurin-11-jdk-amd64/bin/java",
+               :args ["-Dfile.encoding=UTF-8"
                       "-Djdk.attach.allowAttachSelf"
                       "-XX:+UnlockDiagnosticVMOptions"
                       "-XX:+PreserveFramePointer"
                       "-XX:+DebugNonSafepoints"
-                      "-Dclojure.compile.path=/Users/piotr-yuxuan/welcome-base-api/target/classes"
+                      "-Dclojure.compile.path=/home/runner/work/welcome-base-api/welcome-base-api/target/classes"
                       "-Dwelcome-base-api.version=0.0.0"
                       "-Dclojure.debug=false"
                       "-Dclojure.compiler.direct-linking=true"],
-               :jdk "17.0.2",
+               :jdk "11.0.14.1",
                :jmh "1.32"}},
   :thread-groups {}}
  {:args (:state/math-context :param/tick-radius :param/bod-price),
   :samples 5,
   :fn piotr-yuxuan.welcome-base-api.tick/size,
-  :score-error 87.56465034555261,
+  :score-error 1399.7901620088905,
   :index 0,
   :ops-per-invocation 1,
-  :score-confidence [431.0972061759542 606.2265068670595],
+  :score-confidence [406.9075013215911 3206.487825339372],
   :name :tick-size,
   :mode :average,
   :params {:bod-price 123.4567M, :tick-radius 32767},
   :output-time-unit :ns,
-  :statistics {:min 498.3345973177095,
-               :histogram ([[490.0 495.0] 0]
-                           [[495.0 500.0] 1]
-                           [[500.0 505.0] 1]
-                           [[505.0 510.0] 1]
-                           [[510.0 515.0] 0]
-                           [[515.0 520.0] 0]
-                           [[520.0 525.0] 0]
-                           [[525.0 530.0] 0]
-                           [[530.0 535.0] 1]
-                           [[535.0 540.0] 0]
-                           [[540.0 545.0] 0]
-                           [[545.0 550.0] 0]
-                           [[550.0 555.0] 1]),
-               :mean 518.6618565215068,
+  :statistics {:min 1565.5276713534124,
+               :histogram ([[1500.0 1600.0] 1]
+                           [[1600.0 1700.0] 2]
+                           [[1700.0 1800.0] 0]
+                           [[1800.0 1900.0] 1]
+                           [[1900.0 2000.0] 0]
+                           [[2000.0 2100.0] 0]
+                           [[2100.0 2200.0] 0]
+                           [[2200.0 2300.0] 0]
+                           [[2300.0 2400.0] 0]),
+               :mean 1806.6976633304816,
                :n 5,
-               :variance 517.1194986040937,
-               :stdev 22.740261621276343,
-               :max 552.4892739606175,
-               :percentiles {0.0 498.3345973177095,
-                             50.0 506.87458385534853,
-                             90 552.4892739606175,
-                             95 552.4892739606175,
-                             99 552.4892739606175,
-                             99.9 552.4892739606175,
-                             99.99 552.4892739606175,
-                             99.999 552.4892739606175,
-                             99.9999 552.4892739606175,
-                             100 552.4892739606175},
-               :sum 2593.309282607534},
+               :variance 132147.56095414358,
+               :stdev 363.5210598495548,
+               :max 2431.989767699115,
+               :percentiles {0.0 1565.5276713534124,
+                             50.0 1608.0570430955531,
+                             90 2431.989767699115,
+                             95 2431.989767699115,
+                             99 2431.989767699115,
+                             99.9 2431.989767699115,
+                             99.99 2431.989767699115,
+                             99.999 2431.989767699115,
+                             99.9999 2431.989767699115,
+                             100 2431.989767699115},
+               :sum 9033.488316652409},
   :threads 1,
   :measurement {:count 25, :iterations 5, :time [10 :ms]},
-  :score [518.6618565215068 "ns/op"],
+  :score [1806.6976633304816 "ns/op"],
   :iterations {:synchronize true},
   :warmup {:count 1, :iterations 1, :time [10 :sec]},
   :timeout [10 :min],
   :fork {:count 1,
          :warmups 5,
-         :jvm {:java "/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.0.0.2/Contents/Home/bin/java",
-               :args ["-XX:ThreadPriorityPolicy=1"
-                      "-XX:+UnlockExperimentalVMOptions"
-                      "-XX:+EnableJVMCIProduct"
-                      "-XX:-UnlockExperimentalVMOptions"
-                      "-Dfile.encoding=UTF-8"
+         :jvm {:java "/usr/lib/jvm/temurin-11-jdk-amd64/bin/java",
+               :args ["-Dfile.encoding=UTF-8"
                       "-Djdk.attach.allowAttachSelf"
                       "-XX:+UnlockDiagnosticVMOptions"
                       "-XX:+PreserveFramePointer"
                       "-XX:+DebugNonSafepoints"
-                      "-Dclojure.compile.path=/Users/piotr-yuxuan/welcome-base-api/target/classes"
+                      "-Dclojure.compile.path=/home/runner/work/welcome-base-api/welcome-base-api/target/classes"
                       "-Dwelcome-base-api.version=0.0.0"
                       "-Dclojure.debug=false"
                       "-Dclojure.compiler.direct-linking=true"],
-               :jdk "17.0.2",
+               :jdk "11.0.14.1",
                :jmh "1.32"}},
   :thread-groups {}}
  {:args (:state/math-context :param/tick-radius :param/bod-price),
   :samples 5,
   :fn piotr-yuxuan.welcome-base-api.tick/size,
-  :score-error 121.88549085928604,
+  :score-error 996.7089110611668,
   :index 0,
   :ops-per-invocation 1,
-  :score-confidence [396.95255887837186 640.723540596944],
+  :score-confidence [639.3864760490375 2632.804298171371],
   :name :tick-size,
   :mode :average,
   :params {:bod-price 123.4567M, :tick-radius 10000},
   :output-time-unit :ns,
-  :statistics {:min 487.81606522216623,
-               :histogram ([[480.0 490.0] 1]
-                           [[490.0 500.0] 0]
-                           [[500.0 510.0] 1]
-                           [[510.0 520.0] 2]
-                           [[520.0 530.0] 0]
-                           [[530.0 540.0] 0]
-                           [[540.0 550.0] 0]
-                           [[550.0 560.0] 0]
-                           [[560.0 570.0] 0]),
-               :mean 518.8380497376579,
+  :statistics {:min 1405.5131225104637,
+               :histogram ([[1400.0 1450.0] 2]
+                           [[1450.0 1500.0] 0]
+                           [[1500.0 1550.0] 1]
+                           [[1550.0 1600.0] 0]
+                           [[1600.0 1650.0] 0]
+                           [[1650.0 1700.0] 0]
+                           [[1700.0 1750.0] 0]
+                           [[1750.0 1800.0] 0]
+                           [[1800.0 1850.0] 1]
+                           [[1850.0 1900.0] 0]
+                           [[1900.0 1950.0] 0]),
+               :mean 1636.0953871102042,
                :n 5,
-               :variance 1001.9298126668798,
-               :stdev 31.653274912193204,
-               :max 572.2427219936161,
-               :percentiles {0.0 487.81606522216623,
-                             50.0 510.5868968183099,
-                             90 572.2427219936161,
-                             95 572.2427219936161,
-                             99 572.2427219936161,
-                             99.9 572.2427219936161,
-                             99.99 572.2427219936161,
-                             99.999 572.2427219936161,
-                             99.9999 572.2427219936161,
-                             100 572.2427219936161},
-               :sum 2594.1902486882896},
+               :variance 66999.25293130893,
+               :stdev 258.84213901779776,
+               :max 1984.513289962096,
+               :percentiles {0.0 1405.5131225104637,
+                             50.0 1527.7027190734918,
+                             90 1984.513289962096,
+                             95 1984.513289962096,
+                             99 1984.513289962096,
+                             99.9 1984.513289962096,
+                             99.99 1984.513289962096,
+                             99.999 1984.513289962096,
+                             99.9999 1984.513289962096,
+                             100 1984.513289962096},
+               :sum 8180.476935551022},
   :threads 1,
   :measurement {:count 25, :iterations 5, :time [10 :ms]},
-  :score [518.8380497376579 "ns/op"],
+  :score [1636.0953871102042 "ns/op"],
   :iterations {:synchronize true},
   :warmup {:count 1, :iterations 1, :time [10 :sec]},
   :timeout [10 :min],
   :fork {:count 1,
          :warmups 5,
-         :jvm {:java "/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.0.0.2/Contents/Home/bin/java",
-               :args ["-XX:ThreadPriorityPolicy=1"
-                      "-XX:+UnlockExperimentalVMOptions"
-                      "-XX:+EnableJVMCIProduct"
-                      "-XX:-UnlockExperimentalVMOptions"
-                      "-Dfile.encoding=UTF-8"
+         :jvm {:java "/usr/lib/jvm/temurin-11-jdk-amd64/bin/java",
+               :args ["-Dfile.encoding=UTF-8"
                       "-Djdk.attach.allowAttachSelf"
                       "-XX:+UnlockDiagnosticVMOptions"
                       "-XX:+PreserveFramePointer"
                       "-XX:+DebugNonSafepoints"
-                      "-Dclojure.compile.path=/Users/piotr-yuxuan/welcome-base-api/target/classes"
+                      "-Dclojure.compile.path=/home/runner/work/welcome-base-api/welcome-base-api/target/classes"
                       "-Dwelcome-base-api.version=0.0.0"
                       "-Dclojure.debug=false"
                       "-Dclojure.compiler.direct-linking=true"],
-               :jdk "17.0.2",
+               :jdk "11.0.14.1",
                :jmh "1.32"}},
   :thread-groups {}}
  {:args (:state/math-context :param/tick-radius :param/bod-price),
   :samples 5,
   :fn piotr-yuxuan.welcome-base-api.tick/size,
-  :score-error 347.27708983745066,
+  :score-error 489.9269135878359,
   :index 0,
   :ops-per-invocation 1,
-  :score-confidence [749.8408576326649 1444.395037307566],
+  :score-confidence [1589.1708288042687 2569.0246559799402],
   :name :tick-size,
   :mode :average,
   :params {:bod-price 123.4567M, :tick-radius 2147483647},
   :output-time-unit :ns,
-  :statistics {:min 1009.7238365763708,
-               :histogram ([[1000.0 1025.0] 2]
-                           [[1025.0 1050.0] 0]
-                           [[1050.0 1075.0] 0]
-                           [[1075.0 1100.0] 1]
-                           [[1100.0 1125.0] 0]
-                           [[1125.0 1150.0] 1]
-                           [[1150.0 1175.0] 0]
-                           [[1175.0 1200.0] 0]
-                           [[1200.0 1225.0] 0]
-                           [[1225.0 1250.0] 1]
-                           [[1250.0 1275.0] 0]),
-               :mean 1097.1179474701155,
+  :statistics {:min 1925.636027590412,
+               :histogram ([[1900.0 1925.0] 0]
+                           [[1925.0 1950.0] 1]
+                           [[1950.0 1975.0] 1]
+                           [[1975.0 2000.0] 0]
+                           [[2000.0 2025.0] 0]
+                           [[2025.0 2050.0] 0]
+                           [[2050.0 2075.0] 0]
+                           [[2075.0 2100.0] 0]
+                           [[2100.0 2125.0] 1]
+                           [[2125.0 2150.0] 0]
+                           [[2150.0 2175.0] 0]
+                           [[2175.0 2200.0] 1]
+                           [[2200.0 2225.0] 1]
+                           [[2225.0 2250.0] 0]
+                           [[2250.0 2275.0] 0]),
+               :mean 2079.0977423921045,
                :n 5,
-               :variance 8133.651211251213,
-               :stdev 90.18675740512691,
-               :max 1225.6338511196288,
-               :percentiles {0.0 1009.7238365763708,
-                             50.0 1085.9606319047105,
-                             90 1225.6338511196288,
-                             95 1225.6338511196288,
-                             99 1225.6338511196288,
-                             99.9 1225.6338511196288,
-                             99.99 1225.6338511196288,
-                             99.999 1225.6338511196288,
-                             99.9999 1225.6338511196288,
-                             100 1225.6338511196288},
-               :sum 5485.589737350578},
+               :variance 16188.099801149012,
+               :stdev 127.23246362917371,
+               :max 2202.353498314275,
+               :percentiles {0.0 1925.636027590412,
+                             50.0 2107.8227756226984,
+                             90 2202.353498314275,
+                             95 2202.353498314275,
+                             99 2202.353498314275,
+                             99.9 2202.353498314275,
+                             99.99 2202.353498314275,
+                             99.999 2202.353498314275,
+                             99.9999 2202.353498314275,
+                             100 2202.353498314275},
+               :sum 10395.488711960523},
   :threads 1,
   :measurement {:count 25, :iterations 5, :time [10 :ms]},
-  :score [1097.1179474701155 "ns/op"],
+  :score [2079.0977423921045 "ns/op"],
   :iterations {:synchronize true},
   :warmup {:count 1, :iterations 1, :time [10 :sec]},
   :timeout [10 :min],
   :fork {:count 1,
          :warmups 5,
-         :jvm {:java "/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.0.0.2/Contents/Home/bin/java",
-               :args ["-XX:ThreadPriorityPolicy=1"
-                      "-XX:+UnlockExperimentalVMOptions"
-                      "-XX:+EnableJVMCIProduct"
-                      "-XX:-UnlockExperimentalVMOptions"
-                      "-Dfile.encoding=UTF-8"
+         :jvm {:java "/usr/lib/jvm/temurin-11-jdk-amd64/bin/java",
+               :args ["-Dfile.encoding=UTF-8"
                       "-Djdk.attach.allowAttachSelf"
                       "-XX:+UnlockDiagnosticVMOptions"
                       "-XX:+PreserveFramePointer"
                       "-XX:+DebugNonSafepoints"
-                      "-Dclojure.compile.path=/Users/piotr-yuxuan/welcome-base-api/target/classes"
+                      "-Dclojure.compile.path=/home/runner/work/welcome-base-api/welcome-base-api/target/classes"
                       "-Dwelcome-base-api.version=0.0.0"
                       "-Dclojure.debug=false"
                       "-Dclojure.compiler.direct-linking=true"],
-               :jdk "17.0.2",
+               :jdk "11.0.14.1",
                :jmh "1.32"}},
   :thread-groups {}})
