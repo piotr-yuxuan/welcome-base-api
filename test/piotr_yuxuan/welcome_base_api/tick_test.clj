@@ -1,16 +1,106 @@
-(ns piotr-yuxuan.welcome-base-api.order-matcher.simple-fifo-test
+(ns piotr-yuxuan.welcome-base-api.tick-test
   (:require [clojure.test :refer :all]
-            [piotr-yuxuan.welcome-base-api.order-matcher.simple-fifo :as simple-fifo])
+            [piotr-yuxuan.welcome-base-api.tick :as tick]
+            [criterium.core :as c])
   (:import (java.math RoundingMode)))
 
+;; Reading data from this experiment, I do not understand why performance on native shorts are so high.
+
+(def a (rand-int (int (Math/sqrt Short/MAX_VALUE))))
+(def b (rand-int (int (Math/sqrt Short/MAX_VALUE))))
+(def a-BigDecimal (BigDecimal/valueOf (long a)))
+(def b-BigDecimal (BigDecimal/valueOf (long b)))
+(def a-long (long a))
+(def b-long (long b))
+(def a-Long (Long/valueOf (long a)))
+(def b-Long (Long/valueOf (long b)))
+(def a-integer (int a))
+(def b-integer (int b))
+(def a-Integer (Integer/valueOf (int a)))
+(def b-Integer (Integer/valueOf (int b)))
+(def a-short (short a))
+(def b-short (short b))
+(def a-Short (Short/valueOf (short a)))
+(def b-Short (Short/valueOf (short b)))
+
+(defn native-number-operations-perf-test
+  []
+  (doseq [[number-type a b] [[:BigDecimal a-BigDecimal b-BigDecimal]
+                             [:long a-long b-long]
+                             [:Long a-Long b-Long]
+                             [:integer a-integer b-integer]
+                             [:Integer a-Integer b-Integer]
+                             [:short a-short b-short]
+                             [:Short a-Short b-Short]]
+          op-type [:checked :unchecked]]
+    (println "+" number-type op-type)
+    ;; => + :BigDecimal :checked, Execution time mean:   52.636327 ns
+    ;; => + :BigDecimal :unchecked, Execution time mean: 51.552338 ns
+    ;; => + :long :checked, Execution time mean:         15.986174 ns
+    ;; => + :long :unchecked, Execution time mean:       13.179255 ns
+    ;; => + :Long :checked, Execution time mean:         15.896992 ns
+    ;; => + :Long :unchecked, Execution time mean:       13.585209 ns
+    ;; => + :integer :checked, Execution time mean:      20.861606 ns
+    ;; => + :integer :unchecked, Execution time mean:     4.681712 ns <- awesome, ten time faster than BigDecimal and three times faster than native short.
+    ;; => + :Integer :checked, Execution time mean:      20.715196 ns
+    ;; => + :Integer :unchecked, Execution time mean:    13.879221 ns
+    ;; => + :short :checked, Execution time mean:        22.920586 ns
+    ;; => + :short :unchecked, Execution time mean:      16.065464 ns
+    ;; => + :Short :checked, Execution time mean:        24.081930 ns
+    ;; => + :Short :unchecked, Execution time mean:      16.849061 ns
+
+    ;; Variance may be moderately inflated by outliers but criterium isn't precise enough so as to care. Use JMH for statistically sound numbers.
+    (cond (= :checked op-type)
+          (binding [*unchecked-math* false]
+            (+ a b) (c/bench (+ a b)))
+
+          (and (= number-type :integer)
+               (= :unchecked op-type))
+          (binding [*unchecked-math* :warn-on-boxed]
+            (unchecked-add-int a b) (c/bench (unchecked-add-int a b)))
+
+          (= :unchecked op-type)
+          (binding [*unchecked-math* :warn-on-boxed]
+            (unchecked-add a b) (c/bench (unchecked-add a b))))))
+
+(defn value-test
+  []
+  (binding [*unchecked-math* :warn-on-boxed]
+    (let [bod-price 100M]
+      (c/quick-bench
+        ;; => Execution time mean: 138.336937 ns
+        (tick/value
+          (tick/size (tick/radius :percent) bod-price)
+          bod-price
+          101.5M)))
+
+    (let [^int tick-radius (tick/radius :percent)
+          bod-price 100M
+          tick-size (tick/size tick-radius bod-price)]
+      (c/quick-bench
+        ;; => Execution time mean: 38.468786 ns
+        (tick/value
+          tick-size
+          bod-price
+          101.5M)))))
+
+(defn size-perf-test
+  []
+  (binding [*unchecked-math* :warn-on-boxed]
+    (let [^int tick-radius (tick/radius :percent)
+          bod-price 100M]
+      (c/quick-bench
+        ;; => Execution time mean: 85.254467 ns
+        (tick/size tick-radius bod-price)))))
+
 (deftest tick-order-of-magnitude-test
-  (= 2 (simple-fifo/tick-order-of-magnitude :percent))
+  (= 2 (tick/order-of-magnitude :percent))
   (= 4
-     (simple-fifo/tick-order-of-magnitude :short)
-     (simple-fifo/tick-order-of-magnitude :anything)
-     (simple-fifo/tick-order-of-magnitude :default))
-  (= 4 (simple-fifo/tick-order-of-magnitude :ten-thousandth))
-  (= 9 (simple-fifo/tick-order-of-magnitude :integer)))
+     (tick/order-of-magnitude :short)
+     (tick/order-of-magnitude :anything)
+     (tick/order-of-magnitude :default))
+  (= 4 (tick/order-of-magnitude :ten-thousandth))
+  (= 9 (tick/order-of-magnitude :integer)))
 
 (defn ->bigdec
   ([unscaled-value] (->bigdec unscaled-value (int 0)))
