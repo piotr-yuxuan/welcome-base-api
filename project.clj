@@ -47,8 +47,8 @@
   :profiles {:github {:github/topics ["clojure" "api" "example"]}
              :dev {:global-vars {*warn-on-reflection* true}
                    :source-paths ["dev"]
-                   :repl-options {:init-ns user}
-                   :dependencies [[ring/ring-devel "2.0.0-alpha-1"] ; wrap-reload ring middleware
+                   :repl-options {:init-ns user, :timeout 1e6}
+                   :dependencies [[ring/ring-devel "2.0.0-alpha-1" :exclusions [crypto-random commons-io]] ; wrap-reload ring middleware
                                   ]}
              :uberjar {:aot :all
                        :jvm-opts ["-Dclojure.compiler.disable-locals-clearing=false"
