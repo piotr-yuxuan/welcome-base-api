@@ -12,7 +12,7 @@
   :dependencies [;; Core business domain
 
                  ;; HTTP
-                 [http-kit "2.5.3"] ; http server
+                 [http-kit "2.6.0-alpha1"] ; http server
                  [metosin/reitit "0.5.17" :exclusions [metosin/malli]] ; Router for Clojure(Script)
                  [metosin/malli "0.8.4"]
                  [metosin/ring-http-response "0.9.3" :exclusions [ring/ring-core]] ; No magic numbers for http statuses
@@ -39,7 +39,7 @@
                  [babashka/process "0.1.1"] ; Clojure wrapper for java.lang.ProcessBuilder
                  [juji/editscript "0.5.8"] ; A diff library for Clojure/ClojureScript data structures
                  [camel-snake-kebab "0.4.2"] ; case manipulation
-                 [com.xtdb/xtdb-core "1.20.0" :exclusions [org.clojure/data.json org.clojure/tools.reader]] ; Database
+                 [com.xtdb/xtdb-core "1.21.0-beta1" :exclusions [org.clojure/data.json org.clojure/tools.reader]] ; Database
 
                  ;; Language constructs and utilities
                  [org.clojure/clojure "1.11.0"] ; The language itself
