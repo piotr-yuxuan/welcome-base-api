@@ -1,8 +1,13 @@
 (ns piotr-yuxuan.welcome-base-api.tick-test
   (:require [clojure.test :refer :all]
+            [clj-async-profiler.core :as prof]
             [piotr-yuxuan.welcome-base-api.tick :as tick]
-            [criterium.core :as c])
-  (:import (java.math RoundingMode MathContext)))
+            [criterium.core :as c]
+            [jmh.core :as jmh]
+            [clojure.java.io :as io])
+  (:import (java.math RoundingMode MathContext)
+           (java.nio.file Files CopyOption StandardCopyOption)
+           (java.io File)))
 
 ;; Reading data from this experiment, I do not understand why performance on native shorts are so high.
 
@@ -79,44 +84,59 @@
   ;; => Execution time mean: 88.968671 ns
   )
 
-(defn value-test
-  []
-  (binding [*unchecked-math* :warn-on-boxed]
-    (let [bod-price 100M]
-      (c/quick-bench
-        ;; => Execution time mean: 138.336937 ns
-        (tick/value
-          (tick/size (tick/radius :percent) bod-price)
-          bod-price
-          101.5M)))
+;; Variance may be moderately inflated by outliers but criterium isn't precise enough so as to care. Use JMH for statistically sound numbers.
+;; These figures are only indicative, and don't have strong scientific base. Use JMH instead.
 
+(def profiler-repeat
+  "Magic number"
+  1e8)
+
+(deftest ^:kaocha/skip ^:perf size-performance-test
+  (binding [*unchecked-math* :warn-on-boxed]
     (let [^int tick-radius (tick/radius :percent)
           bod-price 100M
-          tick-size (tick/size tick-radius bod-price)]
-      (c/quick-bench
-        ;; => Execution time mean: 38.468786 ns
-        (tick/value
-          tick-size
-          bod-price
-          101.5M)))))
+          math-context (tick/math-context tick-radius bod-price)
+          thunk (fn [] (tick/size math-context tick-radius bod-price))
+          benchmark (io/file "doc" "perf" "tick-size-benchmark.txt")
+          profiled-events #{:cpu :itimer :alloc}]
+      (testing "tick/size"
+        (testing "benchmarking"
+          (with-open [benchmark (io/writer benchmark :append false)]
+            (binding [*out* benchmark]
+              (c/bench (thunk)))))
+        (doseq [event profiled-events
+                :let [profile (io/file "doc" "perf" (format "tick-size-flamegraph-%s.html" (name event)))]]
+          (testing "profiling"
+            (let [tmp-profile (prof/profile {:event event, :return-file true} (dotimes [_ profiler-repeat] (thunk)))]
+              (Files/move (.toPath ^File tmp-profile) (.toPath profile) (into-array CopyOption [StandardCopyOption/REPLACE_EXISTING])))))))))
 
-(defn size-perf-test
-  []
+(deftest ^:kaocha/skip ^:perf value-performance-test
   (binding [*unchecked-math* :warn-on-boxed]
     (let [^int tick-radius (tick/radius :percent)
-          bod-price 100M]
-      (c/quick-bench
-        ;; => Execution time mean: 85.254467 ns
-        (tick/size tick-radius bod-price)))))
+          bod-price 100M
+          tick-size (tick/size tick-radius bod-price)
+          thunk (fn [] (tick/value bod-price tick-size 101.5M))
+          benchmark (io/file "doc" "perf" "tick-value-benchmark.txt")
+          profiled-events #{:cpu :itimer :alloc}]
+      (testing "tick/value"
+        (testing "benchmarking"
+          (with-open [benchmark (io/writer benchmark :append false)]
+            (binding [*out* benchmark]
+              (c/bench (thunk)))))
+        (doseq [event profiled-events
+                :let [profile (io/file "doc" "perf" (format "tick-value-flamegraph-%s.html" (name event)))]]
+          (testing "profiling"
+            (let [tmp-profile (prof/profile {:event event, :return-file true} (dotimes [_ profiler-repeat] (thunk)))]
+              (Files/move (.toPath ^File tmp-profile) (.toPath profile) (into-array CopyOption [StandardCopyOption/REPLACE_EXISTING])))))))))
 
 (deftest tick-order-of-magnitude-test
-  (= 2 (tick/order-of-magnitude :percent))
+  (= 2 (tick/order-of-magnitude (tick/radius :percent)))
   (= 4
-     (tick/order-of-magnitude :short)
-     (tick/order-of-magnitude :anything)
-     (tick/order-of-magnitude :default))
-  (= 4 (tick/order-of-magnitude :ten-thousandth))
-  (= 9 (tick/order-of-magnitude :integer)))
+     (tick/order-of-magnitude (tick/radius :short))
+     (tick/order-of-magnitude (tick/radius :anything))
+     (tick/order-of-magnitude (tick/radius :default)))
+  (= 4 (tick/order-of-magnitude (tick/radius :ten-thousandth)))
+  (= 9 (tick/order-of-magnitude (tick/radius :integer))))
 
 (defn ->bigdec
   ([unscaled-value] (->bigdec unscaled-value (int 0)))
@@ -157,7 +177,6 @@
   (is (not (bigdec= 1e2M 100M (->bigdec 1000 1) (->bigdec 1 -2)))))
 
 (deftest tick-size-test
-
   (is (bigdec= (tick/size (int 100) (->bigdec 1 -2))
                (tick/size (int 100) (->bigdec 10 -1))
                (tick/size (int 100) (->bigdec 100 0))
@@ -244,23 +263,22 @@
 
 (deftest tick-value-test
   (let [bod-price 100M]
-    (is (== 0 (tick/value (tick/size (tick/radius :percent) bod-price) bod-price 100M)))
-    (is (== 1 (tick/value (tick/size (tick/radius :percent) bod-price) bod-price 101M)))
-    (is (== 2 (tick/value (tick/size (tick/radius :percent) bod-price) bod-price 102M)))
+    (is (== 0 (tick/value bod-price (tick/size (tick/radius :percent) bod-price) 100M)))
+    (is (== 1 (tick/value bod-price (tick/size (tick/radius :percent) bod-price) 101M)))
+    (is (== 2 (tick/value bod-price (tick/size (tick/radius :percent) bod-price) 102M)))
 
-    (is (== 1 (tick/value (tick/size (tick/radius :percent) bod-price) bod-price 101.4M)))
+    (is (== 1 (tick/value bod-price (tick/size (tick/radius :percent) bod-price) 101.4M)))
     (testing "round even number up"
-      (is (== 2 (tick/value (tick/size (tick/radius :percent) bod-price) bod-price 101.5M))))
-    (is (== 2 (tick/value (tick/size (tick/radius :percent) bod-price) bod-price 101.6M)))
+      (is (== 2 (tick/value bod-price (tick/size (tick/radius :percent) bod-price) 101.5M))))
+    (is (== 2 (tick/value bod-price (tick/size (tick/radius :percent) bod-price) 101.6M)))
 
-    (is (== 2 (tick/value (tick/size (tick/radius :percent) bod-price) bod-price 102.4M)))
+    (is (== 2 (tick/value bod-price (tick/size (tick/radius :percent) bod-price) 102.4M)))
     (testing "round odd number up"
-      (is (== 2 (tick/value (tick/size (tick/radius :percent) bod-price) bod-price 102.5M))))
-    (is (== 3 (tick/value (tick/size (tick/radius :percent) bod-price) bod-price 102.6M)))
+      (is (== 2 (tick/value bod-price (tick/size (tick/radius :percent) bod-price) 102.5M))))
+    (is (== 3 (tick/value bod-price (tick/size (tick/radius :percent) bod-price) 102.6M)))
 
-    (is (== 0 (tick/value (tick/size (tick/radius :percent) 101M) 101M 101M)))
-    (is (== 1 (tick/value (tick/size (tick/radius :percent) 101M) 101M 102M)))))
+    (is (== 0 (tick/value 101M (tick/size (tick/radius :percent) 101M) 101M)))
+    (is (== 1 (tick/value 101M (tick/size (tick/radius :percent) 101M) 102M)))))
 
 (deftest market-value-test
-  tick/bod-price->market-value
-  tick/size->market-value)
+  tick/market-value)
