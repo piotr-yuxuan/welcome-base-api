@@ -1,5 +1,5 @@
-Checking dependencies for stdin  ...
-  using nvd-clojure:  and dependency-check: 7.0.1
+Checking dependencies for stdin...
+  using nvd-clojure: 2.4.0 and dependency-check: 7.0.2
 +------------------------------------+------------------------------------------------------------------------------------------------+
 | dependency                         | status                                                                                         |
 +------------------------------------+------------------------------------------------------------------------------------------------+
@@ -11,5 +11,6 @@ Checking dependencies for stdin  ...
 
 9 vulnerabilities detected. Severity: HIGH
 Detailed reports saved in: /home/runner/work/welcome-base-api/welcome-base-api/target/nvd
+HTML report : /home/runner/work/welcome-base-api/welcome-base-api/target/nvd/dependency-check-report.html
 
    *** THIS REPORT IS WITHOUT WARRANTY ***
