@@ -109,6 +109,9 @@
    :output-time-unit :ns
    :fork {:jvm {:append-args ["-Dclojure.compiler.direct-linking=true"]}}})
 
+(def profiled-events
+  #{:cpu :itimer :alloc})
+
 (defn perf-folder
   []
   (format "os.name=%s,os.version=%s,java.vendor=%s,java.runtime.version=%s"
@@ -119,28 +122,29 @@
 
 (deftest ^:perf ^:benchmarking size-perf-benchmarking-test
   (binding [*unchecked-math* :warn-on-boxed]
-    (let [^int tick-radius (tick/radius :percent)
-          bod-price 100M
-          math-context (tick/math-context tick-radius bod-price)
-          thunk (fn [] (tick/size math-context tick-radius bod-price))
-          benchmark (doto ^File (io/file "doc" "perf" (perf-folder) "tick-size-benchmark.txt") (-> .getParentFile .mkdirs))]
-      (testing "tick/size benchmarking"
-        (is true)
-        (with-open [benchmark (io/writer benchmark :append false)]
-          (binding [*out* benchmark]
-            (c/bench (thunk) :os :runtime)))))))
+    (doseq [market-type (keys tick/market-type->radius)]
+      (let [^int tick-radius (tick/radius market-type)
+            bod-price 100M
+            math-context (tick/math-context tick-radius bod-price)
+            thunk (fn [] (tick/size math-context tick-radius bod-price))
+            benchmark (doto ^File (io/file "doc" "perf" (perf-folder) (format "tick-size-%s-benchmark.txt" (name market-type))) (-> .getParentFile .mkdirs))]
+        (testing "tick/size benchmarking"
+          (is true)
+          (with-open [benchmark (io/writer benchmark :append false)]
+            (binding [*out* benchmark]
+              (c/bench (thunk) :os :runtime))))))))
 
 (deftest ^:perf ^:profiling size-perf-profiling-test
   (binding [*unchecked-math* :warn-on-boxed]
-    (let [^int tick-radius (tick/radius :percent)
-          bod-price 100M
-          math-context (tick/math-context tick-radius bod-price)
-          thunk (fn [] (tick/size math-context tick-radius bod-price))
-          profiled-events #{:cpu :itimer :alloc}]
-      (testing "tick/size profiling"
-        (is true)
-        (doseq [event profiled-events
-                :let [profile (doto ^File (io/file "doc" "perf" (perf-folder) (format "tick-size-flamegraph-%s.html" (name event))) (-> .getParentFile .mkdirs))]]
+    (doseq [event profiled-events
+            market-type (keys tick/market-type->radius)]
+      (let [profile (doto ^File (io/file "doc" "perf" (perf-folder) (format "tick-size-%s-flamegraph-%s.html" (name market-type) (name event))) (-> .getParentFile .mkdirs))
+            ^int tick-radius (tick/radius market-type)
+            bod-price 100M
+            math-context (tick/math-context tick-radius bod-price)
+            thunk (fn [] (tick/size math-context tick-radius bod-price))]
+        (testing "tick/size profiling"
+          (is true)
           (let [tmp-profile (prof/profile {:event event, :return-file true} (dotimes [_ profiler-repeat] (thunk)))]
             (Files/move (.toPath ^File tmp-profile) (.toPath profile) (into-array CopyOption [StandardCopyOption/REPLACE_EXISTING]))))))))
 
@@ -160,28 +164,29 @@
 
 (deftest ^:perf ^:benchmarking value-perf-benchmarking-test
   (binding [*unchecked-math* :warn-on-boxed]
-    (let [^int tick-radius (tick/radius :percent)
-          bod-price 100M
-          tick-size (tick/size tick-radius bod-price)
-          thunk (fn [] (tick/value bod-price tick-size 101.5M))
-          benchmark (doto ^File (io/file "doc" "perf" (perf-folder) "tick-value-benchmark.txt") (-> .getParentFile .mkdirs))]
-      (testing "tick/value benchmarking"
-        (is true)
-        (with-open [benchmark (io/writer benchmark :append false)]
-          (binding [*out* benchmark]
-            (c/bench (thunk) :os :runtime)))))))
+    (doseq [market-type (keys tick/market-type->radius)]
+      (let [^int tick-radius (tick/radius market-type)
+            bod-price 100M
+            tick-size (tick/size tick-radius bod-price)
+            thunk (fn [] (tick/value bod-price tick-size 101.5M))
+            benchmark (doto ^File (io/file "doc" "perf" (perf-folder) (format "tick-value-%s-benchmark.txt" (name market-type))) (-> .getParentFile .mkdirs))]
+        (testing "tick/value benchmarking"
+          (is true)
+          (with-open [benchmark (io/writer benchmark :append false)]
+            (binding [*out* benchmark]
+              (c/bench (thunk) :os :runtime))))))))
 
 (deftest ^:perf ^:profiling value-perf-profiling-test
   (binding [*unchecked-math* :warn-on-boxed]
-    (let [^int tick-radius (tick/radius :percent)
-          bod-price 100M
-          tick-size (tick/size tick-radius bod-price)
-          thunk (fn [] (tick/value bod-price tick-size 101.5M))
-          profiled-events #{:cpu :itimer :alloc}]
-      (testing "tick/value profiling"
-        (is true)
-        (doseq [event profiled-events
-                :let [profile (doto ^File (io/file "doc" "perf" (perf-folder) (format "tick-value-flamegraph-%s.html" (name event))) (-> .getParentFile .mkdirs))]]
+    (doseq [market-type (keys tick/market-type->radius)
+            event profiled-events]
+      (let [profile (doto ^File (io/file "doc" "perf" (perf-folder) (format "tick-value-%s-flamegraph-%s.html" (name market-type) (name event))) (-> .getParentFile .mkdirs))
+            ^int tick-radius (tick/radius market-type)
+            bod-price 100M
+            tick-size (tick/size tick-radius bod-price)
+            thunk (fn [] (tick/value bod-price tick-size 101.5M))]
+        (testing "tick/value profiling"
+          (is true)
           (let [tmp-profile (prof/profile {:event event, :return-file true} (dotimes [_ profiler-repeat] (thunk)))]
             (Files/move (.toPath ^File tmp-profile) (.toPath profile) (into-array CopyOption [StandardCopyOption/REPLACE_EXISTING]))))))))
 
@@ -350,5 +355,40 @@
     (is (== 0 (tick/value 101M (tick/size (tick/radius :percent) 101M) 101M)))
     (is (== 1 (tick/value 101M (tick/size (tick/radius :percent) 101M) 102M)))))
 
-#_(deftest market-value-test
-    tick/market-value)
+(deftest market-value-test
+  (let [^BigDecimal bod-price 100M
+        ^BigDecimal tick-size (tick/size (tick/radius :percent) bod-price)
+        tick-value 0]
+    (is (= (->bigdec 100 0) (tick/market-value bod-price tick-size tick-value))))
+  (let [^BigDecimal bod-price 100M
+        ^BigDecimal tick-size (tick/size (tick/radius :percent) bod-price)
+        tick-value 50]
+    (is (= (->bigdec 150 0) (tick/market-value bod-price tick-size tick-value)))))
+
+(deftest ^:perf ^:benchmarking market-value-perf-benchmarking-test
+  (binding [*unchecked-math* :warn-on-boxed]
+    (doseq [market-type (keys tick/market-type->radius)]
+      (let [^BigDecimal bod-price 100M
+            ^BigDecimal tick-size (tick/size (tick/radius market-type) bod-price)
+            tick-value 3
+            thunk (fn [] (tick/market-value bod-price tick-size tick-value))
+            benchmark (doto ^File (io/file "doc" "perf" (perf-folder) (format "tick-market-value-%s-benchmark.txt" (name market-type))) (-> .getParentFile .mkdirs))]
+        (testing "tick/market-value benchmarking"
+          (is true)
+          (with-open [benchmark (io/writer benchmark :append false)]
+            (binding [*out* benchmark]
+              (c/bench (thunk) :os :runtime))))))))
+
+(deftest ^:perf ^:profiling market-value-perf-profiling-test
+  (binding [*unchecked-math* :warn-on-boxed]
+    (doseq [market-type (keys tick/market-type->radius)
+            event profiled-events]
+      (let [profile (doto ^File (io/file "doc" "perf" (perf-folder) (format "tick-market-value-%s-flamegraph-%s.html" (name market-type) (name event))) (-> .getParentFile .mkdirs))
+            ^int tick-radius (tick/radius market-type)
+            bod-price 100M
+            math-context (tick/math-context tick-radius bod-price)
+            thunk (fn [] (tick/size math-context tick-radius bod-price))]
+        (testing "tick/market-value profiling"
+          (is true)
+          (let [tmp-profile (prof/profile {:event event, :return-file true} (dotimes [_ profiler-repeat] (thunk)))]
+            (Files/move (.toPath ^File tmp-profile) (.toPath profile) (into-array CopyOption [StandardCopyOption/REPLACE_EXISTING]))))))))
