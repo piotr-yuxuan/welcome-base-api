@@ -164,27 +164,52 @@ var canvasWidth = calculateCanvasWidth();
 var isDiffgraph = false;
 var normalizeDiff = true, b_scale_factor;
 var reverseGraph = false;
-var idToFrame = ["java.lang.Thread.run",
-"clojure.lang.AFn.run",
-"nrepl.middleware.session/session-exec/main-loop--28097",
-"nrepl.middleware.session/session-exec/main-loop--28097/fn--28101",
-"nrepl.middleware.interruptible-eval/interruptible-eval/fn--27995/fn--27999",
-"nrepl.middleware.interruptible-eval/evaluate",
-"clojure.lang.RestFn.invoke",
-"clojure.main/repl",
-"clojure.main/repl/fn--9215",
-"clojure.main/repl/read-eval-print--9206",
-"clojure.main/repl/read-eval-print--9206/fn--9209",
-"clojure.core/eval",
+var idToFrame = ["clojure.main.main",
+"clojure.lang.Var.applyTo",
+"clojure.lang.RestFn.applyTo",
+"clojure.main/main",
+"clojure.main/null-opt",
+"clojure.main/initialize",
+"clojure.main/init-opt",
+"clojure.main/load-script",
+"clojure.lang.Compiler.loadFile",
+"clojure.lang.Compiler.load",
 "clojure.lang.Compiler.eval",
-"piotr-yuxuan.welcome-base-api.tick-test/eval34066",
-"piotr-yuxuan.welcome-base-api.tick-test/eval34066/fn--34088",
-"piotr-yuxuan.welcome-base-api.tick-test/eval34066/fn--34088/fn--34089",
-"piotr-yuxuan.welcome-base-api.tick-test/eval34066/thunk--34067",
+"user$eval27292.invoke",
+"user$eval27292.invokeStatic",
+"user$eval27292$fn__27365.invoke",
+"user$eval27292$fn__27365$fn__27366.invoke",
+"user$eval27292$fn__27365$fn__27398.invoke",
+"clojure.core/apply",
+"clojure.test/run-tests",
+"clojure.lang.RT.boundedLength",
+"clojure.lang.Cons.next",
+"clojure.lang.LazySeq.seq",
+"clojure.lang.LazySeq.sval",
+"clojure.core/map/fn--5935",
+"clojure.lang.RestFn.invoke",
+"clojure.lang.AFunction$1.doInvoke",
+"leiningen.core.injected/prepare-for-hooks/fn--27224/fn--27225",
+"leiningen.core.injected/run-hooks",
+"leiningen.core.injected/compose-hooks/fn--27219",
+"clojure.lang.AFn.applyTo",
+"clojure.lang.AFn.applyToHelper",
+"user$eval27292$fn__27355.invoke",
+"clojure.test/test-ns",
+"clojure.test/test-all-vars",
+"clojure.test/test-vars",
+"clojure.test/default-fixture",
+"clojure.test/test-vars/fn--9882",
+"clojure.test/test-vars/fn--9882/fn--9887",
+"clojure.test/test-var",
+"clojure.test/test-var/fn--9856",
+"piotr-yuxuan.welcome-base-api.tick-test/fn--32798",
+"piotr-yuxuan.welcome-base-api.tick-test/fn--32798/fn--32818",
+"piotr-yuxuan.welcome-base-api.tick-test/fn--32798/fn--32818/fn--32819",
+"piotr-yuxuan.welcome-base-api.tick-test/fn--32798/thunk--32799",
 "piotr-yuxuan.welcome-base-api.tick/value",
 "java.math.BigDecimal.subtract",
 "java.math.BigDecimal.add",
-"java.math.BigDecimal.valueOf",
 "java.math.BigDecimal_[i]",
 ];
 var reverse = false;
@@ -326,7 +351,7 @@ function transformStacks() {
 
 console.time("data exec time");
 
-  a([0,0,1,2,3,1,4,5,6,7,8,9,10,11,12,12,13,14,15,16,17,18,19,19,20,21,],3822);
+  a([0,0,1,2,3,4,5,6,7,8,9,10,10,11,12,13,14,15,16,2,17,16,2,18,19,20,21,22,23,24,2,25,26,16,2,27,16,28,29,30,31,32,33,34,35,34,36,37,38,39,40,41,42,43,44,45,46,],3822);
 
 
 console.timeEnd("data exec time");
