@@ -66,17 +66,7 @@
   (mu/update-properties ErrorResponse assoc :description "Error caused by a third-party service used by the API. Your request was legit, the API is working properly but relies on another service which failed to reply gracefully."))
 
 (def non-error-responses
-  (->> [http-status/accepted
-        http-status/created
-        http-status/no-content
-        http-status/not-modified
-        http-status/ok
-        http-status/processing
-        http-status/reset-content]
-       (reduce (fn [acc status]
-                 (let [{:keys [name description]} (get http-status/status status)]
-                   (assoc acc status {:description (format "_%s_. %s" name description)})))
-               {})))
+  (reduce (fn [acc status] (let [{:keys [name description]} (get http-status/status status)] (assoc acc status {:description (format "_%s_. %s" name description)}))) {} [http-status/accepted http-status/created http-status/no-content http-status/not-modified http-status/ok http-status/processing http-status/reset-content]))
 
 (def client-errors
   {http-status/bad-request {:description "_Bad Request_. Syntactic error in request body, can't be parsed."}
