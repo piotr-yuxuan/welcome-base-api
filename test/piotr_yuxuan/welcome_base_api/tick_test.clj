@@ -4,7 +4,8 @@
             [piotr-yuxuan.welcome-base-api.tick :as tick]
             [criterium.core :as c]
             [jmh.core :as jmh]
-            [clojure.java.io :as io])
+            [clojure.java.io :as io]
+            [fipp.edn :refer [pprint]])
   (:import (java.math RoundingMode MathContext)
            (java.nio.file Files CopyOption StandardCopyOption)
            (java.io File)))
@@ -129,14 +130,15 @@
     (let [jmh-benchmark (io/file "doc" "perf" "tick-size-benchmark-jmh.edn")
           jmh-status (io/file "doc" "perf" "tick-size-benchmark-jmh-status.log")]
       (testing "tick/size jmh"
-        (spit jmh-benchmark
-              (jmh/run jmh-env
-                       {:type :quick
-                        :profilers ["gc" "stack" "cl" "comp"]
-                        :select [:tick-size]
-                        :status (.getCanonicalPath ^File jmh-status)
-                        :fork {:jvm {:append-args ["-Dclojure.compiler.direct-linking=true"]}}})
-              :append false)))))
+        (let [jmh-result (jmh/run jmh-env
+                                  {:type :quick
+                                   :profilers ["gc" "stack" "cl" "comp"]
+                                   :select [:tick-size]
+                                   :status (.getCanonicalPath ^File jmh-status)
+                                   :fork {:jvm {:append-args ["-Dclojure.compiler.direct-linking=true"]}}})]
+          (spit jmh-benchmark
+                (with-out-str (pprint jmh-result {:print-length 1e3}))
+                :append false))))))
 
 (deftest ^:kaocha/skip ^:perf ^:benchmarking value-perf-benchmarking-test
   (binding [*unchecked-math* :warn-on-boxed]
@@ -168,14 +170,15 @@
     (let [jmh-benchmark (io/file "doc" "perf" "tick-value-benchmark-jmh.edn")
           jmh-status (io/file "doc" "perf" "tick-value-benchmark-jmh-status.log")]
       (testing "tick/value jmh"
-        (spit jmh-benchmark
-              (jmh/run jmh-env
-                       {:type :quick
-                        :profilers ["gc" "stack" "cl" "comp"]
-                        :select [:tick-value]
-                        :status (.getCanonicalPath ^File jmh-status)
-                        :fork {:jvm {:append-args ["-Dclojure.compiler.direct-linking=true"]}}})
-              :append false)))))
+        (let [jmh-result (jmh/run jmh-env
+                                  {:type :quick
+                                   :profilers ["gc" "stack" "cl" "comp"]
+                                   :select [:tick-value]
+                                   :status (.getCanonicalPath ^File jmh-status)
+                                   :fork {:jvm {:append-args ["-Dclojure.compiler.direct-linking=true"]}}})]
+          (spit jmh-benchmark
+                (with-out-str (pprint jmh-result {:print-length 1e3}))
+                :append false))))))
 
 (deftest tick-order-of-magnitude-test
   (= 2 (tick/order-of-magnitude (tick/radius :percent)))
