@@ -66,8 +66,7 @@
 ~ (defn precision
 ?   [market-type]
 ?   "Tick precision is a ratio. Tick size is relative to the market value at the beginning of day."
-✘   (->> (radius market-type)
-?        (/ 1)))
+✘   (/ 1 (radius market-type)))
   
 ✔ (def bod-ticks
 ?   "By definition. tick-value can vary within `(tick-value-span market-type)`."
@@ -93,8 +92,7 @@
   
 ✔ (defn ^BigDecimal bod-price->market-value
 ?   [^BigDecimal tick-size ^BigDecimal bod-price tick-value]
-✘   (-> (.multiply tick-size tick-value)
-✘       (.add bod-price)))
+✘   (.add (.multiply tick-size tick-value) bod-price))
   
 ✔ (defn ^BigDecimal size->market-value
 ?   [tick-size tick-value]

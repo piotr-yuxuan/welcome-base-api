@@ -1,6 +1,6 @@
 Lines Non-Blank Instrumented Covered Partial
    90        78           53      24       1 piotr_yuxuan/welcome_base_api/config.clj
-  107        91           32      26       2 piotr_yuxuan/welcome_base_api/tick.clj
+  105        89           31      26       2 piotr_yuxuan/welcome_base_api/tick.clj
   110        97           36      22       2 piotr_yuxuan/welcome_base_api/order_matcher/simple_fifo.clj
    90        81           61       6       0 piotr_yuxuan/welcome_base_api/swagger_2_>openapi_3.clj
   411       379          258     199       1 piotr_yuxuan/welcome_base_api/main.clj

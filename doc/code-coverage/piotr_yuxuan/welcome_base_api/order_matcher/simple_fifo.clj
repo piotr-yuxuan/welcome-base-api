@@ -2,8 +2,8 @@
 ?   "This should be so simple it's can't be wrong, but nonetheless well
 ?   tested. Then it may serve as a reference implementation for later
 ?   more optimised strategies."
-?   (:require [malli.core :as m]
-?             [piotr-yuxuan.welcome-base-api.tick :as tick])
+?   (:require [piotr-yuxuan.welcome-base-api.tick :as tick]
+?             [malli.core :as m])
 ?   (:import (java.util UUID)))
   
 ? ;; https://en.wikipedia.org/wiki/Order_(exchange)
