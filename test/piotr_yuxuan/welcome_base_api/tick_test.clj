@@ -98,16 +98,14 @@
    :params {:tick-radius [(tick/radius :percent) (tick/radius :short) (tick/radius :ten-thousandth) (tick/radius :integer)]
             :bod-price [100M 101.5M 101M 102.5M 123.4567M]}
    :selectors {:tick-size (comp #{:tick-size} :name)
-               :tick-radius (comp #{:tick-radius} :name)}
-   :options {:mode :all ;; Where to put that?
-             :output-time-unit :ns ;; Where to put that?
-             }})
+               :tick-radius (comp #{:tick-radius} :name)}})
+
 
 (def jmh-opts
   {:type :quick
-   :profilers ["gc" "stack" "cl" "comp"]
-   :mode :all ;; Where to put that?
-   :output-time-unit :ns ;; Where to put that?
+   ;:profilers ["gc" "stack"]
+   :mode :average
+   :output-time-unit :ns
    :fork {:jvm {:append-args ["-Dclojure.compiler.direct-linking=true"]}}})
 
 (deftest ^:perf ^:benchmarking size-perf-benchmarking-test
