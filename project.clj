@@ -25,7 +25,7 @@
                  [org.apache.kafka/kafka-clients "3.1.0"]
                  [org.apache.avro/avro "1.11.0"]
                  [io.confluent/kafka-avro-serializer "7.0.1"]
-                 [piotr-yuxuan/slava "0.33.0"] ; Avro record manipulation
+                 [piotr-yuxuan/slava "0.33.0"] ; Avro record manipulation for Clojure
 
                  ;; Observability, living in production
 
