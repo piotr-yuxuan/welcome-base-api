@@ -59,6 +59,10 @@
 
 - https://en.wikipedia.org/wiki/JDK_Flight_Recorder
 
+## Distributed systems
+
+- https://web.archive.org/web/20220314001622/https://martinfowler.com/articles/patterns-of-distributed-systems/
+
 ## Data structures
 
 - https://stratos.seas.harvard.edu/files/stratos/files/periodictabledatastructures.pdf
