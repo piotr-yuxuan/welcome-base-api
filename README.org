@@ -27,6 +27,7 @@ switched to IntelliJ.
   - [[#distributed-tracing][Distributed tracing]]
   - [[#github-actions][GitHub Actions]]
   - [[#openapi][OpenAPI]]
+  - [[#code-formatter][Code formatter]]
   - [[#rename][Rename]]
   - [[#github-pr-template][GitHub PR template]]
   - [[#authorization-authentication][Authorization, authentication]]
@@ -41,7 +42,22 @@ switched to IntelliJ.
   - [[#list-known-dependency-vulnerabilities][List known dependency vulnerabilities]]
   - [[#sort-ns-forms][Sort ns forms]]
   - [[#report-test-coverage][Report test coverage]]
+  - [[#api-documentation][API documentation]]
 - [[#usage][Usage]]
+- [[#new-idea][New idea]]
+  - [[#principles][Principles]]
+  - [[#how-to-live-in-production][How to live in production?]]
+  - [[#infrastructure][Infrastructure]]
+  - [[#server-side][Server side]]
+    - [[#circuit-breaker][Circuit breaker]]
+    - [[#logs][Logs]]
+    - [[#distributed-tracing-1][Distributed tracing]]
+    - [[#metrics][Metrics]]
+    - [[#monitoring-1][Monitoring]]
+    - [[#alerting][Alerting]]
+    - [[#short-term-mitigation-tools][Short-term mitigation tools]]
+  - [[#client-side][Client side]]
+  - [[#anti-patterns-i-will-not-condone][Anti-patterns I will not condone]]
 #+END_QUOTE
 
 * Clojure luminaries and resources
@@ -207,6 +223,15 @@ No clear way yet, but:
 
 ** Report test coverage
 
+** API documentation
+
+- Redoc
+- Swagger
+- Descriptive HTTP response status codes
+- State machines, web sequence diagrams
+- Postman collection ready for import
+- Just pure human description with semantic zoom
+ 
 * Usage
 
 This project was created with:
@@ -276,3 +301,146 @@ Run that uberjar:
 java -jar welcome-base-api.jar
 #+END_SRC
 
+* New idea
+
+#+BEGIN_QUOTE
+« In preparing for battle, I have always found that plans are useless,
+but planning is indispensable. »
+#+END_QUOTE
+ – General Dwight D. Eisenhower
+
+My goal is not to show yet another template for quick and easy Clojure
+apps or ClojureScript webapps. There are a lot of them around, most of
+them are really good, and they usually focus on the quickest path from
+ideation to proof of concept as fast as possible, with some
+opinionated set of libraries, tools, code style, and conventions.
+
+This repository isn't intended as proscriptive guidance to help you
+quickly reach a proof of concept. On the contrary the intended
+audience is my future self, in some time, once I have got a project up
+and running and I intend to release it in production.
+
+** Principles
+
+- No abstraction is better than bad abstraction ([[https://sandimetz.com/blog/2016/1/20/the-wrong-abstraction][Sandi Metz]]);
+- Maximum composability over maximalist framework ([[https://en.wikipedia.org/wiki/Composition_over_inheritance][link]]);
+- Minimal idiosyncrasy, be a good citizen, follow standards.
+
+** How to live in production?
+
+https://pragprog.com/titles/mnee2/release-it-second-edition/
+
+This humble goal of this repository is to be examplified checklist to
+read before going live, much like an airplane captain always checks
+safety, sanity, and security before risking his life and those of his
+passengers.
+
+The system you're building doesn't need to be the best. It can't be
+perfect unless you have unlimited time and budget. It just has to be
+good enough.
+
+You made the flight plan with your POC, now how do you actually fly it
+and get ready for the unexpected? If you are working on a live system
+designed to be used by thousands of concurrent users you can't sanely
+go to production without observability. You want to be able to observe
+your system, prove it worked as intended, understand higher-order
+effects, and prevent undesirable behaviours.
+
+** Infrastructure
+
+- Simple, one-click deployment and rollback procedures.
+- Any need for A/B testing, and replaying browser logs + server
+  requests to local instances?
+- Logs http requests. That would allow us to replay any faulty event
+  sequence and troubleshoot bugs much more easily.
+
+** Server side
+
+*** Circuit breaker
+
+- Integrate safely?
+- Circuit breaker and degraded mode. Perhaps it’s better to explain to
+  the user that data source scraping is unavailable but he still has
+  read-only access to historical data, instead of having 100 %
+  features or nothing.
+
+*** Logs
+
+- console logs + GitHub - BrunoBonacci/mulog + ELK Stack?
+- Instance logs send to ELK with full-text search?
+- Logging security event and permission changes
+
+*** Distributed tracing
+
+- Zipkin?
+- If using other internal systems, distributed tracing would be nice
+  to help collaborative debugging with different teams.
+
+*** Metrics
+
+- Basic JVM metrics
+- Basic instance and disk metrics
+- IO network pressure
+
+*** Monitoring
+
+- Grafana + Prometheus?
+- http status codes as seen by the load balancer and the instances, as
+  a whole and broken down by endpoints
+- Latency histograms from the load balancer and the instances, as a
+  whole and broken down by endpoints
+- Request load seen by the load balancer and the instances, as a whole
+  and broken down by endpoints
+- Response time and availability of dependant services (DB, data
+  sources)
+
+*** Alerting
+
+Make sure the system stays in nominal usage scenario, forecast issues,
+and spot unexpected spikes.
+
+- Prometheus?
+- « Given the rate of the past 48h, the disks will be full in 3 days »
+- Unexpected CPU load or disk activity « instance is on fire »
+- Unexpected number of requests
+- Unexpected number of users
+- Unexpected activity for a user
+- Error http status codes keep appearing for more than 2m.
+
+*** Short-term mitigation tools
+
+- Being able to throttle or deny requests by endpoint / user / IP
+  range might be quite helpful
+
+** Client side
+
+Recording the sessions and sending logs from browser to ELK would be
+ideal. That would enable us to early detect customer issues and get in
+touch with them before bugs report it for extra credibility. That
+would also enable us to replay any faulty event sequences locally to
+troubleshot bugs.
+
+** Anti-patterns I will not condone
+
+- Changing DB migrations in the past.
+- Easier to pass no arguments to DB-related functions.
+- Stupid in-house tooling for bad code abstractions that look quicker
+  to write at first.
+- Custom quotes in docstring to appear like mixing json and edn with
+  no quote escape.
+- mount is so thick and had so much complexity where all you want is
+  a map and a bunch of functions.
+- Aligning values is stupid and brings nothing.
+- Do not use string, human-friendly labels as technical
+  identifiers. As they are technical identifiers, do not rely on them
+  for UI ordering. And please don't do both at all.
+- Also, why not using http verbs post and patch for template creation
+  and edition? it's unnecessary complication, i want to abstract the
+  transport (HTTP particular) from any business logic
+- Namespace db only contains things only related to the db. It is a
+  namespace, not an object. If you want to write a request about an
+  entity, do it in the proper namespace, not in db.
+- Name your technical tool with technical names. Nobody knows what
+  rocket-spoon, automatic-elk, or css-brasserie are for. Marketing
+  names are great for marketing purposes, products, or business
+  wording.
