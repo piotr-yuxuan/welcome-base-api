@@ -14,7 +14,6 @@
             [reitit.ring.middleware.parameters :as parameters]
             [reitit.swagger :as swagger]
             [reitit.swagger-ui :as swagger-ui]
-            [ring.middleware.reload :as reload]
             [ring.util.http-response :as http-response]
             [ring.util.http-status :as http-status])
   (:import (piotr_yuxuan.closeable_map CloseableMap))
@@ -181,10 +180,9 @@
 (def OrderUuid [uuid? {:swagger {:example "ea9b2871-7f49-4982-824a-9ab3db2b385a"}}])
 
 (defn routes
-  [config]
-  [["/api/v1" {:swagger {:security [{"API key" []
-                                     "App id" []}
-                                    {"JWT token" []}]}}
+  [app]
+  [["/api/v1" {:swagger {:security [{"X-API-Key" []
+                                     "Authorization" []}]}}
     ["/shared-requests-responses" {:tags #{"Shared requests and responses"}
                                    :summary "Documentation only"
                                    :description "Common HTTP responses are reported here so as to document only endpoint-specific responses hereafter. This is not restricted to `GET` method but there would be no point in duplicating this list for other methods. Depending on the endpoint you target, some attributes may not always apply."
@@ -305,70 +303,7 @@
                               :handler (constantly (http-response/ok))
                               :parameters {:path [:map
                                                   [:exchange-id ExchangeId]
-                                                  [:order-uuid OrderUuid]]}}}]]]]]]]]
-
-    ["/entities"
-     ;; It is very difficult to choose between these two.
-     ;; The commented looks like the purest, but it's insane
-     ;; to waste a network hop on creation.
-     #_["" {:put {:handler (constantly (http-response/ok :create))
-                  :parameters {:body (mu/dissoc Entity :id)}
-                  :responses {:header [:map [:location (mu/get Entity [:id])]]
-                              :body nil?}}
-            :post {:handler (constantly (http-response/ok :query))
-                   :parameters {:body EntityQuery}
-                   :responses {http-status/ok {:body [:sequential Entity]}}}}]
-     ["" {:post {:summary "Create a new entity"
-                 :description "Longer description, create an entity."
-                 :handler (constantly (http-response/ok :create))
-                 :parameters {:body (mu/dissoc Entity :id)
-                              :examples {"application/json" {:id 1, :author "parameters-examples", :name "uo"}}}
-                 :responses {http-status/created {:body Entity
-                                                  :examples {"application/json" {:id 1, :author "response-created-examples", :name "uo"}}
-                                                  :headers {"x-api-key" {:description "Your key"
-                                                                         :type "integer"}}}}}
-          :put {:summary "Define a new entity entirely"
-                :handler (constantly (http-response/ok :defined-entirely))
-                :parameters {:body Entity}
-                :responses {http-status/created {:description "_No Content_"}
-                            :errors {:description "Youp"
-                                     :body ClientErrorResponse}}}
-          :get {:summary "Query entities"
-                :description "Longer description, query entities with query params."
-                :handler (constantly (http-response/ok :query))
-                :parameters {:query EntityQuery}
-                ;:responses {http-status/ok {:body Entity}}
-                :responses {200 {:body [:map [:total int?]]}}}}]
-     ["/:id" {:get {:handler (constantly (http-response/ok :get))
-                    :parameters {:path (mu/select-keys Entity [:id])}
-                    :responses {http-status/ok {:body Entity}}}
-              ;; https://softwareengineering.stackexchange.com/questions/114156/why-are-there-no-put-and-delete-methods-on-html-forms
-              ;; For pure html forms on non-scripted browsers, only POST and GET are available and no other methods. Use the _method trick to talk to a RESTful API, or is it a case for CQRS with a command endpoint? When JavaScript is used, the problem is solved by using a XmlHttpRequest with the correct method.
-              :put {:handler (constantly (http-response/ok :update))
-                    :parameters {:path (mu/select-keys Entity [:id])
-                                 :body Entity}
-                    :responses {http-status/no-content {:body nil?}
-                                http-status/not-modified {:body nil?}}}
-              :patch {:handler (constantly (http-response/ok :update))
-                      :parameters {:path (mu/select-keys Entity [:id])
-                                   :body EntityEditScript}
-                      :responses {http-status/ok {:body Entity}
-                                  (get http-status/status http-status/not-modified) {:body nil?}}}
-              :delete {:handler (constantly (http-response/ok :delete))
-                       :parameters {:path (mu/select-keys Entity [:id])}
-                       :responses {http-status/reset-content {:body nil?}}}}]
-     ;; Examples of how to update a state machine:
-     ["/:id/state" {:get {:handler (constantly (http-response/ok :state))
-                          :parameters {:path (mu/select-keys Entity [:id])}
-                          :responses {http-status/ok {:body EntityState}}}
-                    :post {:summary "asd"
-                           :description "# asdasd"
-                           :handler (constantly (http-response/ok :state-transition))
-                           :parameters {:path (mu/select-keys Entity [:id])
-                                        :body [:map [:transition [:enum :start :stop]]]}
-                           :responses {http-status/ok {:body EntityState}
-                                       http-status/accepted {:body EntityState}
-                                       http-status/processing {:body EntityState}}}}]]]])
+                                                  [:order-uuid OrderUuid]]}}}]]]]]]]]]])
 
 (def swagger-api-description
   "
@@ -414,31 +349,28 @@ Only most specific request and response attributes are described for each endpoi
    :responses (merge (update-vals client-errors #(assoc % :content {:application/json {:schema {"$ref" "#/definitions/ClientErrorResponse"}}}))
                      (update-vals server-errors #(assoc % :content {:application/json {:schema {"$ref" "#/definitions/ServerErrorResponse"}}}))
                      (update-vals dependent-service-errors #(assoc % :content {:application/json {:schema {"$ref" "#/definitions/DependentServiceErrorResponse"}}})))
-   :securityDefinitions {"API key" {:type :apiKey
-                                    :in :header
-                                    :name "X-API-Key"}
-                         "App id" {:type :apiKey
-                                   :in :header
-                                   :name "X-App-Id"}
-                         ;; Bearer auth is only oas 3.0, not swagger 2.0
-                         "JWT token" {:type :apiKey
+   :securityDefinitions {"X-API-Key" {:type :apiKey
                                       :in :header
-                                      :description "OpenAPI 2.0 doesn't have specific support of bearer auth like OpenAPI 3.0, but it is quite similar to API key auth. The header format is `Authorization: Bearer <token>`. Here a simple JWT token is used."
-                                      :name "Authorization"}}
+                                      :name "X-API-Key"}
+                         ;; Bearer auth is only oas 3.0, not swagger 2.0
+                         "Authorization" {:type :apiKey
+                                          :in :header
+                                          :description "OpenAPI 2.0 doesn't have specific support of bearer auth like OpenAPI 3.0, but it is quite similar to API key auth. The header format is `Authorization: Bearer <token>`. Here a simple JWT token is used."
+                                          :name "Authorization"}}
    :externalDocs {:description "cljdoc"
                   :url "https://cljdoc.org/d/piotr-yuxuan/welcome-data-api"}})
 
 (defn handler
-  [config]
+  [app]
   (ring/ring-handler
     (ring/router
-      [(routes config)
+      [(routes app)
        ["" {:tags #{"Observability"}}
         ["/health" {:get {:handler (constantly (http-response/no-content))
                           :responses {http-status/no-content {:description "No Content"}}}}]
         ["/prometheus" {:get {:handler (constantly (http-response/not-implemented))}}]]
        ["" {:no-doc true}
-        ["/swagger.json" {:get {:swagger (swagger-doc config)
+        ["/swagger.json" {:get {:swagger (swagger-doc @app)
                                 :handler (swagger/create-swagger-handler)}}]
         ["/api-docs/*" {:get (swagger-ui/create-swagger-ui-handler {:url "/swagger.json"})}]]]
       {:data {:muuntaja muuntaja/instance
@@ -457,11 +389,13 @@ Only most specific request and response attributes are described for each endpoi
 
 (defn ^CloseableMap config->app
   [handler {:keys [port] :as config}]
-  (closeable-map*
-    (-> config
-        (assoc :http-server (closeable* (http/start-server
-                                          (handler config)
-                                          {:port port}))))))
+  (let [app (atom config)]
+    (closeable-map*
+      (-> app
+          (swap! assoc :http-server (closeable* (http/start-server
+                                                  (handler app)
+                                                  {:port port})))))
+    app))
 
 (defonce app
   (atom nil))

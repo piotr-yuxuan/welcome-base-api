@@ -13,22 +13,18 @@
 
                  ;; HTTP
                  [aleph "0.4.7-rc3"] ; http server
-                 [metosin/reitit "0.5.16"] ; Router for ClojureScript
+                 [metosin/reitit "0.5.17"] ; Router for ClojureScript
                  [metosin/ring-http-response "0.9.3" :exclusions [ring/ring-core]] ; No magic numbers for http statuses
                  [prestancedesign/get-port "0.1.1"] ; Get an available TCP port
-                 ;[metosin/jsonista "0.3.1"] ; json parsing
-                 ;[metosin/muuntaja "0.6.8"] ; content negociation
-                 ;[metosin/reitit "0.5.12"] ; router
-                 ;[metosin/ring-http-response "0.9.2"] ; http statuses
-                 ;[ovotech/ring-jwt "2.2.1"] ; authentication, authorization based on jwt
 
                  ;; API security, authorization, authentication
+                 [ovotech/ring-jwt "2.3.0"] ; authentication, authorization based on jwt
 
                  ;; Kafka and avro
-                 [org.apache.kafka/kafka-clients "2.5.0"]
-                 [org.apache.avro/avro "1.9.2"]
-                 [io.confluent/kafka-avro-serializer "5.5.0"]
-                 [slava "0.0.29" :exclusions [io.confluent/kafka-avro-serializer org.apache.avro/avro]] ; avro record manipulation
+                 [org.apache.kafka/kafka-clients "3.1.0"]
+                 [org.apache.avro/avro "1.11.0"]
+                 [io.confluent/kafka-avro-serializer "7.0.1"]
+                 [piotr-yuxuan/slava "0.33.0"] ; Avro record manipulation
 
                  ;; Observability, living in production
 
@@ -41,7 +37,7 @@
 
                  ;; language constructs and utilities
                  [org.clojure/clojure "1.11.0-rc1"] ; The language itself.
-                 [org.clojure/core.cache "1.0.207"] ; Caching logic
+                 [org.clojure/core.cache "1.0.225"] ; Caching logic
                  [babashka/process "0.1.1"] ; Clojure wrapper for java.lang.ProcessBuilder
                  [camel-snake-kebab "0.4.2"] ; case manipulation
                  [juji/editscript "0.5.8"] ; A diff library for Clojure/ClojureScript data structures

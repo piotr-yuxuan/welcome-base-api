@@ -452,7 +452,14 @@ troubleshot bugs.
   rocket-spoon, automatic-elk, or css-brasserie are for. Marketing
   names are great for marketing purposes, products, or business
   wording.
-
+- Don't give different meaning to nil and absent value. Also, they
+  should both mean the same thing: absence of value and nothing else.
+- When possible don't use "all", for example in a filter. If you want
+  to filter things but allow all possible values, it just means you
+  don't need to filter anything, so don't fill this field.
+- Don't conflate http request/response schemas with DB entity schemas,
+  but derive the former from the latter when possible.
+ 
 * Example API
 
 - Simplified marketplace.
@@ -512,7 +519,8 @@ should allow to express some nice problems to solve :-)
 - Accounts
 - Dividends
 - A [[https://www.londonstockexchange.com/help/whats-ftse-index-overview#what-is-ticker-][ticker]]
-
+- https://blog.kaiko.com/tick-level-order-books-technical-overview-and-documentation-56b1ab6e7c10
+  
 *** Local definitions
 
 - Companies are listed on some exchanges
