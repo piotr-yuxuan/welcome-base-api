@@ -102,16 +102,12 @@
 
 
 (def jmh-opts
-  {:measurement {:count 25
-                 :iterations 5
-                 :time [10 :ms]}
-   :warmup 1
-   ;:profilers ["gc" "stack"]
+  {:measurement {:time [30 :seconds]}
+   :warmup {:time [20 :seconds]}
+   :profilers ["gc" "stack"]
    :mode :average
    :output-time-unit :ns
-   :fork {:count 1
-          :warmups 5
-          :jvm {:append-args ["-Dclojure.compiler.direct-linking=true"]}}})
+   :fork {:jvm {:append-args ["-Dclojure.compiler.direct-linking=true"]}}})
 
 (defn perf-folder
   []
