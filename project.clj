@@ -13,7 +13,7 @@
 
                  ;; HTTP
                  [http-kit "2.6.0-alpha1"] ; http server
-                 [metosin/reitit "0.5.17" :exclusions [metosin/malli]] ; Router for Clojure(Script)
+                 [metosin/reitit "0.5.18" :exclusions [metosin/malli]] ; Router for Clojure(Script)
                  [metosin/malli "0.8.4"]
                  [metosin/ring-http-response "0.9.3" :exclusions [ring/ring-core]] ; No magic numbers for http statuses
                  [prestancedesign/get-port "0.1.1"] ; Get an available TCP port
@@ -24,7 +24,7 @@
                  ;; Kafka and avro
                  [org.apache.kafka/kafka-clients "7.1.0-ce"]
                  [org.apache.avro/avro "1.11.0"]
-                 [io.confluent/kafka-avro-serializer "7.0.2"]
+                 [io.confluent/kafka-avro-serializer "7.1.0"]
                  [piotr-yuxuan/slava "0.33.0" :exclusions [riddley]] ; Avro record manipulation for Clojure
 
                  ;; Observability, living in production
