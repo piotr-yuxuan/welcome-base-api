@@ -100,6 +100,12 @@
    :selectors {:tick-size (comp #{:tick-size} :name)
                :tick-radius (comp #{:tick-radius} :name)}})
 
+(def jmh-opts
+  {:type :quick
+   :profilers ["gc" "stack" "cl" "comp"]
+   :output-time-unit :ns
+   :fork {:jvm {:append-args ["-Dclojure.compiler.direct-linking=true"]}}})
+
 (deftest ^:perf ^:benchmarking size-perf-benchmarking-test
   (binding [*unchecked-math* :warn-on-boxed]
     (let [^int tick-radius (tick/radius :percent)
@@ -134,11 +140,9 @@
       (testing "tick/size jmh"
         (is true)
         (let [jmh-result (jmh/run jmh-env
-                                  {:type :quick
-                                   :profilers ["gc" "stack" "cl" "comp"]
-                                   :select [:tick-size]
-                                   :status (.getCanonicalPath ^File jmh-status)
-                                   :fork {:jvm {:append-args ["-Dclojure.compiler.direct-linking=true"]}}})]
+                                  (assoc jmh-opts
+                                    :select [:tick-size]
+                                    :status (.getCanonicalPath ^File jmh-status)))]
           (spit jmh-benchmark
                 (with-out-str (pprint jmh-result {:print-length 1e3}))
                 :append false))))))
@@ -177,11 +181,9 @@
       (testing "tick/value jmh"
         (is true)
         (let [jmh-result (jmh/run jmh-env
-                                  {:type :quick
-                                   :profilers ["gc" "stack" "cl" "comp"]
-                                   :select [:tick-value]
-                                   :status (.getCanonicalPath ^File jmh-status)
-                                   :fork {:jvm {:append-args ["-Dclojure.compiler.direct-linking=true"]}}})]
+                                  (assoc jmh-opts
+                                    :select [:tick-value]
+                                    :status (.getCanonicalPath ^File jmh-status)))]
           (spit jmh-benchmark
                 (with-out-str (pprint jmh-result {:print-length 1e3}))
                 :append false))))))
