@@ -1,12 +1,13 @@
 Checking dependencies for stdin...
   using nvd-clojure: 2.5.0 and dependency-check: 7.0.4
-+----------------+---------------+
-| dependency     | status        |
-+----------------+---------------+
-| snappy-0.4.jar | CVE-2018-6353 |
-+----------------+---------------+
++------------------------+----------------+
+| dependency             | status         |
++------------------------+----------------+
+| core.async-1.5.644.jar | CVE-2021-43138 |
+| snappy-0.4.jar         | CVE-2018-6353  |
++------------------------+----------------+
 
-1 vulnerabilities detected. Severity: HIGH
+2 vulnerabilities detected. Severity: HIGH
 Detailed reports saved in: /home/runner/work/welcome-base-api/welcome-base-api/target/nvd
 HTML report : /home/runner/work/welcome-base-api/welcome-base-api/target/nvd/dependency-check-report.html
 
