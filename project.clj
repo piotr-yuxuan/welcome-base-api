@@ -23,9 +23,9 @@
                  [cheshire "5.10.2"]
 
                  ;; Kafka and avro
-                 [org.apache.kafka/kafka-clients "7.1.0-ce"]
+                 [org.apache.kafka/kafka-clients "7.1.1-ce"]
                  [org.apache.avro/avro "1.11.0"]
-                 [io.confluent/kafka-avro-serializer "7.1.0"]
+                 [io.confluent/kafka-avro-serializer "7.1.1"]
                  [piotr-yuxuan/slava "0.33.0" :exclusions [riddley]] ; Avro record manipulation for Clojure
 
                  ;; Observability, living in production
