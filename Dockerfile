@@ -1,6 +1,6 @@
 FROM openjdk:17-jdk
 
-MAINTAINER 胡雨軒 Петр <https://github.com/piotr-yuxuan>
+USER nobody
 
 COPY ./target/*-standalone.jar /opt/welcome-base-api.jar
 
