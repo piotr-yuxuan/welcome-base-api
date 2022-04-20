@@ -3,8 +3,8 @@
   tested. Then it may serve as a reference implementation for later
   more optimised strategies."
   (:require [piotr-yuxuan.welcome-base-api.tick :as tick]
-            [malli.core :as m]
-            [clojure.data.avl :as avl])
+            [clojure.data.avl :as avl]
+            [malli.core :as m])
   (:import (java.util UUID)))
 
 ;; https://en.wikipedia.org/wiki/Order_(exchange)
