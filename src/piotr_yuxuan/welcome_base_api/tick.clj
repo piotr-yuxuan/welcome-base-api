@@ -79,7 +79,7 @@
                   RoundingMode/HALF_EVEN)))
 
 (defn ^BigDecimal size
-  "Slow when used with implicit Math "
+  "Slow when used with implicit MathContext"
   ([tick-radius ^BigDecimal bod-price] ;; Slow
    (size (or *math-context* (math-context tick-radius bod-price))
          tick-radius
@@ -90,7 +90,7 @@
             math-context)))
 
 (defn value
-  "Return the `tick-value` for this `market-value`."
+  "Return the `tick-value` for this `market-value`, slow when computing `tick-size` on the fly."
   ([math-context ^BigDecimal bod-price tick-radius ^BigDecimal market-value] ;; Slow
    (value bod-price
           (size math-context tick-radius bod-price) ;; Doesn't have to be computed on the fly.

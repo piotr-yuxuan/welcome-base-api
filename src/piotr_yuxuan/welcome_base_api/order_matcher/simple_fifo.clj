@@ -3,7 +3,8 @@
   tested. Then it may serve as a reference implementation for later
   more optimised strategies."
   (:require [piotr-yuxuan.welcome-base-api.tick :as tick]
-            [malli.core :as m])
+            [malli.core :as m]
+            [clojure.data.avl :as avl])
   (:import (java.util UUID)))
 
 ;; https://en.wikipedia.org/wiki/Order_(exchange)
@@ -71,15 +72,45 @@
     :quantity 1
     :price 101}])
 
-(def opposite-side
-  {:ask :bid
-   :bid :ask})
+;; There is a difference between ask/bid and buy/sell. For example,
+;; from the point of view of a seller, his order is an asking
+;; `ask-order`, and the replies/bids he gets are `bid-orders`.
 
-(defn match-order
-  "From an order, maybe return an order matching best from the book
-  opposite, `nil` otherwise."
-  [ask-order bid-order-book]
-  (rand-nth bid-order-book))
+(defn split->matching+unmatching
+  "Take a sequence of `bid-orders` alongside an `ask-order`. Two
+  subsequences of updated matching/unmatching `bid-orders` are
+  returned alongside the updated `ask-order`. Return `nil` instead of
+  empty sequences.
+
+  Return:
+  ``` clojure
+  [
+   matched-ask-order ; If completely matched, `ask-order`.
+   unmatched-ask-order ; If completely matched `nil`, otherwise a partial quantity.
+   matching-bid-orders ; If not matched at all `nil`.
+   unmatching-bid-orders ; If not matched at all same as input `bid-orders`.
+  ]
+  ```"
+  [ask-order bid-orders]
+  (let [bid-orders [{:side :bid
+                     :quantity 1
+                     :tick-value 0}
+                    {:side :bid
+                     :quantity 2
+                     :tick-value 1}
+                    {:side :bid
+                     :quantity 1
+                     :tick-value 0}
+                    {:side :bid
+                     :quantity 2
+                     :tick-value -1}]
+        ask-order {:side :ask
+                   :quantity 2
+                   :tick-value 0}]
+    [ask-order nil bid-orders]
+    {:ask-order-unmatched ask-order
+     :bid-orders-matching nil
+     :bid-orders-unmatched bid-orders}))
 
 (defn remove-order-form-book
   [book order]
@@ -100,11 +131,27 @@
    :tick-size nil
    :tick-value nil})
 
-;; FIXME Context is the new substrate, this no longer means anything.
-(defn ask-bid-rename-me-1
+#_(defn dev-attempt
   "Take a symbol-market, an order, and return a maybe updated book and a maybe a trade."
-  [{:keys [now bid-order-book] :as security-market} ask-order]
-  (let [matching-order (match-order ask-order bid-order-book)]
+  [{:keys [now bid-orders] :as security-market} ask-order]
+  (let [bod-price 100M
+        tick-radius (tick/radius :percent)
+        tick-size (tick/size (tick/math-context tick-radius ^BigDecimal bod-price)
+                             tick-radius
+                             bod-price)
+        ask-order {:side :ask
+                   :quantity 2
+                   :tick-value 0}
+        bid-orders [{:side :bid
+                     :quantity 2
+                     :tick-value 0}
+                    {:side :bid
+                     :quantity 2
+                     :tick-value 1}
+                    {:side :bid
+                     :quantity 2
+                     :tick-value -1}]
+        matching-order (match-order ask-order bid-orders)]
     (cond-> security-market
-      (or matching-order (cancel-immediate? bid-order-book)) (update :bid-order-book remove-order-form-book matching-order)
+      (or matching-order (cancel-immediate? bid-orders)) (update :bid-orders remove-order-form-book matching-order)
       matching-order (update :trades conj (order+matching-order->trade now ask-order matching-order)))))

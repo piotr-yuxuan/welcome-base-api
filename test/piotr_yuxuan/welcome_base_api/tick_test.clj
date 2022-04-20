@@ -5,7 +5,8 @@
             [criterium.core :as c]
             [jmh.core :as jmh]
             [clojure.java.io :as io]
-            [fipp.edn :refer [pprint]])
+            [fipp.edn :refer [pprint]]
+            [clojure.string :as str])
   (:import (java.math RoundingMode MathContext)
            (java.nio.file Files CopyOption StandardCopyOption)
            (java.io File)))
@@ -112,15 +113,23 @@
 (def profiled-events
   #{:cpu :itimer :alloc})
 
+(def perf-system-properties
+  ["os.name"
+   "os.version"
+   "java.vendor"
+   "java.runtime.version"])
+
 (defn perf-folder
   []
-  (format "os.name=%s,os.version=%s,java.vendor=%s,java.runtime.version=%s"
-          (System/getProperty "os.name")
-          (System/getProperty "os.version")
-          (System/getProperty "java.vendor")
-          (System/getProperty "java.runtime.version")))
+  (let [perf-system-properties ["os.name" "os.version" "java.vendor" "java.runtime.version"]
+        folder-name-format (->> perf-system-properties
+                                (map #(str % "=%s"))
+                                (str/join ","))]
+    (apply format
+           folder-name-format
+           (map #(System/getProperty %) perf-system-properties))))
 
-(deftest ^:perf ^:benchmarking size-perf-benchmarking-test
+(deftest ^:slow ^:perf ^:benchmarking size-perf-benchmarking-test
   (binding [*unchecked-math* :warn-on-boxed]
     (doseq [market-type (keys tick/market-type->radius)]
       (let [^int tick-radius (tick/radius market-type)
@@ -148,7 +157,7 @@
           (let [tmp-profile (prof/profile {:event event, :return-file true} (dotimes [_ profiler-repeat] (thunk)))]
             (Files/move (.toPath ^File tmp-profile) (.toPath profile) (into-array CopyOption [StandardCopyOption/REPLACE_EXISTING]))))))))
 
-(deftest ^:perf ^:jmh size-perf-jmh-test
+(deftest ^:slow ^:perf ^:jmh size-perf-jmh-test
   (binding [*unchecked-math* :warn-on-boxed]
     (let [jmh-benchmark (doto ^File (io/file "doc" "perf" (perf-folder) "tick-size-benchmark-jmh.edn") (-> .getParentFile .mkdirs))
           jmh-status (doto ^File (io/file "doc" "perf" (perf-folder) "tick-size-benchmark-jmh-status.log") (-> .getParentFile .mkdirs))]
@@ -162,7 +171,7 @@
                 (with-out-str (pprint jmh-result {:print-length 1e3}))
                 :append false))))))
 
-(deftest ^:perf ^:benchmarking value-perf-benchmarking-test
+(deftest ^:slow ^:perf ^:benchmarking value-perf-benchmarking-test
   (binding [*unchecked-math* :warn-on-boxed]
     (doseq [market-type (keys tick/market-type->radius)]
       (let [^int tick-radius (tick/radius market-type)
@@ -190,7 +199,7 @@
           (let [tmp-profile (prof/profile {:event event, :return-file true} (dotimes [_ profiler-repeat] (thunk)))]
             (Files/move (.toPath ^File tmp-profile) (.toPath profile) (into-array CopyOption [StandardCopyOption/REPLACE_EXISTING]))))))))
 
-(deftest ^:perf ^:jmh value-perf-jmh-test
+(deftest ^:slow ^:perf ^:jmh value-perf-jmh-test
   (binding [*unchecked-math* :warn-on-boxed]
     (let [jmh-benchmark (doto ^File (io/file "doc" "perf" (perf-folder) "tick-value-benchmark-jmh.edn") (-> .getParentFile .mkdirs))
           jmh-status (doto ^File (io/file "doc" "perf" (perf-folder) "tick-value-benchmark-jmh-status.log") (-> .getParentFile .mkdirs))]
@@ -365,7 +374,7 @@
         tick-value 50]
     (is (= (->bigdec 150 0) (tick/market-value bod-price tick-size tick-value)))))
 
-(deftest ^:perf ^:benchmarking market-value-perf-benchmarking-test
+(deftest ^:slow ^:perf ^:benchmarking market-value-perf-benchmarking-test
   (binding [*unchecked-math* :warn-on-boxed]
     (doseq [market-type (keys tick/market-type->radius)]
       (let [^BigDecimal bod-price 100M
@@ -384,10 +393,10 @@
     (doseq [market-type (keys tick/market-type->radius)
             event profiled-events]
       (let [profile (doto ^File (io/file "doc" "perf" (perf-folder) (format "tick-market-value-%s-flamegraph-%s.html" (name market-type) (name event))) (-> .getParentFile .mkdirs))
-            ^int tick-radius (tick/radius market-type)
             bod-price 100M
-            math-context (tick/math-context tick-radius bod-price)
-            thunk (fn [] (tick/size math-context tick-radius bod-price))]
+            ^BigDecimal tick-size (tick/size (tick/radius market-type) bod-price)
+            tick-value 3
+            thunk (fn [] (tick/market-value bod-price tick-size tick-value))]
         (testing "tick/market-value profiling"
           (is true)
           (let [tmp-profile (prof/profile {:event event, :return-file true} (dotimes [_ profiler-repeat] (thunk)))]
