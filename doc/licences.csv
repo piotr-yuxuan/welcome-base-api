@@ -4,7 +4,7 @@ Library name,Version,License name
 "borkdude/dynaload","0.2.2","Eclipse Public License 1.0"
 "borkdude/edamame","0.0.19","Eclipse Public License 1.0"
 "byte-streams","0.2.5-alpha2","MIT License"
-"camel-snake-kebab","0.4.2","Eclipse Public License"
+"camel-snake-kebab","0.4.3","Eclipse Public License 1.0"
 "cheshire","5.10.2","The MIT License"
 "clj-commons/clj-yaml","0.7.2","Eclipse Public License - v 1.0"
 "clj-tuple","0.2.2","MIT License"
