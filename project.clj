@@ -20,7 +20,7 @@
 
                  ;; API security, authorization, authentication
                  [ovotech/ring-jwt "2.3.0" :exclusions [cheshire]] ; authentication, authorization based on jwt, exclude vulnerable transitive dependency [com.fasterxml.jackson.dataformat/jackson-dataformat-cbor "2.10.2"]
-                 [cheshire "5.10.2"]
+                 [cheshire "5.11.0"]
 
                  ;; Kafka and avro
                  [org.apache.kafka/kafka-clients "7.1.1-ce"]
@@ -34,7 +34,7 @@
 
                  ;; Configuration
                  [com.brunobonacci/oneconfig "0.21.0" :exclusions [metosin/jsonista com.cognitect.aws/api]] ; Exclude vulnerable transitive dependency [org.eclipse.jetty/jetty-io "9.4.24.v20191120"]
-                 [com.cognitect.aws/api "0.8.539"] ; Hard-patch vulnerable transitive dependency
+                 [com.cognitect.aws/api "0.8.561"] ; Hard-patch vulnerable transitive dependency
                  [piotr-yuxuan/closeable-map "0.35.1"] ; A Clojure map that implements java.io.Closeable
                  [com.github.piotr-yuxuan/malli-cli "2.0.0"] ; Configuration value from the command-line
 
