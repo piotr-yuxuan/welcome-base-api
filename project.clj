@@ -12,7 +12,7 @@
   :dependencies [;; Core business domain
 
                  ;; HTTP
-                 [http-kit "2.6.0-alpha1"] ; http server
+                 [http-kit "2.6.0-RC1"] ; http server
                  [metosin/reitit "0.5.18" :exclusions [metosin/malli]] ; Router for Clojure(Script)
                  [metosin/malli "0.8.4"]
                  [metosin/ring-http-response "0.9.3" :exclusions [ring/ring-core]] ; No magic numbers for http statuses
@@ -38,7 +38,7 @@
                  [piotr-yuxuan/closeable-map "0.35.1"] ; A Clojure map that implements java.io.Closeable
                  [com.github.piotr-yuxuan/malli-cli "2.0.0"] ; Configuration value from the command-line
 
-                 [babashka/process "0.1.2"] ; Clojure wrapper for java.lang.ProcessBuilder
+                 [babashka/process "0.1.3"] ; Clojure wrapper for java.lang.ProcessBuilder
                  [juji/editscript "0.5.8"] ; A diff library for Clojure/ClojureScript data structures
                  [camel-snake-kebab "0.4.3"] ; case manipulation
                  [com.xtdb/xtdb-core "1.21.0" :exclusions [org.clojure/data.json org.clojure/tools.reader]] ; Database
