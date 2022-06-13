@@ -12,7 +12,7 @@
   :dependencies [;; Core business domain
 
                  ;; HTTP
-                 [http-kit "2.6.0-RC1"] ; http server
+                 [http-kit "2.6.0"] ; http server
                  [metosin/reitit "0.5.18" :exclusions [metosin/malli]] ; Router for Clojure(Script)
                  [metosin/malli "0.8.4"]
                  [metosin/ring-http-response "0.9.3" :exclusions [ring/ring-core]] ; No magic numbers for http statuses
