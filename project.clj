@@ -65,7 +65,7 @@
                                   [com.clojure-goes-fast/clj-async-profiler "1.0.0-alpha1"] ; Sampling CPU and HEAP profiler for Clojure featuring AsyncGetCallTrace + perf_events
                                   [fipp "0.6.26"] ; Fast Idiomatic Pretty Printer for Clojure
                                   ]}
-             :kaocha {:dependencies [[lambdaisland/kaocha "1.67.1055"]]}
+             :kaocha {:dependencies [[lambdaisland/kaocha "1.68.1059"]]}
              :uberjar {:aot :all
                        :jvm-opts ["-Dclojure.compiler.disable-locals-clearing=false"
                                   "-Dclojure.compiler.direct-linking=true"]}}
