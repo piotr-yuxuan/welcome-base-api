@@ -44,7 +44,7 @@
                  [com.xtdb/xtdb-core "1.21.0.1" :exclusions [org.clojure/data.json org.clojure/tools.reader]] ; Database
 
                  ;; Language constructs and utilities
-                 [org.clojure/clojure "1.11.1"] ; The language itself
+                 [org.clojure/clojure "1.12.0-alpha1"] ; The language itself
                  [org.clojure/core.cache "1.0.225"] ; Caching logic
                  [org.clojure/data.avl "0.1.0"]
                  ]
