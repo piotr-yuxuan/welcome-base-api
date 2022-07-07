@@ -41,7 +41,7 @@
                  [babashka/process "0.1.7"] ; Clojure wrapper for java.lang.ProcessBuilder
                  [juji/editscript "0.5.8"] ; A diff library for Clojure/ClojureScript data structures
                  [camel-snake-kebab "0.4.3"] ; case manipulation
-                 [com.xtdb/xtdb-core "1.22.0-alpha1" :exclusions [org.clojure/data.json org.clojure/tools.reader]] ; Database
+                 [com.xtdb/xtdb-core "1.22.0-alpha2" :exclusions [org.clojure/data.json org.clojure/tools.reader]] ; Database
 
                  ;; Language constructs and utilities
                  [org.clojure/clojure "1.12.0-alpha1"] ; The language itself
