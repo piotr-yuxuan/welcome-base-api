@@ -13,7 +13,7 @@ Library name,Version,License name
 "com.bhauman/spell-spec","0.1.2","Eclipse Public License"
 "com.brunobonacci/oneconfig","0.21.0","Apache License 2.0"
 "com.brunobonacci/where","0.5.5","Apache License 2.0"
-"com.cognitect.aws/api","0.8.561","The Apache Software License, Version 2.0"
+"com.cognitect.aws/api","0.8.568","The Apache Software License, Version 2.0"
 "com.cognitect.aws/dynamodb","810.2.801.0","The Apache Software License, Version 2.0"
 "com.cognitect.aws/endpoints","1.1.11.926","The Apache Software License, Version 2.0"
 "com.cognitect.aws/kms","810.2.817.0","The Apache Software License, Version 2.0"
