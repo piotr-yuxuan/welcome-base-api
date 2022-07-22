@@ -62,7 +62,7 @@
                    :dependencies [[ring/ring-devel "2.0.0-alpha-1" :exclusions [crypto-random commons-io]] ; `wrap-reload` ring middleware
                                   [criterium "0.4.6"] ; Basic performance test. Use clojure-jmh for repeatable mesurements.
                                   [jmh-clojure "0.4.1"] ; Clojure wrapper for Java Microbenchmark Harness.
-                                  [com.clojure-goes-fast/clj-async-profiler "1.0.0-alpha1"] ; Sampling CPU and HEAP profiler for Clojure featuring AsyncGetCallTrace + perf_events
+                                  [com.clojure-goes-fast/clj-async-profiler "1.0.0"] ; Sampling CPU and HEAP profiler for Clojure featuring AsyncGetCallTrace + perf_events
                                   [fipp "0.6.26"] ; Fast Idiomatic Pretty Printer for Clojure
                                   ]}
              :kaocha {:dependencies [[lambdaisland/kaocha "1.68.1059"]]}
