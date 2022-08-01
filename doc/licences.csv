@@ -88,7 +88,7 @@ Library name,Version,License name
 "mvxcvi/arrangement","2.0.0","Public Domain"
 "mvxcvi/puget","1.1.2","Public Domain"
 "org.agrona/agrona","1.11.0","unknown"
-"org.apache.avro/avro","1.11.0","Apache License, Version 2.0"
+"org.apache.avro/avro","1.11.1","Apache License, Version 2.0"
 "org.apache.commons/commons-compress","1.21","Apache License, Version 2.0"
 "org.apache.kafka/kafka-clients","7.2.1-ce","unknown"
 "org.checkerframework/checker-qual","3.8.0","Checker Framework qualifiers"
