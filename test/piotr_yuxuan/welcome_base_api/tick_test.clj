@@ -1,12 +1,12 @@
 (ns piotr-yuxuan.welcome-base-api.tick-test
-  (:require [clojure.test :refer :all]
+  (:require [piotr-yuxuan.welcome-base-api.tick :as tick]
             [clj-async-profiler.core :as prof]
-            [piotr-yuxuan.welcome-base-api.tick :as tick]
-            [criterium.core :as c]
-            [jmh.core :as jmh]
             [clojure.java.io :as io]
+            [clojure.string :as str]
+            [clojure.test :refer :all]
+            [criterium.core :as c]
             [fipp.edn :refer [pprint]]
-            [clojure.string :as str])
+            [jmh.core :as jmh])
   (:import (java.math RoundingMode MathContext)
            (java.nio.file Files CopyOption StandardCopyOption)
            (java.io File)))
