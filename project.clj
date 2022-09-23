@@ -38,7 +38,7 @@
                  [piotr-yuxuan/closeable-map "0.36.2"] ; A Clojure map that implements java.io.Closeable
                  [com.github.piotr-yuxuan/malli-cli "2.0.0"] ; Configuration value from the command-line
 
-                 [babashka/process "0.1.8"] ; Clojure wrapper for java.lang.ProcessBuilder
+                 [babashka/process "0.2.10"] ; Clojure wrapper for java.lang.ProcessBuilder
                  [juji/editscript "0.6.2"] ; A diff library for Clojure/ClojureScript data structures
                  [camel-snake-kebab "0.4.3"] ; case manipulation
                  [com.xtdb/xtdb-core "1.22.0" :exclusions [org.clojure/data.json org.clojure/tools.reader]] ; Database
