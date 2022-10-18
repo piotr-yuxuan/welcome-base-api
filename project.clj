@@ -14,7 +14,7 @@
                  ;; HTTP
                  [http-kit "2.7.0-alpha1"] ; http server
                  [metosin/reitit "0.5.18" :exclusions [metosin/malli]] ; Router for Clojure(Script)
-                 [metosin/malli "0.9.1"]
+                 [metosin/malli "0.9.2"]
                  [metosin/ring-http-response "0.9.3" :exclusions [ring/ring-core]] ; No magic numbers for http statuses
                  [prestancedesign/get-port "0.1.1"] ; Get an available TCP port
 
