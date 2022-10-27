@@ -34,14 +34,14 @@
 
                  ;; Configuration
                  [com.brunobonacci/oneconfig "0.22.0" :exclusions [metosin/jsonista com.cognitect.aws/api]] ; Exclude vulnerable transitive dependency [org.eclipse.jetty/jetty-io "9.4.24.v20191120"]
-                 [com.cognitect.aws/api "0.8.603"] ; Hard-patch vulnerable transitive dependency
+                 [com.cognitect.aws/api "0.8.612"] ; Hard-patch vulnerable transitive dependency
                  [piotr-yuxuan/closeable-map "0.36.2"] ; A Clojure map that implements java.io.Closeable
                  [com.github.piotr-yuxuan/malli-cli "2.0.0"] ; Configuration value from the command-line
 
                  [babashka/process "0.3.11"] ; Clojure wrapper for java.lang.ProcessBuilder
                  [juji/editscript "0.6.2"] ; A diff library for Clojure/ClojureScript data structures
                  [camel-snake-kebab "0.4.3"] ; case manipulation
-                 [com.xtdb/xtdb-core "1.22.0" :exclusions [org.clojure/data.json org.clojure/tools.reader]] ; Database
+                 [com.xtdb/xtdb-core "1.22.1" :exclusions [org.clojure/data.json org.clojure/tools.reader]] ; Database
 
                  ;; Language constructs and utilities
                  [org.clojure/clojure "1.12.0-alpha1"] ; The language itself
@@ -62,7 +62,7 @@
                    :dependencies [[ring/ring-devel "2.0.0-alpha-1" :exclusions [crypto-random commons-io]] ; `wrap-reload` ring middleware
                                   [criterium "0.4.6"] ; Basic performance test. Use clojure-jmh for repeatable mesurements.
                                   [jmh-clojure "0.4.1"] ; Clojure wrapper for Java Microbenchmark Harness.
-                                  [com.clojure-goes-fast/clj-async-profiler "1.0.0"] ; Sampling CPU and HEAP profiler for Clojure featuring AsyncGetCallTrace + perf_events
+                                  [com.clojure-goes-fast/clj-async-profiler "1.0.1"] ; Sampling CPU and HEAP profiler for Clojure featuring AsyncGetCallTrace + perf_events
                                   [fipp "0.6.26"] ; Fast Idiomatic Pretty Printer for Clojure
                                   ]}
              :kaocha {:dependencies [[lambdaisland/kaocha "1.71.1119"]]}
