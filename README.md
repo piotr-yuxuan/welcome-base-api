@@ -65,7 +65,8 @@ should allow to express some nice problems to solve :-)
   [ticker](https://www.londonstockexchange.com/help/whats-ftse-index-overview#what-is-ticker-)
 - https://medium.com/lgogroup/a-matching-engine-for-our-values-part-1-795a29b400fa
 - https://blog.kaiko.com/tick-level-order-books-technical-overview-and-documentation-56b1ab6e7c10
-  
+- See FIX protocol https://github.com/alexkachanov/simpleFIXClient
+
 # Local definitions
 
 - Companies are listed on some exchanges
