@@ -14,7 +14,7 @@ Library name,Version,License name
 "com.brunobonacci/oneconfig","0.22.0","Apache License 2.0"
 "com.brunobonacci/where","0.5.6","Apache License 2.0"
 "com.cnuernber/charred","1.011","unknown"
-"com.cognitect.aws/api","0.8.612","The Apache Software License, Version 2.0"
+"com.cognitect.aws/api","0.8.615","The Apache Software License, Version 2.0"
 "com.cognitect.aws/dynamodb","822.2.1171.0","The Apache Software License, Version 2.0"
 "com.cognitect.aws/endpoints","1.1.12.257","The Apache Software License, Version 2.0"
 "com.cognitect.aws/kms","822.2.1145.0","The Apache Software License, Version 2.0"
