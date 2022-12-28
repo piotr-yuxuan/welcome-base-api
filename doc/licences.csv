@@ -1,6 +1,6 @@
 Library name,Version,License name
 "babashka/fs","0.2.12","Eclipse Public License 1.0"
-"babashka/process","0.4.13","EPL-1.0"
+"babashka/process","0.4.14","EPL-1.0"
 "borkdude/dynaload","0.3.5","Eclipse Public License 1.0"
 "borkdude/edamame","1.0.0","Eclipse Public License 1.0"
 "byte-streams","0.2.5-alpha2","MIT License"
