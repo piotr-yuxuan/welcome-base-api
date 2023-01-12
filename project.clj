@@ -14,7 +14,7 @@
                  ;; HTTP
                  [http-kit "2.7.0-alpha1"] ; http server
                  [metosin/reitit "0.5.18" :exclusions [metosin/malli]] ; Router for Clojure(Script)
-                 [metosin/malli "0.9.2"]
+                 [metosin/malli "0.10.0"]
                  [metosin/ring-http-response "0.9.3" :exclusions [ring/ring-core]] ; No magic numbers for http statuses
                  [prestancedesign/get-port "0.1.1"] ; Get an available TCP port
 
@@ -41,7 +41,7 @@
                  [babashka/process "0.4.14"] ; Clojure wrapper for java.lang.ProcessBuilder
                  [juji/editscript "0.6.2"] ; A diff library for Clojure/ClojureScript data structures
                  [camel-snake-kebab "0.4.3"] ; case manipulation
-                 [com.xtdb/xtdb-core "1.22.2-rc1" :exclusions [org.clojure/data.json org.clojure/tools.reader]] ; Database
+                 [com.xtdb/xtdb-core "1.23.0" :exclusions [org.clojure/data.json org.clojure/tools.reader]] ; Database
 
                  ;; Language constructs and utilities
                  [org.clojure/clojure "1.12.0-alpha1"] ; The language itself
