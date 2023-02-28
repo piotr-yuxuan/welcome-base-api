@@ -34,7 +34,7 @@
 
                  ;; Configuration
                  [com.brunobonacci/oneconfig "0.22.0" :exclusions [metosin/jsonista com.cognitect.aws/api]] ; Exclude vulnerable transitive dependency [org.eclipse.jetty/jetty-io "9.4.24.v20191120"]
-                 [com.cognitect.aws/api "0.8.641"] ; Hard-patch vulnerable transitive dependency
+                 [com.cognitect.aws/api "0.8.652"] ; Hard-patch vulnerable transitive dependency
                  [piotr-yuxuan/closeable-map "0.36.2"] ; A Clojure map that implements java.io.Closeable
                  [com.github.piotr-yuxuan/malli-cli "2.0.0"] ; Configuration value from the command-line
 
@@ -65,7 +65,7 @@
                                   [com.clojure-goes-fast/clj-async-profiler "1.0.3"] ; Sampling CPU and HEAP profiler for Clojure featuring AsyncGetCallTrace + perf_events
                                   [fipp "0.6.26"] ; Fast Idiomatic Pretty Printer for Clojure
                                   ]}
-             :kaocha {:dependencies [[lambdaisland/kaocha "1.78.1249"]]}
+             :kaocha {:dependencies [[lambdaisland/kaocha "1.79.1270"]]}
              :uberjar {:aot :all
                        :jvm-opts ["-Dclojure.compiler.disable-locals-clearing=false"
                                   "-Dclojure.compiler.direct-linking=true"]}}
