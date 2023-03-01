@@ -12,7 +12,7 @@
   :dependencies [;; Core business domain
 
                  ;; HTTP
-                 [http-kit "2.7.0-alpha1"] ; http server
+                 [http-kit "2.7.0-alpha2"] ; http server
                  [metosin/reitit "0.6.0" :exclusions [metosin/malli]] ; Router for Clojure(Script)
                  [metosin/malli "0.10.1"]
                  [metosin/ring-http-response "0.9.3" :exclusions [ring/ring-core]] ; No magic numbers for http statuses
@@ -65,7 +65,7 @@
                                   [com.clojure-goes-fast/clj-async-profiler "1.0.3"] ; Sampling CPU and HEAP profiler for Clojure featuring AsyncGetCallTrace + perf_events
                                   [fipp "0.6.26"] ; Fast Idiomatic Pretty Printer for Clojure
                                   ]}
-             :kaocha {:dependencies [[lambdaisland/kaocha "1.79.1270"]]}
+             :kaocha {:dependencies [[lambdaisland/kaocha "1.80.1274"]]}
              :uberjar {:aot :all
                        :jvm-opts ["-Dclojure.compiler.disable-locals-clearing=false"
                                   "-Dclojure.compiler.direct-linking=true"]}}
