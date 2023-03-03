@@ -48,7 +48,7 @@ Library name,Version,License name
 "crypto-random","1.2.1","Eclipse Public License"
 "expound","0.9.0","Eclipse Public License"
 "fipp","0.6.26","Eclipse Public License"
-"http-kit","2.7.0-alpha2","Apache License, Version 2.0"
+"http-kit","2.7.0-alpha3","Apache License, Version 2.0"
 "io.aleph/dirigiste","0.1.5","MIT License"
 "io.confluent/common-utils","7.3.2","unknown"
 "io.confluent/kafka-avro-serializer","7.3.2","Apache License 2.0"
