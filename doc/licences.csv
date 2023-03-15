@@ -59,7 +59,7 @@ Library name,Version,License name
 "io.confluent/telemetry-events-api","7.3.2-ce","unknown"
 "io.swagger.core.v3/swagger-annotations","2.1.10","Apache License 2.0"
 "javax.xml.bind/jaxb-api","2.3.0","CDDL 1.1"
-"juji/editscript","0.6.2","Eclipse Public License"
+"juji/editscript","0.6.3","Eclipse Public License"
 "lambdaisland/deep-diff","0.0-47","Eclipse Public License 1.0"
 "manifold","0.1.8","MIT License"
 "meta-merge","1.0.0","Eclipse Public License"
