@@ -39,7 +39,7 @@
                  [com.github.piotr-yuxuan/malli-cli "2.0.0"] ; Configuration value from the command-line
 
                  [babashka/process "0.4.16"] ; Clojure wrapper for java.lang.ProcessBuilder
-                 [juji/editscript "0.6.2"] ; A diff library for Clojure/ClojureScript data structures
+                 [juji/editscript "0.6.3"] ; A diff library for Clojure/ClojureScript data structures
                  [camel-snake-kebab "0.4.3"] ; case manipulation
                  [com.xtdb/xtdb-core "1.23.1" :exclusions [org.clojure/data.json org.clojure/tools.reader]] ; Database
 
