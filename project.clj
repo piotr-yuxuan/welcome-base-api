@@ -23,9 +23,9 @@
                  [cheshire "5.11.0"]
 
                  ;; Kafka and avro
-                 [org.apache.kafka/kafka-clients "7.3.2-ce"]
+                 [org.apache.kafka/kafka-clients "7.3.3-ce"]
                  [org.apache.avro/avro "1.11.1"]
-                 [io.confluent/kafka-avro-serializer "7.3.2"]
+                 [io.confluent/kafka-avro-serializer "7.3.3"]
                  [piotr-yuxuan/slava "0.33.0" :exclusions [riddley]] ; Avro record manipulation for Clojure
 
                  ;; Observability, living in production
@@ -65,7 +65,7 @@
                                   [com.clojure-goes-fast/clj-async-profiler "1.0.3"] ; Sampling CPU and HEAP profiler for Clojure featuring AsyncGetCallTrace + perf_events
                                   [fipp "0.6.26"] ; Fast Idiomatic Pretty Printer for Clojure
                                   ]}
-             :kaocha {:dependencies [[lambdaisland/kaocha "1.81.1290"]]}
+             :kaocha {:dependencies [[lambdaisland/kaocha "1.82.1306"]]}
              :uberjar {:aot :all
                        :jvm-opts ["-Dclojure.compiler.disable-locals-clearing=false"
                                   "-Dclojure.compiler.direct-linking=true"]}}
