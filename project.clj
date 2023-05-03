@@ -12,8 +12,8 @@
   :dependencies [;; Core business domain
 
                  ;; HTTP
-                 [http-kit "2.7.0-beta2"] ; http server
-                 [metosin/reitit "0.6.0" :exclusions [metosin/malli]] ; Router for Clojure(Script)
+                 [http-kit "2.7.0-beta3"] ; http server
+                 [metosin/reitit "0.7.0-alpha1" :exclusions [metosin/malli]] ; Router for Clojure(Script)
                  [metosin/malli "0.11.0"]
                  [metosin/ring-http-response "0.9.3" :exclusions [ring/ring-core]] ; No magic numbers for http statuses
                  [prestancedesign/get-port "0.1.1"] ; Get an available TCP port
