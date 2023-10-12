@@ -12,19 +12,19 @@
   :dependencies [;; Core business domain
 
                  ;; HTTP
-                 [http-kit "2.7.0"] ; http server
-                 [metosin/reitit "0.7.0-alpha5" :exclusions [metosin/malli]] ; Router for Clojure(Script)
-                 [metosin/malli "0.11.0"]
+                 [http-kit "2.8.0-beta3"] ; http server
+                 [metosin/reitit "0.7.0-alpha7" :exclusions [metosin/malli]] ; Router for Clojure(Script)
+                 [metosin/malli "0.13.0"]
                  [metosin/ring-http-response "0.9.3" :exclusions [ring/ring-core]] ; No magic numbers for http statuses
                  [prestancedesign/get-port "0.1.1"] ; Get an available TCP port
 
                  ;; API security, authorization, authentication
                  [ovotech/ring-jwt "2.3.0" :exclusions [cheshire]] ; authentication, authorization based on jwt, exclude vulnerable transitive dependency [com.fasterxml.jackson.dataformat/jackson-dataformat-cbor "2.10.2"]
-                 [cheshire "5.11.0"]
+                 [cheshire "5.12.0"]
 
                  ;; Kafka and avro
-                 [org.apache.kafka/kafka-clients "7.3.3-ce"]
-                 [org.apache.avro/avro "1.11.2"]
+                 [org.apache.kafka/kafka-clients "7.5.1-ce"]
+                 [org.apache.avro/avro "1.11.3"]
                  [io.confluent/kafka-avro-serializer "7.3.3"]
                  [piotr-yuxuan/slava "0.33.0" :exclusions [riddley]] ; Avro record manipulation for Clojure
 
@@ -41,7 +41,7 @@
                  [babashka/process "0.5.21"] ; Clojure wrapper for java.lang.ProcessBuilder
                  [juji/editscript "0.6.3"] ; A diff library for Clojure/ClojureScript data structures
                  [camel-snake-kebab "0.4.3"] ; case manipulation
-                 [com.xtdb/xtdb-core "1.24.0" :exclusions [org.clojure/data.json org.clojure/tools.reader]] ; Database
+                 [com.xtdb/xtdb-core "1.24.1" :exclusions [org.clojure/data.json org.clojure/tools.reader]] ; Database
 
                  ;; Language constructs and utilities
                  [org.clojure/clojure "1.12.0-alpha4"] ; The language itself
@@ -62,10 +62,10 @@
                    :dependencies [[ring/ring-devel "2.0.0-alpha-1" :exclusions [crypto-random commons-io]] ; `wrap-reload` ring middleware
                                   [criterium "0.4.6"] ; Basic performance test. Use clojure-jmh for repeatable mesurements.
                                   [jmh-clojure "0.4.1"] ; Clojure wrapper for Java Microbenchmark Harness.
-                                  [com.clojure-goes-fast/clj-async-profiler "1.0.4"] ; Sampling CPU and HEAP profiler for Clojure featuring AsyncGetCallTrace + perf_events
+                                  [com.clojure-goes-fast/clj-async-profiler "1.0.5"] ; Sampling CPU and HEAP profiler for Clojure featuring AsyncGetCallTrace + perf_events
                                   [fipp "0.6.26"] ; Fast Idiomatic Pretty Printer for Clojure
                                   ]}
-             :kaocha {:dependencies [[lambdaisland/kaocha "1.85.1342"]]}
+             :kaocha {:dependencies [[lambdaisland/kaocha "1.87.1366"]]}
              :uberjar {:aot :all
                        :jvm-opts ["-Dclojure.compiler.disable-locals-clearing=false"
                                   "-Dclojure.compiler.direct-linking=true"]}}
