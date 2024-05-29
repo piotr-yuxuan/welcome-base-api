@@ -23,7 +23,7 @@
                  [cheshire "5.13.0"]
 
                  ;; Kafka and avro
-                 [org.apache.kafka/kafka-clients "7.5.1-ce"]
+                 [org.apache.kafka/kafka-clients "7.6.1-ce"]
                  [org.apache.avro/avro "1.11.3"]
                  [io.confluent/kafka-avro-serializer "7.3.3"]
                  [piotr-yuxuan/slava "0.33.0" :exclusions [riddley]] ; Avro record manipulation for Clojure
